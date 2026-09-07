@@ -1,6 +1,6 @@
 export interface AiCitySummeryDto {
   cityID: number;
-  state: string;
+  administrativeDivision:string;
   cityName: string;
   country: string;
   image: string | null;

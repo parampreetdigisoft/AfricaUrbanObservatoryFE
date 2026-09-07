@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  height: calc(100vh - 85px);
+  height: calc(100vh - 96px);
   min-height: 0;
   overflow: hidden;
   font-family: 'DM Sans', sans-serif;  
@@ -1200,7 +1200,7 @@
   } */
   .aui_header_inner{
     padding: 0 16px;
-    height: 85px;
+    height: 96px;
   }
   .flip-hero__svg svg {
       width: 150px;

@@ -37,7 +37,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
   initializeForm() {
     this.isSubmitted = false;
     this.cityForm = this.fb.group({
-      state: [this.city?.state, Validators.required],
+      administrativeDivision: [this.city?.administrativeDivision, Validators.required],
       cityName: [this.city?.cityName, Validators.required],
       cityAliasName: [this.city?.cityAliasName && this.city.cityAliasName !== 'null' ? this.city.cityAliasName : ''],
       region: [this.city?.region, Validators.required],
@@ -53,7 +53,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
       peerCities: [this.city?.peerCitiesIDs],
     });
     this.onFormChange();
-    if (this.cityForm.get('latitude')?.invalid && this.cityForm.get('cityName')?.valid && this.cityForm.get('state')?.valid && this.cityForm.get('country')?.valid) {
+    if (this.cityForm.get('latitude')?.invalid && this.cityForm.get('cityName')?.valid && this.cityForm.get('administrativeDivision')?.valid && this.cityForm.get('country')?.valid) {
       this.getLatitudeLongitude();
     }
   }
@@ -61,7 +61,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
   onFormChange() {
     this.cityForm.valueChanges.pipe(debounceTime(500)).subscribe({
       next: (r) => {
-        if (this.cityForm.get('latitude')?.invalid && this.cityForm.get('cityName')?.valid && this.cityForm.get('state')?.valid && this.cityForm.get('country')?.valid) {
+        if (this.cityForm.get('latitude')?.invalid && this.cityForm.get('cityName')?.valid && this.cityForm.get('administrativeDivision')?.valid && this.cityForm.get('country')?.valid) {
           this.getLatitudeLongitude();
         }
       }
@@ -71,7 +71,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
     let c = {
       city: this.cityForm.get('cityName')?.value,
       region: this.cityForm.get('region')?.value,
-      state: this.cityForm.get('state')?.value,
+      administrativeDivision: this.cityForm.get('administrativeDivision')?.value,
       country: this.cityForm.get('country')?.value,
       postalCode: this.cityForm.get('postalCode')?.value,
       format: 'json'
@@ -111,7 +111,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
     const formData = new FormData();
 
     // Append all form values (capitalized keys)
-    formData.append('State', this.cityForm.get('state')?.value);
+    formData.append('State', this.cityForm.get('administrativeDivision')?.value);
     formData.append('CityName', this.cityForm.get('cityName')?.value);
     formData.append('CityAliasName', this.cityForm.get('cityAliasName')?.value);
     formData.append('Region', this.cityForm.get('region')?.value);
@@ -184,7 +184,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
 
       // ✅ Header validation
       const requiredHeaders = [
-        "CityName", "CityAliasName", "Country", "State",
+        "CityName", "CityAliasName", "Country", "AdministrativeDivision",
         "PostalCode", "Region", "Latitude", "Longitude",
         "Population", "Income", "LivingCost", "PurchasingPower"
       ];
@@ -204,7 +204,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
 
         const cityName = this.getString(row["CityName"]);
         const cityAliasName = this.getString(row["CityAliasName"]);
-        const state = this.getString(row["State"]);
+        const administrativeDivision = this.getString(row["AdministrativeDivision"]);
         const region = this.getString(row["Region"]);
         const country = this.getString(row["Country"]);
         const postalCode = this.getString(row["PostalCode"]);
@@ -216,13 +216,13 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
         const livingCost = this.toValidNumber(row["LivingCost"]);
         const purchasingPower = this.toValidNumber(row["PurchasingPower"]);
 
-        const isBlank = !cityName && !state && !country;
+        const isBlank = !cityName && !administrativeDivision && !country;
         if (isBlank) continue;
 
         if (cityName.toLowerCase() === "enter city name") continue;
 
         // ✅ Required fields
-        if (!cityName || !state || !country) {
+        if (!cityName || !administrativeDivision || !country) {
           return this.setError("CityName, State and Country are required.", i);
         }
 
@@ -267,7 +267,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
         excelData.push({
           cityName,
           cityAliasName,
-          state,
+          administrativeDivision,
           region,
           country,
           postalCode,

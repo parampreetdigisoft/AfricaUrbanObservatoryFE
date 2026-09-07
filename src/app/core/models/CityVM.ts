@@ -14,7 +14,7 @@ export interface CityVM extends AddUpdateCityDto {
 export interface AddUpdateCityDto {
   cityID: number;
   country: string;
-  state: string;
+  administrativeDivision:string;
   cityName: string;
   cityAliasName?: string;
   postalCode: string;

@@ -18,7 +18,7 @@
           <!-- Single Add / Update -->
           <h5>Transfer From </h5>
           <div class="details_list">City: <span>{{ assesment?.cityName }}</span></div>
-          <div class="details_list">State: <span>{{ assesment?.state }}</span></div>
+          <div class="details_list">State: <span>{{ assesment?.administrativeDivision }}</span></div>
           <div class="details_list">UserName: <span>{{ assesment?.userName }}</span></div>
           <div class="details_list">
             Score: <span class="bold_num">{{ assesment?.score }}</span>
@@ -67,7 +67,7 @@
                 <ng-container *ngIf="selectedUserAssesment != null">
                     <h5>Transfer to </h5>
                     <div class="details_list">City: <span>{{ selectedUserAssesment.cityName }}</span></div>
-                    <div class="details_list">State: <span>{{ selectedUserAssesment.state }}</span></div>
+                    <div class="details_list">State: <span>{{ selectedUserAssesment.administrativeDivision }}</span></div>
                     <div class="details_list">UserName: <span>{{ selectedUserAssesment.userName }}</span></div>
                     <div class="details_list">
                     Score:

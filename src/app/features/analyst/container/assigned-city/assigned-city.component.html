@@ -52,7 +52,7 @@
       <tr *ngFor="let city of citiesResponse?.data; let i = index">
         <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
         <td>{{ city.cityName }}</td>
-        <td>{{ city.state }}</td>
+        <td>{{ city.administrativeDivision }}</td>
         <td>{{ (city.score ?? 0).toFixed(1) }}</td>
         <!-- <td class="action_td">
           <input type="checkbox" [checked]="city.selected" (change)="CitySelected($event, city)" />

@@ -5,7 +5,7 @@ export interface GetAssessmentResponse {
   userCityMappingID:number
   createdAt:Date | string;
   cityID: number;
-  state: string;
+  administrativeDivision:string;
   cityName: string;
   isActive: boolean;
   userID: number;

@@ -124,7 +124,7 @@
         <td> <img class="city_img" style="width: 50px; border-radius:5px; height: 35px; object-fit: cover;"
             [src]="urlBase+city?.image" [alt]="'Profile Image'" (error)="onImgError($event)" /></td>
         <td>{{ city.cityName }}</td>
-        <td>{{ city.state }}</td>
+        <td>{{ city.administrativeDivision }}</td>
         <td>{{ city.country }}</td>
         <td><span class="bold_num">{{ city.score?.toFixed(2) || 'NA' }}</span></td>
         <td class="action_td">

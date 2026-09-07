@@ -120,7 +120,7 @@
 
 						<ng-template ng-option-tmp
 							let-item="item">
-							{{ item.cityName }}, {{ item.state }}
+							{{ item.cityName }}, {{ item.administrativeDivision }}
 						</ng-template>
 					</ng-select>
 				</div>
@@ -228,7 +228,7 @@
 					</span>
 					<span class>for</span>
 					<span class="piller_sub_city-text">
-						{{ cityInfo?.cityName }}, {{ cityInfo?.state }},
+						{{ cityInfo?.cityName }}, {{ cityInfo?.administrativeDivision }},
 						{{ cityInfo?.country }}
 					</span>
 				</div>

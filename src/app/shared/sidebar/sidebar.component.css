@@ -8,8 +8,8 @@ body{
     background-color: #12352A;
     padding: 10px 0 12px;
     border-radius: 0;
-    height: calc(100vh - 85px);
-    min-height: calc(100vh - 85px);
+    height: calc(100vh - 96px);
+    min-height: calc(100vh - 96px);
     overflow: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -17,7 +17,7 @@ body{
     flex-direction: column;
     grid-gap: 6px;
     position: sticky;
-    top: 85px;
+    top: 96px;
     border-right: 1px solid rgba(200, 153, 78, 0.28);
     box-sizing: border-box;
 }
@@ -30,20 +30,20 @@ body{
     display: flex;
     grid-gap: 8px;
     color: rgba(255, 255, 255, 0.88);
-    font-size: 13px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 1.25;
     align-items: center;
     border-radius: 0;
     transition: 0.25s;
-    padding: 8px 12px 8px 14px;
+    padding: 10px 14px 10px 16px;
 }
 
 .nav_links > svg {
-    width: 18px !important;
-    height: 18px !important;
-    min-width: 18px;
+    width: 20px !important;
+    height: 20px !important;
+    min-width: 20px;
     flex-shrink: 0;
 }
 

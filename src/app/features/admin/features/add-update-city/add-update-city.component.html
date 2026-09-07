@@ -56,10 +56,10 @@
                                 <div class="col">
                                     <div class="input_field">
                                         <label>Enter State *</label>
-                                        <input type="text" appAlphaOnly formControlName="state"
-                                            placeholder="Enter state" class="form-control">
+                                        <input type="text" appAlphaOnly formControlName="administrativeDivision"
+                                            placeholder="Enter administrative division" class="form-control">
                                         <div class="error-msg"
-                                            *ngIf="cityForm.get('state')?.invalid && (cityForm.get('state')?.touched || isSubmitted)">
+                                            *ngIf="cityForm.get('administrativeDivision')?.invalid && (cityForm.get('administrativeDivision')?.touched || isSubmitted)">
                                             State is required.
                                         </div>
                                     </div>
@@ -232,7 +232,7 @@
                                             </ng-template>
 
                                             <ng-template ng-option-tmp let-item="item">
-                                                {{ item.cityName }}, {{ item.state }}
+                                                {{ item.cityName }}, {{ item.administrativeDivision }}
                                             </ng-template>
                                         </ng-select>
 

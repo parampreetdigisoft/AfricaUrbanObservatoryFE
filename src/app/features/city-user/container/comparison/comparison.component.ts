@@ -410,7 +410,7 @@ export class ComparisonComponent implements OnInit, OnDestroy {
   }
 
   getCityState(cityID: number): string {
-    return this.cities?.find(c => c.cityID === cityID)?.state || '';
+    return this.cities?.find(c => c.cityID === cityID)?.administrativeDivision || '';
   }
 
   onImgError(event: Event) {

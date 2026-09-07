@@ -40,7 +40,7 @@ export interface CityRankingResponseDto {
   cityID: number;
   cityName: string;
   region: string;
-  state: string;
+  administrativeDivision:string;
   country:string;
   totalCity: number;
   cityRank: number;

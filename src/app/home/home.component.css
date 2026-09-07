@@ -8,8 +8,8 @@
 
 .sidebar_area
 {
-    width: 255px;
-    flex: 0 0 255px;
+    width: 280px;
+    flex: 0 0 280px;
     padding: 0;
     box-sizing: border-box;
 }
@@ -25,8 +25,8 @@
 
 @media only screen and (max-width:1540px) {
   .sidebar_area{
-      width: 245px;
-      flex-basis: 245px;
+      width: 280px;
+      flex-basis: 280px;
       padding: 0;
   }
 }
@@ -34,7 +34,7 @@
 
 @media only screen and (max-width:1339px){
     ::ng-deep .main_area .inner_sidebar .nav_links{
-        font-size: 13px;
+        font-size: 14px;
     }
     ::ng-deep .main_area .inner_sidebar {
         padding: 8px 0 10px;
@@ -49,8 +49,8 @@
         height: 10px;
     }
     .main_area .sidebar_area{
-        width: 240px;
-        flex-basis: 240px;
+        width: 280px;
+        flex-basis: 280px;
     }
     ::ng-deep .dashboard_card_inner span {
         padding: 10px !important;
