@@ -1,0 +1,165 @@
+<div class="offcanvas-header">
+  <h5 id="offcanvasLabel">KPI Details</h5>
+  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+</div>
+
+<ng-container>
+  <div class="cross-pillar_outter">
+    <div class="cross-pillar">
+      <h5>
+        {{ selectedLayerSig()?.layerName }} ({{ selectedLayerSig()?.layerCode }}) :
+      </h5>
+      &nbsp;
+      <div [innerHtml]="selectedLayerSig()?.purpose"></div>
+    </div>
+
+    <div class="integrate_outter">
+      <div class="integrate_list">
+        <table class="kpi_custom_table">
+          <tbody>
+
+            <!-- Header -->
+            <tr class="sidebar_table">
+              <th>
+                <div class="kpi_cat_name">Categories</div>
+              </th>
+              <th *ngFor="let city of selectedLayerSig()?.cities">
+                <div class="side_city_title">{{ city?.city?.cityName }}</div>
+                <ng-container *ngIf="isCityUser()">
+                  <span class="bold_num">Score</span>
+                </ng-container>
+                <ng-container *ngIf="!isCityUser()">
+                  <span class="bold_num side_sub_color">Evaluation</span> /
+                  <span class="bold_num side_sub_color">AI</span>
+                </ng-container>
+              </th>
+            </tr>
+
+            <!-- CAL TEXT 1 -->
+            <tr *ngIf="selectedLayerSig()?.calText1">
+              <td>
+                <div class="kpi_cat_name">{{ selectedLayerSig()?.calText1 }}</div>
+              </td>
+              <td *ngFor="let city of selectedLayerSig()?.cities">
+                <span class="bold_num" *ngIf="!isCityUser()">
+                  {{ city.calValue1 | number:'1.2-2' }} /
+                </span>
+                <span class="bold_num">
+                  {{ city.aiCalValue1 !== null ? (city.aiCalValue1 | number:'1.2-2') : 'NA' }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- CAL TEXT 2 -->
+            <tr *ngIf="selectedLayerSig()?.calText2">
+              <td>
+                <div class="kpi_cat_name">{{ selectedLayerSig()?.calText2 }}</div>
+              </td>
+              <td *ngFor="let city of selectedLayerSig()?.cities">
+                <span class="bold_num" *ngIf="!isCityUser()">
+                  {{ city.calValue2 | number:'1.2-2' }} /
+                </span>
+                <span class="bold_num">
+                  {{ city.aiCalValue2 !== null ? (city.aiCalValue2 | number:'1.2-2') : 'NA' }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- CAL TEXT 3 -->
+            <tr *ngIf="selectedLayerSig()?.calText3">
+              <td>
+                <div class="kpi_cat_name">{{ selectedLayerSig()?.calText3 }}</div>
+              </td>
+              <td *ngFor="let city of selectedLayerSig()?.cities">
+                <span class="bold_num" *ngIf="!isCityUser()">
+                  {{ city.calValue3 | number:'1.2-2' }} /
+                </span>
+                <span class="bold_num">
+                  {{ city.aiCalValue3 !== null ? (city.aiCalValue3 | number:'1.2-2') : 'NA' }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- CAL TEXT 4 -->
+            <tr *ngIf="selectedLayerSig()?.calText4">
+              <td>
+                <div class="kpi_cat_name">{{ selectedLayerSig()?.calText4 }}</div>
+              </td>
+              <td *ngFor="let city of selectedLayerSig()?.cities">
+                <span class="bold_num" *ngIf="!isCityUser()">
+                  {{ city.calValue4 | number:'1.2-2' }} /
+                </span>
+                <span class="bold_num">
+                  {{ city.aiCalValue4 !== null ? (city.aiCalValue4 | number:'1.2-2') : 'NA' }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- CAL TEXT 5 -->
+            <tr *ngIf="selectedLayerSig()?.calText5">
+              <td>
+                <div class="kpi_cat_name">{{ selectedLayerSig()?.calText5 }}</div>
+              </td>
+              <td *ngFor="let city of selectedLayerSig()?.cities">
+                <span class="bold_num" *ngIf="!isCityUser()">
+                  {{ city.calValue5 | number:'1.2-2' }} /
+                </span>
+                <span class="bold_num">
+                  {{ city.aiCalValue5 !== null ? (city.aiCalValue5 | number:'1.2-2') : 'NA' }}
+                </span>
+              </td>
+            </tr>
+
+            <!-- INTERPRETATION -->
+            <tr class="last_data">
+              <td>
+                <div class="kpi_cat_name">Interpretation Condition</div>
+              </td>
+              <td *ngFor="let _ of selectedLayerSig()?.cities; let i = index">
+                <span *ngIf="!isCityUser()">
+                  {{ cityConditions()[i].manual }} /
+                </span>
+                <span>
+                  {{ cityConditions()[i].ai }}
+                </span>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  &nbsp;
+
+  <div class="cus_table kpi_table">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Score Range</th>
+            <th scope="col">System Condition</th>
+            <th scope="col">Descriptor</th>
+            <th scope="col">Urban Signal</th>
+            <th scope="col">Strategic Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let interpretation of interpretations()"
+              [ngClass]="getInterpretaionClass(interpretation.interpretationID)">
+            <td>
+              <span class="score_label_tab">
+                {{ interpretation.minRange }}–{{ interpretation.maxRange }}
+              </span>
+            </td>
+            <td>{{ interpretation.condition }}</td>
+            <td>{{ interpretation.descriptor }}</td>
+            <td>{{ interpretation.urbanSignal }}</td>
+            <td>{{ interpretation.strategicAction }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>

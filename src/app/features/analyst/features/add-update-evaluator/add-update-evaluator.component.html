@@ -1,0 +1,116 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+        <div class="modal-body">
+            <button type="button" (click)="closeModel()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h4 class="modal_head"> {{evaluator ?'Update':'Add' }} Evaluator</h4>
+            <p class="modal_sub_head">Enter The details and marked</p>
+            <div class="modal_tabs">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                            aria-selected="true">{{evaluator ?'Update':'Add' }} Single</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" *ngIf="!evaluator"
+                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                            aria-selected="false">Bulk Import</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home">
+                        <form [formGroup]="evaluatorForm" (ngSubmit)="onSubmit()">
+
+                            <!-- Full Name -->
+                            <div class="input_field">
+                                <label>Full Name *</label>
+                                <input type="text" formControlName="fullName" appAlphaOnly placeholder="Enter Full Name"
+                                    class="form-control">
+                                <div class="error-msg"
+                                    *ngIf="evaluatorForm.get('fullName')?.invalid && (evaluatorForm.get('fullName')?.touched || isSubmitted)">
+                                    Full name is required.
+                                </div>
+                            </div>
+
+                            <!-- Email -->
+                            <div class="input_field">
+                                <label>Email *</label>
+                                <input type="email" formControlName="email" placeholder="Enter Email"
+                                    class="form-control">
+                                <div class="error-msg" *ngIf="evaluatorForm.get('email')?.touched || isSubmitted">
+                                    <span *ngIf="evaluatorForm.get('email')?.errors?.['required']">Email is
+                                        required.</span>
+                                    <span *ngIf="evaluatorForm.get('email')?.errors?.['email']">Invalid email
+                                        format.</span>
+                                </div>
+                            </div>
+
+                            <div class="input_field">
+                                <label>Phone No.*</label>
+                                <input type="text" formControlName="phone" appNumberOnly
+                                    placeholder="Enter phone number" class="form-control">
+                                <div class="error-msg"
+                                    *ngIf="evaluatorForm.get('phone')?.invalid && (evaluatorForm.get('phone')?.touched || isSubmitted)">
+                                    phone number is required.
+                                </div>
+                            </div>
+                            <!-- City Multi-Select -->
+                            <div class="input_field">
+                                <label>Assign City *</label>
+                                <ng-select [items]="cities" bindValue="cityID" bindLabel="cityName"
+                                    formControlName="city" [multiple]="true" class="form-control analyst_multi_select"
+                                    [searchable]="true"
+                                    [placeholder]="evaluatorForm.get('city')?.invalid ? 'Assign City' : ''">
+
+                                    <ng-template ng-label-tmp let-item="item">
+                                        {{ item.cityName +', '}}
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.cityName }} {{ item.state }}
+                                    </ng-template>
+                                </ng-select>
+
+
+                                <div class="error-msg"
+                                    *ngIf="evaluatorForm.get('city')?.invalid && (isSubmitted || evaluatorForm.get('city')?.touched)">
+                                    Please select at least one city.
+                                </div>
+                            </div>
+
+                            <!-- Submit -->
+                            <button type="submit" class="common_button w-100 mt-4">
+                                {{evaluator ?'Update':'Save' }} <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                        tabindex="0" *ngIf="!evaluator">
+                        <div class="input_field">
+                            <label for="">
+                                Upload Excel File *
+                                <a href="javascript:void(0)" (click)="downloadTemplate()" class="ms-2 text-primary"
+                                    style="text-decoration: underline; cursor: pointer;">
+                                    Download Template
+                                </a>
+                            </label>
+                            <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileChange($event)"
+                                class="form-control">
+                        </div>
+                        <div class="wrong_upload_alert">
+                            <p>{{this.alertMsg}}</p>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="common_button" [disabled]="!this.excelData?.length"
+                                (click)="bulkImport()">
+                                Import <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

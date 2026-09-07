@@ -1,0 +1,76 @@
+h5.modal-title {
+    color: #000;
+    /* font-family: 'Montserrat'; */
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+      text-align: center;
+    line-height: normal;
+    text-transform: capitalize;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.modal-body {
+    color:  #0F0E17;
+  /* font-family: 'Montserrat'; */
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+      text-align: center;
+    line-height: normal;
+    text-transform: capitalize;
+}
+.modal-body, .modal-header, .modal-footer {
+    border: none !important;
+  
+}
+button.btn {
+    border-radius: 5px;
+    display: flex;
+    height: 46px;
+    padding: 13px 15px;
+    justify-content: center;
+    align-items: center;
+}
+button.btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.modal-header {
+    padding-top: 30px;
+    align-items: center;
+    justify-content: center;
+}
+.modal-header svg {
+    width: 50px;
+        height: 50px;
+}
+.modal-footer {
+    justify-content: center;
+    grid-gap: 10px;
+}
+.modal-footer button {
+    width: 30%;
+    color:  #FFF;
+/* font-family: 'Montserrat'; */
+font-size: 17px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+}
+button.btn.btn_cancel {
+    border-radius: 5px;
+    color: #304a43 !important;
+    border: 1px solid #304a43;
+    transition: 0.3s all;
+}
+button.btn.btn_cancel:hover {
+   background-color: #304a43 !important;
+    color: #ffffff !important;
+    border: 1px solid #304a43;
+}
+button.btn-close:focus, button.btn-close:focus-visible {
+    box-shadow: none !important;
+}

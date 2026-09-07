@@ -1,0 +1,133 @@
+<div class="offcanvas-header">
+    <h5 id="offcanvasLabel">AI Power City Details</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+</div>
+
+<ng-container>
+    <div class="cross-pillar_outter">
+        <div class="integrate_outter">
+            <div class="integrate_list">
+                <table class="kpi_custom_table">
+                    <thead>
+                        <tr>
+                            <th scope="col">AI Confidence</th>
+                            <th scope="col">AI Score</th>
+                            <th scope="col">Evaluator Score</th>
+                            <th scope="col">Discrepancy</th>
+                            <th scope="col">Average Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="last_data">
+                            <td>
+                                <span class="confidence-badge"
+                                    [ngClass]="(pillar?.confidenceLevel ?? 'low').toLowerCase()">
+                                    {{ pillar?.confidenceLevel ?? 'NA' }}
+                                </span>
+                            </td>
+                            <td>
+                                <app-circular-score [value]="pillar?.aiProgress ?? 0"></app-circular-score>
+
+                            </td>
+                            <td>
+                                <app-circular-score [value]="pillar?.evaluatorProgress ?? 0"></app-circular-score>
+                            </td>
+                            <td>
+                                <app-sparkline-score [value]="pillar?.discrepancy ?? 0" [sign]="''"></app-sparkline-score>
+                            </td>
+                            <td>
+                                <app-circular-score
+                                    [value]="(((pillar?.aiProgress ?? 0) + (pillar?.evaluatorProgress ?? 0))/2)"></app-circular-score>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>AI Executive Summary</h5>
+                &nbsp;
+                <div *ngIf="pillar?.evidenceSummary">
+                    <app-typing-text [text]="pillar!.evidenceSummary ?? ''" [speed]="10"
+                        [numberOfWordAfterHideText]="50">
+                    </app-typing-text>
+                </div>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>Red Flags</h5>
+                &nbsp;
+                <div *ngIf="pillar?.redFlags">
+                    <app-typing-text [text]="pillar!.redFlags ?? ''" [speed]="10" [numberOfWordAfterHideText]="10">
+                    </app-typing-text>
+                </div>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>Geographic Equity Note</h5>
+                &nbsp;
+                <div *ngIf="pillar?.geographicEquityNote">
+                    <app-typing-text [text]="pillar!.geographicEquityNote ?? ''" [speed]="10"
+                        [numberOfWordAfterHideText]="10">
+                    </app-typing-text>
+                </div>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>Institutional Assessment</h5>
+                &nbsp;
+                <div *ngIf="pillar?.institutionalAssessment">
+                    <app-typing-text [text]="pillar!.institutionalAssessment ?? ''" [speed]="10"
+                        [numberOfWordAfterHideText]="10">
+                    </app-typing-text>
+                </div>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>Data Gap Analysis</h5>
+                &nbsp;
+                <div *ngIf="pillar?.dataGapAnalysis">
+                    <app-typing-text [text]="pillar!.dataGapAnalysis ?? ''" [speed]="10"
+                        [numberOfWordAfterHideText]="10">
+                    </app-typing-text>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    &nbsp;
+
+    <div class="cus_table kpi_table">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Source Type</th>
+                        <th scope="col">Source Name</th>
+                        <th scope="col">Trust Level</th>
+                        <th scope="col">Data Year</th>
+                        <th scope="col">Data Extract</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of pillar?.dataSourceCitations">
+                        <td> {{s?.sourceType ?? ''}}</td>
+                        <td [matTooltip]="'Go to link'">
+                            <a [href]="s?.sourceURL" target="_blank">
+                                {{s?.sourceName ?? ''}}
+                            </a>.
+                        </td>
+                        <td [matTooltip]="getLabelDesById(s?.trustLevel ?? 0)"> {{getLabelById(s?.trustLevel ?? 0)}}
+                        </td>
+                        <td> {{s?.dataYear ?? ''}}</td>
+                        <td *ngIf="s?.dataExtract"> <app-typing-text [text]="s!.dataExtract  ?? ''" [speed]="5"
+                                [numberOfWordAfterHideText]="7">
+                            </app-typing-text>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</ng-container>

@@ -1,0 +1,26 @@
+
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+::ng-deep .analyst_multi_select  .ng-select-container {
+    border: 0;
+    min-height: 30px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+::ng-deep .analyst_multi_select  .ng-select-container .ng-value-container {
+    padding: 0 !important;
+}
+.wrong_upload_alert p {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    color: red;
+}

@@ -1,0 +1,34 @@
+.assessment_card {
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 15px;
+}
+
+.assessmentdata {
+    display: flex;
+    justify-content: space-between;
+    color: #ffffff;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin-top: 10px;
+}
+.assessment_card_inner{
+    height: 130px;
+}
+
+.assessment_card_inner ag-charts
+{
+    transform: scale(0.6);
+}
+
+.chart-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 12px;
+  padding: auto;
+}

@@ -1,0 +1,296 @@
+<ng-container *ngIf="!isLoader">
+	<div class="heading_area">
+		<div class="row justify-content-between align-items-center">
+			<div class="col-md-auto">
+				<h3 class="page_head">
+					AI-Powered Pillar Analysis
+				</h3>
+			</div>
+			<div class="col-md-5">
+				<div class="compare_select input_field input_flex">
+					<select [(ngModel)]="selectedYear"
+						(change)="getAICityPillars()"
+						name="selectedYear"
+						class="form-control">
+						<option *ngFor="let year of commonService.applicateYears"
+							[value]="year">
+							{{ year }}
+						</option>
+					</select>
+					<ng-select [items]="cities"
+						[searchable]="true"
+						[placeholder]="selectedCity== 0 ? 'Select Cities' :''"
+						[(ngModel)]="selectedCity"
+						(change)="getAICityPillars()"
+						bindValue="cityID"
+						bindLabel="cityName"
+						class="form-control analyst_multi_select">
+						<ng-template ng-label-tmp
+							let-item="item"
+							class="select_item">
+							{{ item.cityName }}
+						</ng-template>
+
+
+						<ng-template ng-option-tmp
+							let-item="item">
+							{{ item.cityName }}, {{ item.state }} ({{ item.score?.toFixed(1) || 'NA'}})
+						</ng-template>
+					</ng-select>
+				<a 
+					style="cursor: pointer"
+					[matTooltip]="'Refresh..'"
+					(click)="getAICityPillars(); $event.preventDefault()"
+					>
+					<span style="display: inline-block">
+						<svg
+						xmlns="http://www.w3.org/2000/svg"
+						width="20"
+						height="20"
+						viewBox="-0.45 0 60.369 60.369"
+						>
+						<g
+							id="Group_63"
+							data-name="Group 63"
+							transform="translate(-446.571 -211.615)"
+						>
+							<path
+							id="Path_54"
+							data-name="Path 54"
+							d="M504.547,265.443h-9.019a30.964,30.964,0,0,0-29.042-52.733,1.5,1.5,0,1,0,.792,2.894,27.955,27.955,0,0,1,25.512,48.253l0-10.169h-.011a1.493,1.493,0,0,0-2.985,0h0v13.255a1.5,1.5,0,0,0,1.5,1.5h13.256a1.5,1.5,0,1,0,0-3Z"
+							fill="#0c2c67"
+							/>
+							<path
+							id="Path_55"
+							data-name="Path 55"
+							d="M485.389,267.995a27.956,27.956,0,0,1-25.561-48.213l0,10.2h.015a1.491,1.491,0,0,0,2.978,0h.007V216.791a1.484,1.484,0,0,0-1.189-1.532l-.018-.005a1.533,1.533,0,0,0-.223-.022c-.024,0-.046-.007-.07-.007H448.071a1.5,1.5,0,0,0,0,3h8.995a30.963,30.963,0,0,0,29.115,52.664,1.5,1.5,0,0,0-.792-2.894Z"
+							fill="#0c2c67"
+							/>
+						</g>
+						</svg>
+					</span>
+				</a>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div *ngIf="chartOptions && chartOptions?.series"
+		id="chart">
+		<apx-chart [series]="chartOptions.series!"
+			[chart]="chartOptions.chart!"
+			[xaxis]="chartOptions.xaxis!"
+			[yaxis]="chartOptions.yaxis!"
+			[colors]="chartOptions.colors!"
+			[tooltip]="chartOptions.tooltip!"
+			[plotOptions]="chartOptions.plotOptions!"
+			[legend]="chartOptions.legend!"
+			[fill]="chartOptions.fill!"
+			[states]="chartOptions.states!"
+			[stroke]="chartOptions.stroke!"
+			[dataLabels]="chartOptions.dataLabels!"></apx-chart>
+	</div>
+	<div *ngIf="aiCityPillarResponseDto?.pillars?.length"
+		class="table_outer table-responsive">
+		<table class="table table-striped table-bordered table-hover compare_table">
+			<thead>
+				<tr>
+					<th>Pillar Name</th>
+					<th>AI Score</th>
+					<th>Evaluator Score</th>
+					<th>Discrepancy</th>
+					<th>Research Recency</th>
+					<th>Completion Rate</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+
+
+			<tbody>
+				<tr *ngFor="let piller of aiCityPillarResponseDto?.pillars; let i = index"
+					[matTooltip]="piller.isAccess ? '' : 'Upgrade your plan to access this feature.'"
+					[class]="!piller.isAccess ?'pillar_disabled':''">
+					<td>
+						<div [class.active]="piller.isAccess"
+							class="faq_sidebar_item">
+							<div class="faq_sidebar_item_inner">
+								<span class="faq_inner_svg">
+									<img [src]="urlBase + '/' + piller.imagePath"
+										[alt]="'No image found'">
+								</span>
+								<div class="pillar_confidence_outer">
+									<p>
+										{{ piller.pillarName }}
+									</p>
+									<div class="pillar_confidence">
+										AI Confidence Level :
+										<span [ngClass]="(piller?.confidenceLevel || 'low').toLowerCase()"
+											class="confidence-badge">
+											{{ piller?.confidenceLevel ? piller.confidenceLevel :'NA' }}
+										</span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</td>
+
+
+					<td>
+						<div class="kpi_city kpi_td_data">
+							<!-- <div class="bold_num table_badge">{{ piller.aiProgress }}</div> -->
+							<app-circular-score [value]="piller?.aiProgress ?? 0"></app-circular-score>
+						</div>
+					</td>
+
+
+					<td>
+						<div class="kpi_city kpi_td_data">
+							<app-circular-score [value]="piller?.evaluatorProgress ?? 0"></app-circular-score>
+						</div>
+					</td>
+
+
+					<td>
+						<div class="kpi_city kpi_td_data">
+							<app-sparkline-score [value]="piller?.discrepancy ?? 0" [sign]="''"></app-sparkline-score>
+						</div>
+					</td>
+					<td [utcToLocalTooltip]="piller?.updatedAt"
+						matTooltip
+						tooltipFormat="fullDate">
+						<span [ngClass]="commonService.researchStatusClass(piller.updatedAt)"
+							class="research_date">
+							{{ commonService.getGeneratedTime(piller?.updatedAt) }}
+						</span>
+					</td>
+					<td>
+						<app-sparkline-score
+						[value]="piller?.aiCompletionRate ?? 0"
+						></app-sparkline-score>
+					</td>
+
+					<td class="action_td">
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<div class="action_icons">
+											<a [matTooltip]="'View detailed pillar insights'"
+												(click)="piller.isAccess ? viewDetails(piller):$event.preventDefault()"
+												style="cursor: pointer">
+												<span style="display: inline-block">
+													<svg width="21"
+														height="20"
+														viewBox="0 0 21 20"
+														fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+														<g clip-path="url(#clip0_1444_1025)">
+															<path d="M20.3195 9.61953C20.2906 9.55625 19.6062 8.03672 18.0945 6.525C16.0719 4.50547 13.5226 3.4375 10.7101 3.4375C7.89765 3.4375 5.34843 4.50547 3.32811 6.525C1.8164 8.03672 1.13202 9.55625 1.10077 9.61953C1.04784 9.73953 1.02051 9.86924 1.02051 10.0004C1.02051 10.1315 1.04784 10.2613 1.10077 10.3813C1.12968 10.4453 1.81405 11.9641 3.32655 13.4758C5.34843 15.4953 7.89765 16.5625 10.7101 16.5625C13.5226 16.5625 16.0719 15.4953 18.0914 13.4758C19.6039 11.9641 20.2883 10.4453 20.3172 10.3813C20.3705 10.2614 20.3982 10.1318 20.3986 10.0006C20.399 9.86949 20.3721 9.73969 20.3195 9.61953ZM16.7211 12.1977C15.0437 13.8492 13.0219 14.6875 10.7101 14.6875C8.39843 14.6875 6.37655 13.8492 4.70155 12.1969C4.04245 11.5447 3.47549 10.8056 3.0164 10C3.47562 9.19473 4.04257 8.45589 4.70155 7.80391C6.37733 6.15078 8.39843 5.3125 10.7101 5.3125C13.0219 5.3125 15.043 6.15078 16.7187 7.80391C17.3778 8.45583 17.9447 9.19469 18.4039 10C17.9447 10.8055 17.3778 11.5447 16.7187 12.1969L16.7211 12.1977ZM10.7101 6.5625C10.0303 6.5625 9.36567 6.76411 8.80037 7.14182C8.23508 7.51954 7.79449 8.0564 7.53431 8.68453C7.27413 9.31265 7.20606 10.0038 7.3387 10.6706C7.47133 11.3374 7.79872 11.9499 8.27947 12.4307C8.76021 12.9114 9.37271 13.2388 10.0395 13.3714C10.7063 13.5041 11.3975 13.436 12.0256 13.1758C12.6537 12.9157 13.1906 12.4751 13.5683 11.9098C13.946 11.3445 14.1476 10.6799 14.1476 10C14.1466 9.08864 13.7841 8.21489 13.1397 7.57046C12.4953 6.92603 11.6215 6.56353 10.7101 6.5625ZM10.7101 11.5625C10.4011 11.5625 10.099 11.4709 9.84207 11.2992C9.58512 11.1275 9.38485 10.8835 9.26658 10.5979C9.14832 10.3124 9.11738 9.99827 9.17767 9.69517C9.23796 9.39208 9.38677 9.11367 9.60529 8.89515C9.82381 8.67663 10.1022 8.52781 10.4053 8.46752C10.7084 8.40723 11.0226 8.43818 11.3081 8.55644C11.5936 8.6747 11.8376 8.87497 12.0093 9.13192C12.181 9.38887 12.2726 9.69097 12.2726 10C12.2726 10.4144 12.108 10.8118 11.815 11.1049C11.522 11.3979 11.1245 11.5625 10.7101 11.5625Z"
+																fill="#7AC2AE"></path>
+														</g>
+														<defs>
+															<clipPath id="clip0_1444_1025">
+																<rect width="20"
+																	height="20"
+																	fill="white"
+																	transform="translate(0.710144)"></rect>
+															</clipPath>
+														</defs>
+													</svg>
+												</span>
+											</a>
+											<a [matTooltip]="'View detailed question insights'"
+												(click)="piller.isAccess ? viewQuestions(piller):$event.preventDefault()"
+												style="cursor: pointer">
+												<span style="display: inline-block">
+													<svg width="21"
+														height="20"
+														viewBox="0 0 94 71"
+														fill="none"
+														xmlns="http://www.w3.org/2000/svg">
+														<path d="M37.9892 32.3513C37.3173 33.6794 36.9619 35.1755 36.9619 36.6716C36.9619 38.2263 38.2197 39.4841 39.7744 39.4841C41.3291 39.4841 42.5869 38.2263 42.5869 36.6716C42.5869 36.0388 42.7275 35.4411 43.0127 34.8825C43.708 33.5114 45.3643 32.3434 47.4893 32.7966C48.9229 33.1091 50.1026 34.2771 50.4268 35.7028C50.9112 37.8473 49.7393 39.5075 48.3643 40.2106C45.5166 41.6598 43.751 44.4762 43.751 47.5622C43.751 49.1169 45.0088 50.3747 46.5635 50.3747C48.1182 50.3747 49.376 49.1169 49.376 47.5622C49.376 46.6013 49.9658 45.7067 50.919 45.2224C54.8409 43.2263 56.8956 38.8044 55.9151 34.4644C55.1065 30.8941 52.2667 28.0816 48.6885 27.3003C44.3721 26.3746 39.9616 28.4411 37.9892 32.3513Z"
+															fill="#7AC2AE"></path>
+														<path d="M48.5585 53.7925C48.289 53.5425 47.9882 53.3472 47.6523 53.2026C46.9335 52.8862 46.1835 52.8862 45.4961 53.2026C45.1523 53.3276 44.8398 53.5425 44.5586 53.7925C44.3086 54.0737 44.0898 54.355 43.9648 54.6987C43.8086 55.0425 43.7461 55.4175 43.7461 55.7964C43.7461 56.1363 43.8086 56.5113 43.9648 56.8589C44.1992 57.5581 44.8477 58.0972 45.496 58.3862C45.8398 58.5464 46.1835 58.605 46.5585 58.605C46.9335 58.605 47.2773 58.5425 47.621 58.3862C47.9648 58.23 48.2773 58.0464 48.5585 57.7651C48.8085 57.5151 49.0273 57.1987 49.1523 56.8589C49.3085 56.5151 49.371 56.1401 49.371 55.7964C49.3593 55.019 49.0859 54.3511 48.5585 53.7925Z"
+															fill="#7AC2AE"></path>
+														<path d="M91.711 39.1523C86.8633 33.7148 69.9839 16.5703 49.438 15.0503C48.4926 14.9565 47.5356 14.9019 46.559 14.9019C45.5824 14.9019 44.6254 14.9565 43.6762 15.0503C23.1332 16.5698 6.25425 33.7143 1.40625 39.1523C-0.46875 41.2539 -0.46875 44.4257 1.40625 46.5195C6.25395 51.9531 23.1332 69.1055 43.6762 70.6215C44.6216 70.7192 45.5864 70.7699 46.559 70.7699C47.5356 70.7699 48.4926 70.7152 49.4418 70.6215C69.9808 69.102 86.8679 51.9535 91.7149 46.5195C93.586 44.4257 93.586 41.2539 91.711 39.1523ZM68.867 42.8398C68.867 54.3518 60.1013 63.8518 48.8939 65.0238C48.1166 65.0785 47.3431 65.1488 46.558 65.1488C45.769 65.1488 44.9956 65.0785 44.2183 65.0238C33.0113 63.848 24.2493 54.3518 24.2493 42.8398C24.2493 31.3278 33.011 21.8278 44.2183 20.6518C44.9956 20.5971 45.7729 20.5268 46.558 20.5268C47.3471 20.5268 48.1166 20.5971 48.8939 20.6518C60.1009 21.8237 68.867 31.3278 68.867 42.8398ZM5.60495 42.8945C8.17525 40.0117 14.4253 33.539 22.753 28.2925C20.1514 32.5347 18.6201 37.5034 18.6201 42.8355C18.6201 48.1714 20.1514 53.1475 22.7569 57.3905C14.4249 52.16 8.17495 45.7185 5.60495 42.8945ZM70.367 57.3785C72.9686 53.1363 74.4958 48.1676 74.4958 42.8395C74.4958 37.5075 72.9686 32.5385 70.3631 28.2965C78.6365 33.5074 84.8551 39.9255 87.4611 42.8355C84.8595 45.7496 78.6407 52.1675 70.367 57.3785Z"
+															fill="#7AC2AE"></path>
+														<path d="M46.5586 8.8125C48.1133 8.8125 49.3711 7.5547 49.3711 6V2.8125C49.3711 1.2578 48.1133 0 46.5586 0C45.0039 0 43.7461 1.2578 43.7461 2.8125V6C43.7461 7.5508 45.0039 8.8125 46.5586 8.8125Z"
+															fill="#7AC2AE"></path>
+														<path d="M25.0078 12.5275C25.5312 13.4298 26.4726 13.9337 27.4453 13.9337C27.9218 13.9337 28.4062 13.8126 28.8476 13.5548C30.1914 12.7774 30.6523 11.0587 29.8749 9.71497L28.2811 6.95717C27.5037 5.61337 25.7928 5.14857 24.4413 5.92987C23.0975 6.70721 22.6366 8.42597 23.414 9.76967L25.0078 12.5275Z"
+															fill="#7AC2AE"></path>
+														<path d="M64.27 13.5544C64.7153 13.8123 65.1997 13.9334 65.6723 13.9334C66.6489 13.9334 67.5864 13.4255 68.1098 12.5272L69.7036 9.76936C70.4809 8.42166 70.0239 6.70296 68.6763 5.92956C67.3286 5.15222 65.6099 5.61315 64.8365 6.95686L63.2427 9.71466C62.4614 11.0585 62.9224 12.781 64.27 13.5544Z"
+															fill="#7AC2AE"></path>
+													</svg>
+												</span>
+											</a>
+
+											<a *ngIf="selectedYear == currentYear" [matTooltip]="'Re-run AI analysis for this pillar'"
+												(click)="opendialog(piller); $event.preventDefault()"
+												style="cursor: pointer">
+												<span style="display: inline-block">
+													<svg xmlns="http://www.w3.org/2000/svg"
+														width="20"
+														height="20"
+														viewBox="-0.45 0 60.369 60.369">
+														<g id="Group_63"
+															data-name="Group 63"
+															transform="translate(-446.571 -211.615)">
+															<path id="Path_54"
+																data-name="Path 54"
+																d="M504.547,265.443h-9.019a30.964,30.964,0,0,0-29.042-52.733,1.5,1.5,0,1,0,.792,2.894,27.955,27.955,0,0,1,25.512,48.253l0-10.169h-.011a1.493,1.493,0,0,0-2.985,0h0v13.255a1.5,1.5,0,0,0,1.5,1.5h13.256a1.5,1.5,0,1,0,0-3Z"
+																fill="#0c2c67"></path>
+															<path id="Path_55"
+																data-name="Path 55"
+																d="M485.389,267.995a27.956,27.956,0,0,1-25.561-48.213l0,10.2h.015a1.491,1.491,0,0,0,2.978,0h.007V216.791a1.484,1.484,0,0,0-1.189-1.532l-.018-.005a1.533,1.533,0,0,0-.223-.022c-.024,0-.046-.007-.07-.007H448.071a1.5,1.5,0,0,0,0,3h8.995a30.963,30.963,0,0,0,29.115,52.664,1.5,1.5,0,0,0-.792-2.894Z"
+																fill="#0c2c67"></path>
+														</g>
+													</svg>
+												</span>
+											</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- Bootstrap 5 Offcanvas Sidebar -->
+	<div class="offcanvas offcanvas-end custom-sidebar kpi_sidebar"
+		tabindex="-1"
+		id="kpiLayerSidebar">
+		<div class="offcanvas-body">
+			<app-view-ai-pillar-details [pillar]="selectedAiCityPillar"
+				[aiTrustLevels]="aiTrustLevels"></app-view-ai-pillar-details>
+		</div>
+	</div>
+</ng-container>
+
+
+<div *ngIf="isLoader"
+	class="loader_main">
+	<div class="loader"></div>
+</div>
+
+
+
+<!-- Modal -->
+<ng-container *ngIf="isOpenResearchBox">
+	<div class="modal fade modal_design"
+		id="RegenerateAIScoreModal"
+		tabindex="-1"
+		aria-labelledby="RegenerateAIScoreModalLabel"
+		aria-hidden>
+		<app-regenerate-ai-score-and-add-viewer [importPillar]="true"
+			[city]="getSelectedCity()"
+			[loading]="loading"
+			(regenerate)="regenerateAiSearch($event)"
+			[showRegenerateMissingQuestionsOption]="showRegenerateMissingQuestionsOption"
+			(closeModal)="closeModal()">
+		</app-regenerate-ai-score-and-add-viewer>
+	</div>
+</ng-container>

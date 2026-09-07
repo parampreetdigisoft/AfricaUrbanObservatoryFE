@@ -1,0 +1,24 @@
+
+<div *ngIf="roleName==='login'">
+   <app-login (UserLogin)="login($event)" [loading]="loading" [role]="role"></app-login>
+</div>
+
+<div *ngIf="roleName==='clientPortalLogin'">
+   <app-login (UserLogin)="login($event)" [loading]="loading" [role]="role"></app-login>
+</div>
+<div *ngIf="roleName==='sign-up'">
+       <app-sign-up (submitsignUpDetail)="cityUserSignUp($event)" [loading]="loading" [isSuccess]="isSuccess"></app-sign-up>
+</div>
+<div *ngIf="roleName==='forgot-password'">
+       <app-forgot-password (forgotPassword)="sendEmail($event)" [loading]="loading" [isSuccess]="isSuccess"></app-forgot-password>
+</div>
+<div *ngIf="roleName==='reset-password'">
+       <app-reset-password (resetPassword)="resetPassword($event)" [loading]="loading" [isSuccess]="isSuccess"></app-reset-password>
+</div>
+<div *ngIf="roleName==='confirm-mail'">
+       <app-confirm-mail (confirmMail)="confirmMail($event)"></app-confirm-mail>
+</div>
+
+<div *ngIf="roleName==='2fa-verification'">
+       <app-twofa-verification (twofaVerification)="twofaVerification($event)" [loading]="loading" [isSuccess]="isSuccess" (reSendOtp)="reSendOtp()"></app-twofa-verification>
+</div>

@@ -1,0 +1,66 @@
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.add_btn {
+    color: #7AC2AE;
+    /* font-family: 'Montserrat'; */
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    border-radius: 50px;
+    border: 1px solid #7AC2AE;
+    padding: 8px 10px;
+    background: transparent;
+    width: 80px;
+    max-width: 100%;
+    transition: 0.3s all;
+}
+.add_btn:hover {
+  color: #304A43;
+  border: 1px solid #304A43;
+  background: transparent;
+}
+.minus_btn {
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: auto;
+}
+.form-control {
+    border-radius: 50px;
+    border: 1px solid #e4e4e4;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: 40px;
+    font-weight: 600;
+    padding-left: 16px;
+    color: #7A7A7A;
+/* font-family: 'Montserrat'; */
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.form-control:focus, .form-control:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.wrong_upload_alert p {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    color: red;
+}

@@ -1,0 +1,58 @@
+.cancel_card {
+    /* height: calc(100dvh - 310px); */
+    background-color: #304A43 !important;
+    padding: 80px 60px;
+    width: calc(100% - 40px);
+    margin: 0 auto;
+    border-radius: 20px;
+}
+
+button.btn_back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #f7f7f7;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    text-transform: capitalize;
+    cursor: pointer;
+    transition: 0.3s;
+    border: 1px solid #e4e4e4;
+    padding: 9px 20px;
+    border-radius: 100px !important;
+    cursor: pointer;
+}
+
+.payment_btn {
+    display: flex;
+    align-items: center;
+    grid-gap: 20px;
+}
+
+.payment_text h2 {
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 16px;
+    font-size: 2.5rem;
+}
+.payment_text p {
+    color: #ffffff;
+    margin-bottom: 30px;
+}
+
+.payment-img-main {
+    width: 100%;
+    max-width: 430px;
+    display: block;
+    margin: 0 auto;
+}
+.checking_status {
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    font-size: 22px;
+}

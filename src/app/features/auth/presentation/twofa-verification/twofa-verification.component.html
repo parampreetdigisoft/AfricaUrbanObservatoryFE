@@ -1,0 +1,45 @@
+<section class="aui_before_login" *ngIf="!isSuccess">
+  <div class="aui_before_login_cards">
+    <figure class="aui_logo">
+      <a href="">
+        <img src="assets/images/veridian-urban-index.png" alt="AUI Logo" />
+      </a>
+    </figure>
+
+    <h4 class="before_login_card_head">Two-Factor Authentication</h4>
+    <p class="before_login_card_desc">
+      Enter the One-Time Password (OTP) sent to your registered email to verify your login.
+    </p>
+
+    <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
+      <div class="input_field mb-0">
+        <label for="otp">OTP *</label>
+
+        <div class="otp_field">
+          <ng-container formArrayName="digits">
+            <input *ngFor="let ctrl of digits.controls; let i = index" type="text" class="form-control" maxlength="1"
+              required #otpInput [formControlName]="i" [id]="'otp' + i" (keyup)="onKeyUp($event, i)" />
+          </ng-container>
+        </div>
+
+        <div *ngIf="otpForm.invalid && otpForm.touched" class="text-danger mt-1">
+          <small>All OTP fields are required.</small>
+        </div>
+      </div>
+
+      <button type="submit" class="common_button w-100 mt-4" [disabled]="otpForm.invalid || loading">
+        Verify OTP
+        <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+      </button>
+    </form>
+
+    <p class="text-center mt-3 resend_code">
+      Didn’t receive the code?
+      <a href="javascript:void(0)" (click)="reSendLoginOtp()" [class.disabled]="!canResend"
+        [attr.aria-disabled]="!canResend">
+        <ng-container *ngIf="canResend">Resend OTP</ng-container>
+        <ng-container *ngIf="!canResend">Resend in {{ resendTimer }}s</ng-container>
+      </a>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,22 @@
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+textarea.form-control {
+  min-height: 150px;  /* default is ~60px, this doubles it */
+  resize: vertical;   /* allow user to drag resize if needed */
+  border-radius: 5px;
+}
+
+.pp_pic
+{
+  height: 65px;
+  width: 150px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+.modal-dialog {
+    width: 900px;
+}

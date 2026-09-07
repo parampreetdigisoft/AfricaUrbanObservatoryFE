@@ -1,0 +1,18 @@
+<div *ngIf="value !== null; else noData" class="circular-score" [matTooltip]="tooltipText==null ? '' : tooltipText" matTooltipPosition="above">
+  <svg width="50" height="50" viewBox="0 0 50 50">
+    <!-- Background circle -->
+    <circle cx="25" cy="25" r="20" fill="none" stroke="#e0e0e0" stroke-width="4" />
+    <!-- Progress circle -->
+    <circle cx="25" cy="25" r="20" fill="none" [attr.stroke]="getColor(value)" stroke-width="4" stroke-linecap="round"
+      [style.stroke-dasharray]="circumference" [style.stroke-dashoffset]="dashOffset" transform="rotate(-90 25 25)"
+      class="progress-ring" />
+  </svg>
+
+  <div class="score-text" [style.color]="getColorR(value)">
+    {{ formattedValue }}{{sign}}
+  </div>
+</div>
+
+<ng-template #noData>
+  <span class="no-data">NA</span>
+</ng-template>

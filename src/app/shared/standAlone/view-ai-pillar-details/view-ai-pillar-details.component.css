@@ -1,0 +1,204 @@
+
+.cus_table .table th {
+    background: #efbf07;
+    font-weight: 600;
+    color: #304a43;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.cus_table .score_label_tab {
+    background: #304a43;
+    color: #ffffff;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.cus_table .table td {
+    font-size: 1.3rem;
+    border-bottom: 1px solid #cccccc;
+    vertical-align: middle;
+}
+
+.cus_table .table {
+    margin: 0;
+}
+
+.cus_table {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 2rem #00000021;
+    /* height: 100%; */
+}
+
+.cus_table .table tr:last-child td {
+    border: 0;
+}
+
+h4.kpi_head_col {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #304a43;
+}
+
+
+.city_piller+app-ag-bar {
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+}
+
+::ng-deep .city_piller + app-ag-bar > div {
+    width: 100%;
+}
+
+span:empty, div:empty{
+    display: none;
+}
+.integrate_outter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.kpi_table tr td {
+    font-size: 13px !important;
+}
+.kpi_table tr td {
+    font-size: 13px !important;
+}
+.integrate_list {
+    flex: 1;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #f7f7f7;
+    box-shadow: none !important;
+    margin-bottom: 20px;
+}
+.integrate_outter .outer_graph {
+    width: 300px;
+    max-width: 100%;
+}
+::ng-deep .integrate_outter .outer_graph ag-charts{
+    height: 270px !important;
+}
+
+::ng-deep .ag-charts-wrapper {
+    /* transform: scale(0.8); */
+    max-width: 100%;
+}
+
+.kpi_score_list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.kpi_cat_name{
+    flex: 1;    
+}
+
+.kpi_custom_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.kpi_custom_table th {
+  background-color: #efbf07;
+  color: #304a43;
+  font-weight: 600;
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.kpi_custom_table td {
+  padding: 8px;
+  border: 1px solid #e5e7eb;
+  transition: background-color 0.2s;
+  font-size: 14px;    
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.kpi_custom_table tr:nth-child(even) {
+  background-color: #f3f4f6;
+}
+
+/* .kpi_custom_table tr:hover td {
+  background-color: #f9fafb;
+} */
+ /* .cross-pillar {
+    background-color: #f7f7f7;
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid #e4e4e4;
+} */
+.cross-pillar h5{
+    font-weight: 700;
+    color: #000000;
+}
+.city_piller {
+    background-color: #f7f7f7;
+    padding: 20px;
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #e4e4e4;
+}
+.cross-pillar_outter{
+    border: 1px solid #e4e4e4;
+    padding: 20px;
+    border-radius: 15px;
+}
+.active_row td {
+    background-color: #304a43;
+    color: #ffffff;
+}
+.active_row td .score_label_tab {
+    background-color: #44625a !important;
+}
+.last_data td {
+    background-color: #304a43;
+    color: #ffffff;
+}
+.last_data td span {
+    color: #000000;
+    background-color: #efbf04;
+    white-space: nowrap;
+    padding: 5px 8px;
+    border-radius: 30px;
+    border: 0;
+}
+
+button.btn-close:focus,
+button.btn-close:focus-visible {
+    box-shadow: 0 0 0 3px rgb(48 74 67); /* greenish glow */
+    outline: none; /* remove default outline */
+}
+
+.integrate_outter .cross-pillar {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.kpi_table td a {
+    color: rgb(18, 53, 47);
+    font-weight: 600;
+}
+.cus_table .table td:last-child {
+    max-width: 100%;
+    width: 180px;
+}
+::ng-deep .cross-pillar_outter .typing-text {
+    font-size: 14px;
+}
+::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track {
+    border: 1px solid #ffffff;
+}
+::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track .score-dot, ::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track .segment {
+    border: 1px solid #ffffff !important;
+}

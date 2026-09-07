@@ -1,0 +1,75 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body">
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+      <h4 class="modal_head">{{ pillar ? 'Update' : 'Add' }} Pillar</h4>
+      <p class="modal_sub_head">Enter the details below</p>
+
+      <div class="modal_tabs">
+        <form [formGroup]="pillarForm" (ngSubmit)="onSubmit()">
+
+          <!-- Pillar Name -->
+          <div class="input_field">
+            <label>Pillar Name *</label>
+            <input type="text" formControlName="pillarName" placeholder="Enter Pillar Name" class="form-control" />
+            <div class="error-msg"
+              *ngIf="pillarForm.get('pillarName')?.invalid && (pillarForm.get('pillarName')?.touched || isSubmitted)">
+              Pillar name is required.
+            </div>
+          </div>
+          <div class="input_field">
+            <label>Weight *</label>
+            <input 
+              type="number" 
+              formControlName="weight" 
+              placeholder="Enter Weight" 
+              class="form-control" 
+              step="0.01" 
+              min="0.01" 
+            />
+            <div class="error-msg"
+              *ngIf="pillarForm.get('weight')?.invalid && (pillarForm.get('weight')?.touched || isSubmitted)">
+              <span *ngIf="pillarForm.get('weight')?.errors?.['required']">Weight is required.</span>
+              <span *ngIf="pillarForm.get('weight')?.errors?.['min']">Weight must be greater than 0.</span>
+            </div>
+          </div>
+
+          <div class="input_field">
+            <label>
+              Reliability *
+              <input type="checkbox" formControlName="reliability" />
+            </label>
+
+            <div class="error-msg"
+              *ngIf="pillarForm.get('reliability')?.invalid && (pillarForm.get('reliability')?.touched || isSubmitted)">
+              <span *ngIf="pillarForm.get('reliability')?.errors?.['required']">
+                Reliability selection is required.
+              </span>
+            </div>
+
+            <div class="error-msg" *ngIf="pillarForm.get('reliability')?.value === false">
+              <span>This pillar will not be involved in KPI calculations. To include it, mark reliability as true.</span>
+            </div>
+          </div>
+
+
+          <!-- Description -->
+          <div class="input_field">
+            <label>Description *</label>
+            <quill-editor formControlName="description" [format]="'html'" [style]="{height: '200px'}"
+              placeholder="Enter description here..."></quill-editor>
+
+            <div class="error-msg"
+              *ngIf="pillarForm.get('description')?.invalid && (pillarForm.get('description')?.touched || isSubmitted)">
+              Description is required.
+            </div>
+          </div>
+
+          <button type="submit" class="common_button w-100 mt-4">{{ pillar ? 'Update' : 'Save' }} <span *ngIf="loading"
+              class="spinner-border spinner-border-sm ms-2"></span></button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

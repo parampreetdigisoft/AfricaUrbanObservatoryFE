@@ -1,0 +1,39 @@
+.table_outer .table td {
+    vertical-align: unset;
+}
+
+.modal_design .modal_tabs form {
+    margin-top: 30px;
+}
+.table_outer .table thead th:nth-child(2) {
+    width: 280px;
+}
+.table_outer .table tbody td:nth-child(2) {
+    font-weight: 700;
+}
+
+.desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+}
+
+.desc.collapsed {
+  -webkit-line-clamp: 5;
+}
+
+.desc:not(.collapsed) {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.read-more {
+  color: #12352f;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  display: inline-block;
+  margin-top: 6px;
+}

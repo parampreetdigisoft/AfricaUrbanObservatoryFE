@@ -1,0 +1,50 @@
+
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+::ng-deep .analyst_multi_select  .ng-select-container {
+    border: 0;
+    min-height: 30px;
+    outline: none !important;
+    box-shadow: none !important;
+}
+::ng-deep .analyst_multi_select  .ng-select-container .ng-value-container {
+    padding: 0 !important;
+}
+.wrong_upload_alert p {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    color: red;
+}
+.transfer_popup .modal_head {
+    margin-bottom: 20px;
+}
+.transfer_popup .modal_tabs #pills-tabContent h5 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    margin-top: 25px;
+}
+
+.transfer_popup #pills-home .analyst_multi_select {
+    height: auto;
+    border: 1px solid #9c9c9c;
+    font-size: 14px;
+}
+.details_list {
+    font-weight: 700;
+}
+.details_list span{
+    font-weight: 400;
+}
+.details_transf #pills-home {
+    margin-top: 20px;
+}

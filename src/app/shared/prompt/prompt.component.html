@@ -1,0 +1,28 @@
+<div class="modal fade" [id]="uniqueId" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header text-white">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 26 26" fill="none">
+          <path
+            d="M13 26C5.83 26 0 20.17 0 13C0 5.83 5.83 0 13 0C20.17 0 26 5.83 26 13C26 20.17 20.17 26 13 26ZM13 2C6.93 2 2 6.93 2 13C2 19.07 6.93 24 13 24C19.07 24 24 19.07 24 13C24 6.93 19.07 2 13 2ZM14 19V11C14 10.45 13.55 10 13 10C12.45 10 12 10.45 12 11V19C12 19.55 12.45 20 13 20C13.55 20 14 19.55 14 19ZM13.38 7.92C13.51 7.87 13.61 7.8 13.71 7.71C13.75 7.66 13.8 7.61 13.83 7.56C13.87 7.5 13.9 7.44 13.92 7.38C13.95 7.32 13.97 7.26 13.98 7.2C13.99 7.13 14 7.07 14 7C14 6.74 13.89 6.48 13.71 6.29C13.61 6.2 13.5 6.13 13.38 6.08C13.14 5.98 12.86 5.98 12.62 6.08C12.5 6.13 12.39 6.2 12.29 6.29C12.11 6.48 12 6.74 12 7C12 7.07 12 7.13 12.02 7.2C12.03 7.26 12.05 7.32 12.08 7.38C12.1 7.44 12.13 7.5 12.17 7.56C12.21 7.61 12.25 7.66 12.29 7.71C12.39 7.8 12.5 7.87 12.62 7.92C12.74 7.97 12.87 8 13 8C13.13 8 13.26 7.97 13.38 7.92Z"
+            fill="#FA0000" />
+        </svg>
+
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+          (click)="onCancel()"></button>
+      </div>
+      <div class="modal-body">
+        <h5 class="modal-title">{{ title }}</h5>
+        {{ message }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn_cancel" data-bs-dismiss="modal" (click)="onCancel()">
+          {{ cancelText }}
+        </button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="onConfirm()">
+          {{ confirmText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

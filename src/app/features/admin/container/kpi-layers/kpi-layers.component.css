@@ -1,0 +1,176 @@
+/* Default Bootstrap width is 400px */
+.custom-sidebar {
+    width: 775px !important;
+    /* 👈 set your desired width */
+}
+
+
+
+.action_td input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #397b69;
+}
+
+.action_td td {
+    padding: 0 20px 0 0 !important;
+}
+
+.kpi_td_data div:empty,
+.kpi_sidebar app-view-kpi-layer .bold_num:empty {
+    display: none;
+}
+
+.kpi_td_data .bold_num,
+::ng-deep .kpi_sidebar app-view-kpi-layer .bold_num {
+    background: #304a43;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 0.5rem;
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+::ng-deep .kpi_sidebar app-view-kpi-layer .city_card_outter .city_card_img img {
+    max-width: 300px;
+}
+
+::ng-deep .kpi_sidebar app-view-kpi-layer .city_card_outter .city_card_inner {
+    padding: 10px 0px;
+}
+
+::ng-deep .kpi_sidebar app-view-kpi-layer .city_card_outter .city_card_inner .city_cards_h1 {
+    font-size: 24px;
+}
+
+::ng-deep .kpi_sidebar .city_cards_disc {
+    margin: 10px 0 0px !important;
+    font-size: 14px;
+}
+
+.compare_city_table .table thead tr {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.compare_city_table .table tr th:first-child,
+.compare_city_table .table tr td:first-child {
+    border-left: 0;
+}
+
+.compare_city_table .table tr th:last-child,
+.compare_city_table .table tr td:last-child {
+    border-right: 0;
+}
+
+.compare_city_table tbody td.action_td table {
+    width: 100%;
+}
+
+.compare_city_table tbody td.action_td table .action_icons {
+    justify-content: center;
+}
+
+.compare_city_table tbody td.action_td table .action_icons a.mat-mdc-tooltip-trigger span {
+    display: inline-block;
+    background-color: #397b69;
+    padding: 8px 10px;
+    white-space: nowrap;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.compare_city_table .action_td td {
+    padding: 0 !important;
+}
+
+.compare_city_table.table_outer .table tr th:nth-child(3),
+.compare_city_table.table_outer .table tr td:nth-child(3) {
+    width: 280px;
+}
+
+
+@media only screen and (max-width:1550px) {
+    .table_outer .table th {
+        padding: 11px 6px;
+        font-size: 15px;
+    }
+
+    .table_outer .table td {
+        font-size: 13px;
+        padding: 10px 6px;
+    }
+
+    .table_custom_inner {
+        overflow-x: auto !important;
+    }
+}
+
+::ng-deep .analyst_multi_select .ng-option-selected {
+    background-color: #e8f0ff !important;
+    color: #304a43 !important;
+    font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+    background-color: #f2f6ff !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+    border: none !important;
+    background-color: #ffffff !important;
+    min-height: auto !important;
+    height: 100% !important;
+}
+
+::ng-deep .compare_select .ng-select-container:hover {
+    box-shadow: none !important;
+}
+
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    box-shadow: none !important;
+}
+
+.compare_select .analyst_multi_select {
+    flex: 1;
+    height: auto;
+    background-color: #ffffff;
+    min-height: 36px;
+    align-items: center;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none !important;
+    border-radius: 12px !important;
+    padding: 6px 10px 6px 3px !important;
+    border: 1px solid #d7d7d7 !important;
+}
+
+.table_custom_inner {
+    overflow: auto;
+}
+
+.table_custom_inner::-webkit-scrollbar {
+    display: none;
+}
+
+.card_title {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+::ng-deep .compare_select .ng-value-container .ng-value {
+    white-space: nowrap;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+    background-color: #304a43 !important;
+    color: #ffffff !important;
+}
+
+.kpi_cat05.kpi_td_data {
+    display: flex;
+}

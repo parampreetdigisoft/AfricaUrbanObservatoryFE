@@ -1,0 +1,90 @@
+<div class="modal-dialog modal-dialog-centered transfer_popup">
+  <div class="modal-content">
+    <div class="modal-body">
+      <button
+        type="button"
+        (click)="closeModel()"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+      ></button>
+      <h4 class="modal_head">
+        Transfer results to another user
+        <!-- Move results from one Evaluator/Analyst to another -->
+      </h4>
+
+      <div class="modal_tabs">
+        <div class="tab-content details_transf" id="pills-tabContent">
+          <!-- Single Add / Update -->
+          <h5>Transfer From </h5>
+          <div class="details_list">City: <span>{{ assesment?.cityName }}</span></div>
+          <div class="details_list">State: <span>{{ assesment?.state }}</span></div>
+          <div class="details_list">UserName: <span>{{ assesment?.userName }}</span></div>
+          <div class="details_list">
+            Score: <span class="bold_num">{{ assesment?.score }}</span>
+          </div>
+
+          <div class="tab-pane fade show active " id="pills-home">
+            <form [formGroup]="assesmentForm" (ngSubmit)="onSubmit()">
+              <div class="input_field">
+                <label>Select user to transfer results *</label>
+                <ng-select
+                  [items]="userofSelecteCityResponse"
+                  bindValue="userID"
+                  bindLabel="userName"
+                  formControlName="transferToUserID"
+                  [multiple]="false"
+                  class="form-control analyst_multi_select"
+                  [searchable]="true"
+                  placeholder="Choose a user to transfer results"
+                  (change)="selectedUser($event)"
+                >
+                  <ng-template
+                    ng-label-tmp
+                    let-item="item "
+                    class="select_item"
+                  >
+                    {{ item.userName }}
+                  </ng-template>
+
+                  <ng-template ng-option-tmp let-item="item">
+                    {{ item.userName }}
+                  </ng-template>
+                </ng-select>
+
+                <div
+                  class="error-msg"
+                  *ngIf="
+                    assesmentForm.get('transferToUserID')?.invalid &&
+                    (isSubmitted ||
+                      assesmentForm.get('transferToUserID')?.touched)
+                  "
+                >
+                  Please select at least one user.
+                </div>
+              </div>
+
+                <ng-container *ngIf="selectedUserAssesment != null">
+                    <h5>Transfer to </h5>
+                    <div class="details_list">City: <span>{{ selectedUserAssesment.cityName }}</span></div>
+                    <div class="details_list">State: <span>{{ selectedUserAssesment.state }}</span></div>
+                    <div class="details_list">UserName: <span>{{ selectedUserAssesment.userName }}</span></div>
+                    <div class="details_list">
+                    Score:
+                    <span class="bold_num">{{ selectedUserAssesment.score }}</span>
+                    </div>
+                </ng-container>
+              <button type="submit" class="common_button w-100 mt-4">
+                {{ "Import" }}
+                <span
+                  *ngIf="loading"
+                  class="spinner-border spinner-border-sm ms-2"
+                ></span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

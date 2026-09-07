@@ -1,0 +1,602 @@
+/* Target first two bars */
+::ng-deep app-city-user-dashboard .city_piller {
+  flex: 0 0 auto;
+  width: calc(49% - 6px);
+}
+
+/* Target third (or last) bar */
+::ng-deep app-city-user-dashboard app-ag-bar:nth-child(2) {
+  flex: 1;
+}
+
+::ng-deep app-city-user-dashboard .outer_graph {
+  width: 100%;
+}
+
+.city_piller {
+  background-color: #fff;
+  padding: 20px;
+  position: relative;
+  border-radius: 10px;
+  box-shadow: 0px 7px 20px 0px rgb(0 0 0 / 5%);
+}
+
+.city_piller > .input_field .analyst_multi_select {
+  width: 220px;
+  padding: 0;
+  border: 0;
+  max-width: 100%;
+}
+.city_piller > .input_field .analyst_multi_select input[type="text"] {
+  line-height: 26px;
+}
+
+.city_piller + app-ag-bar {
+  border-radius: 15px;
+  background-color: #fff;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0px 7px 20px 0px rgb(0 0 0 / 5%);
+}
+
+::ng-deep .city_piller + app-ag-bar > div {
+  width: 100%;
+}
+
+.outer_graph {
+  border-radius: 15px;
+  overflow: hidden;
+  padding-top: 30px;
+  background-color: #fff;
+}
+
+::ng-deep .city_piller .input_field .analyst_multi_select input[type="text"] {
+  line-height: 26px;
+}
+
+.city_piller {
+  background-color: #fff;
+  padding: 24px 34px;
+  position: relative;
+  border-radius: 10px;
+}
+/* .city_piller > .input_field {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+} */
+.city_piller .input_field .analyst_multi_select {
+  width: 220px;
+  padding: 0;
+  border: 0;
+}
+.city_piller .input_field .analyst_multi_select input[type="text"] {
+  line-height: 26px;
+}
+
+::ng-deep .city_piller .input_field .analyst_multi_select .ng-select-container {
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  min-height: 36px;
+  align-items: center;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  appearance: none !important;
+  height: 100%;
+  border-radius: 100px;
+  border-radius: 12px !important;
+  padding: 10px !important;
+  border: 1px solid #efefef !important;
+  /* box-shadow: 0 4px 12px rgba(0,0,0,0.05); */
+}
+
+.city_piller
+  .input_field
+  .analyst_multi_select
+  .ng-select-container
+  .ng-value-container {
+  padding-left: 5px;
+}
+.city_piller
+  .input_field
+  .analyst_multi_select
+  .ng-select-container
+  .ng-value-container
+  > .ng-input {
+  padding-right: 45px;
+  padding-left: 15px;
+}
+
+.mb_15 {
+  margin-bottom: 15px;
+}
+
+.city_piller + app-ag-bar {
+  border-radius: 15px;
+  background-color: #ffffff;
+  overflow: hidden;
+  display: flex;
+}
+
+.city_piller + app-ag-bar > div {
+  width: 100%;
+}
+
+.city_piller .input_field {
+  min-width: 150px;
+  position: relative;
+  margin-bottom: 0;
+}
+
+.faq_sidebar_item.active .faq_sidebar_item_inner:after {
+  background-color: #304a43;
+}
+.faq_sidebar_item.active .faq_sidebar_item_inner svg > rect {
+  fill: #304a43;
+}
+.faq_inner_svg {
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.02);
+  background: #7ac2ae;
+  z-index: 2;
+  height: 50px;
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq_inner_svg img {
+  width: 27px;
+}
+
+/*color shades*/
+
+.faq_sidebar_item:nth-child(1) .faq_inner_svg {
+  background-color: #b79b61;
+}
+
+.faq_sidebar_item:nth-child(2) .faq_inner_svg {
+  background-color: #d46b4a;
+}
+.faq_sidebar_item:nth-child(3) .faq_inner_svg {
+  background-color: #9e7c5d;
+}
+.faq_sidebar_item:nth-child(4) .faq_inner_svg {
+  background-color: #b75e3a;
+}
+.faq_sidebar_item:nth-child(5) .faq_inner_svg {
+  background-color: #f2a57a;
+}
+.faq_sidebar_item:nth-child(6) .faq_inner_svg {
+  background-color: #d4a29c;
+}
+.faq_sidebar_item:nth-child(7) .faq_inner_svg {
+  background-color: #a97b6a;
+}
+.faq_sidebar_item:nth-child(8) .faq_inner_svg {
+  background-color: #c9977f;
+}
+.faq_sidebar_item:nth-child(9) .faq_inner_svg {
+  background-color: #8e5a3d;
+}
+.faq_sidebar_item:nth-child(10) .faq_inner_svg {
+  background-color: #b89c70;
+}
+.faq_sidebar_item:nth-child(11) .faq_inner_svg {
+  background-color: #d39a6a;
+}
+.faq_sidebar_item:nth-child(12) .faq_inner_svg {
+  background-color: #9c5e3b;
+}
+.faq_sidebar_item:nth-child(13) .faq_inner_svg {
+  background-color: #7a4a37;
+}
+.faq_sidebar_item:nth-child(14) .faq_inner_svg {
+  background-color: #5f4033;
+}
+
+.faq_sidebar_item.active .current-active span.faq_inner_svg {
+  background-color: var(--Secondary-Color) !important;
+  border-color: var(--Secondary-Color) !important;
+}
+
+.faq_sidebar_item.active .current-active.faq_sidebar_item_inner p {
+  color: var(--Dark-Bg-Color) !important;
+}
+.faq_sidebar_item.active {
+  cursor: pointer;
+}
+
+.dashboard_card_inner span {
+  display: inline-block;
+  background-color: #304a43;
+}
+.dashboard_card_inner span {
+  display: flex;
+  /* background-color: #12352f; */
+  background-color: #d1eae1;
+  padding: 10px;
+  border-radius: 100px;
+  width: 90px;
+  height: 90px;
+  align-items: center;
+  justify-content: center;
+}
+.dashboard_card_inner span svg {
+  width: 40px;
+  height: 40px;
+}
+
+.dashboard_card {
+  width: 100%;
+  display: block;
+  position: relative;
+  z-index: 5;
+  padding: 24px;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: 0.3s all;
+  background-color: #ffffff !important;
+  background-image: url(https://veridianurbansystems.com/image-36.png);
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  background-size: 80%;
+  background-blend-mode: soft-light;
+  box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03),
+    0px 0px 1px 0px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0px 7px 20px 0px rgb(0 0 0 / 30%);   */
+}
+.dashboard_cards {
+  width: 100%;
+}
+.dashboard_number h4 {
+  /* font-size: 26px; */
+  color: #193b36;
+  line-height: 30px;
+  margin: 5px 0;
+  font-weight: 500;
+  font-size: 20px;
+  /* margin-bottom: 8px; */
+}
+
+.dashboard_number h5 {
+  color: #12352f;
+  font-size: 28px;
+  line-height: normal;
+  font-weight: 700;
+}
+.dashboard_card:after {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+  width: 210px;
+  height: 210px;
+  z-index: 1;
+  top: -105px;
+  right: -120px;
+  background-color: rgb(122 194 174 / 20%);
+}
+.dashboard_card:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+  width: 210px;
+  height: 210px;
+  z-index: -1;
+  background-color: rgb(122 194 174 / 10%);
+  top: -145px;
+  right: -55px;
+}
+.city_list {
+  overflow: auto;
+}
+
+::ng-deep app-city-user-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 24px;
+}
+::ng-deep app-city-user-dashboard app-ag-bar {
+  flex: 1;
+}
+
+.faq_sidebar_item_inner {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  grid-gap: 16px;
+  position: relative;
+}
+.faq_sidebar_item_inner p {
+  color: #3e3e3e;
+  /* font-family: Montserrat; */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+  flex: 1;
+  opacity: 0.4 !important;
+  cursor: pointer;
+}
+.faq_sidebar_item.active .faq_sidebar_item_inner p {
+  opacity: 1 !important;
+}
+.faq_sidebar_item_inner:after {
+  content: "";
+  width: 1px;
+  height: 50px;
+  display: block;
+  background-color: #304a43;
+  position: absolute;
+  left: 24px;
+  bottom: -30px;
+}
+.faq_sidebar_item:last-child .faq_sidebar_item_inner:after {
+  content: normal;
+}
+.faq_sidebar_inner {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 20px;
+}
+
+/* .dashboard_card:hover {
+    transform: scale(1.04);
+} */
+
+@keyframes ping {
+  75%,
+  100% {
+    opacity: 0;
+    transform: scale(2);
+  }
+}
+.dashboard_card_inner {
+  display: flex;
+  flex-wrap: wrap;
+  grid-gap: 14px;
+  align-items: center;
+}
+/* .dashboard_card2 .dashboard_card_inner span {
+    background-color: #5DAAEE !important;
+}
+.dashboard_card .dashboard_card_inner span path{
+    fill: #ffffff !important;
+}
+.dashboard_card3 .dashboard_card_inner span path{
+    fill: rgb(18, 53, 47) !important;
+}
+
+.dashboard_card3 .dashboard_card_inner span {
+    background: #EFBF04 !important;
+} */
+.calender_icon {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 0;
+}
+.city_piller > .align-items-end {
+  background-color: #25453f0d;
+  border-radius: 10px;
+  padding: 10px 6px 10px 0;
+  margin-bottom: 20px;
+}
+.pillar-header {
+  border-bottom: 1px solid #e9ebec;
+  padding: 16px;
+}
+
+.pillar-title {
+  font-size: 22px;
+  line-height: 1.3;
+  font-weight: 600;
+  color: #12352f;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.separator {
+  font-weight: 700;
+  color: #efbf04;
+}
+
+.progress-text {
+  font-weight: 500;
+  color: #555;
+}
+
+.city-text {
+  font-weight: 600;
+  color: #0079ad;
+}
+.piller_sub {
+  font-weight: 400;
+  font-size: 16px;
+  color: #00000096;
+  line-height: normal;
+}
+.piller_sub_city-text {
+  font-weight: 600;
+  color: #397b69;
+}
+
+@media (max-width: 768px) {
+  .pillar-title {
+    font-size: 18px;
+  }
+}
+
+.tooltip-overlay {
+  background: transparent;
+}
+
+
+/* chart css */
+.chart-wrapper {
+  position: relative;
+  display: inline-block;
+  padding: 20px;
+  background: linear-gradient(135deg, #f8fafa 0%, #ffffff 100%);
+  border-radius: 16px;
+  margin-top: 20px;
+  /* box-shadow: 0 4px 20px rgba(47, 72, 65, 0.08); */
+}
+
+/* Enhance legend appearance */
+::ng-deep .apexcharts-legend {
+  padding: 12px 16px;
+  background:linear-gradient(135deg, #f8fafa 0%, #ffffff 100%);;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  height: 200px;
+}
+
+::ng-deep .apexcharts-legend-series {
+  transition: all 0.3s ease;
+}
+
+::ng-deep .apexcharts-legend-series:hover {
+  transform: translateX(4px);
+  opacity: 0.8;
+}
+
+/* Custom tooltip styling */
+::ng-deep .chart-tooltip .tooltip-inner {
+  background: linear-gradient(135deg, #2f4841 0%, #4a7167 100%);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+::ng-deep .chart-tooltip .tooltip-arrow::before {
+  border-top-color: #2f4841;
+}
+
+/* Enhance radial bar hover effect */
+::ng-deep .apexcharts-radialbar .apexcharts-series path {
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+::ng-deep .apexcharts-radialbar .apexcharts-series:hover path {
+  filter: drop-shadow(0 4px 8px rgba(47, 72, 65, 0.2));
+  transform: scale(1.02);
+}
+
+.apx_chart_new {
+  flex: 1;
+  border-radius: 15px;
+  background-color: #fff;
+  overflow: hidden;
+  display: flex;
+  box-shadow: 0px 7px 20px 0px rgb(0 0 0 / 5%);
+  flex-direction: column;
+}
+.card_heading {
+  border-bottom: 1px solid #e9ebec;
+  padding: 16px;
+}
+.card_heading h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+@media only screen and (max-width: 1750px) {
+  .city_piller .input_field .analyst_multi_select {
+     width: auto !important;
+  }
+
+}
+
+
+@media only screen and (max-width: 1530px) {
+  .dashboard_card_inner span {
+    width: 70px;
+    height: 70px;
+  }
+  .dashboard_number h4 {
+    font-size: 18px;
+  }
+  .dashboard_card_inner span svg {
+    width: 34px;
+    height: 34px;
+  }
+
+}
+
+
+
+@media only screen and (max-width: 1530px) {
+  .dashboard_number h4 {
+    font-size: 20px;
+    line-height: 40px;
+  }
+  .dashboard_number h5 {
+    font-size: 16px;
+  }
+  .main_area .sub_menu .nav_links svg {
+    width: auto;
+    height: auto;
+  }
+  .content_area .inner_content_area {
+    padding: 30px !important;
+  } 
+
+}
+
+@media only screen and (max-width: 1440px) {
+  .dashboard_card_inner .dashboard_number {
+      flex: 1;
+  }
+  .dashboard_number h4 {
+      font-size: 18px;
+      line-height: 28px;
+  }
+}
+
+
+@media only screen and (max-width: 1300px) {
+  .content_area .inner_content_area {
+    padding: 20px;
+  }
+  .dashboard_card {
+    padding: 24px 14px;
+  }
+  .dashboard_number h4{
+      font-size: 16px;
+      line-height: 20px;
+  }
+  ::ng-deep .city_piller .input_field .analyst_multi_select .ng-select-container .ng-value-container {
+      padding-left: 0px !important;
+  }
+  /* ::ng-deep .city_piller .input_field .analyst_multi_select .ng-select-container .ng-clear-wrapper .ng-clear{
+    line-height: normal;
+  } */
+  .pillar-title {
+    font-size: 20px;
+  }
+  .city_piller{
+    padding: 24px 24px;
+  }
+  /* .apx_chart_new .chart-wrapper {
+    width: 100%;
+  }
+  ::ng-deep .apx_chart_new .chart-wrapper .apexcharts-legend {
+      left: 10px !important;
+  } */
+
+
+}
+
+

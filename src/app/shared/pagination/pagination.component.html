@@ -1,0 +1,41 @@
+<div class="pagination_outer" *ngIf="totalPages && !isLoader">
+  <p class="showing_data">
+    <b>Showing: {{ (currentPage - 1) * pageSize + 1 }} to
+      {{ minValue }}</b>
+    of {{ totalPage }} results
+  </p>
+
+  <ol class="cus_pagination">
+    <!-- Previous -->
+    <li>
+      <span class="pagi_label" [class.disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">
+        Previous
+      </span>
+    </li>
+
+    <!-- Pages -->
+    <li *ngFor="let page of getPages()" [class.active]="currentPage === page">
+      <span *ngIf="page !== '...'" (click)="changePage(page)">
+        {{ page }}
+      </span>
+      <span *ngIf="page === '...'">...</span>
+    </li>
+
+    <!-- Next -->
+    <li>
+      <span class="pagi_label" [class.disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">
+        Next
+      </span>
+    </li>
+  </ol>
+</div>
+<div class="no_result_found" *ngIf="!totalPages && !isLoader">
+  <div class="no_result_found_inner">
+      <h3 *ngIf="selectedYear == currentYear"><i class="fas fa-search"></i> No Result Found</h3>
+      <h3 *ngIf="selectedYear != currentYear"><i class="fas fa-search"></i> No result from previous year </h3>
+  </div>
+</div>
+
+<div *ngIf="isLoader"  class="loader_main">
+  <div  class="loader"></div>
+</div>

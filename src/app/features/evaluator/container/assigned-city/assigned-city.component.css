@@ -1,0 +1,9 @@
+.no_result_found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.no_result_found h3{    
+    font-weight: 700;
+}

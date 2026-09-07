@@ -1,0 +1,153 @@
+<div class="heading_area">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-auto">
+            <h3 class="page_head">View Kpi Layers</h3>
+        </div>
+        <div class="col-md-3 ms-auto">
+            <div class="compare_select input_field input_flex">
+                <select [(ngModel)]="selectedYear" (change)="GetAnalyticalLayerResults()" name="selectedYear"
+                    class="form-control analyst_multi_select">
+                    <option *ngFor="let year of commonService.applicateYears" [value]="year">
+                        {{ year }}
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="compare_select input_field input_flex">
+                <ng-select [items]="kpis" bindValue="layerID" bindLabel="layerNmme" [searchable]="true"
+                    class="form-control analyst_multi_select" [placeholder]="!selectedkpiLayerID ?'Search by Kpis':''"
+                    [(ngModel)]="selectedkpiLayerID" (change)="kpiChanged()" [searchFn]="customSearchFn">
+                    <ng-template ng-label-tmp let-item="item" class="select_item">
+                        {{ item.layerCode }}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        ({{ item.layerCode }}) {{ item.layerName }}
+                    </ng-template>
+                </ng-select>
+
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="compare_select input_field input_flex">
+                <ng-select [items]="cityList" bindValue="cityID" bindLabel="cityName" [searchable]="true"
+                    class="form-control analyst_multi_select" [placeholder]="!selectedCityID? 'Select Cities' :''"
+                    [(ngModel)]="selectedCityID" (change)="GetAnalyticalLayerResults()">
+                    <ng-template ng-label-tmp let-item="item" class="select_item">
+                        {{ item.cityName }}
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                        {{ item.cityName }}, {{ item.state }} ({{ item.score?.toFixed(1) || 'NA'}})
+                    </ng-template>
+                </ng-select>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="table_outer compare_city_table">
+    <div class="table_custom_inner">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>S.No.</th>
+                    <th>City</th>
+                    <th>Kpi Layer</th>
+                    <th>Condition</th>
+                    <th>Category1</th>
+                    <th>Category2</th>
+                    <th>Category3</th>
+                    <th>Category4 </th>
+                    <th>Category5 </th>
+                    <th class="action_th">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let kpi of kpiLayersResponse?.data; let i = index">
+                    <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+
+                    <td>
+                        <div class="kpi_city kpi_td_data">
+                            <p>{{ kpi.city?.cityName }}</p> ({{ kpi.city?.country }})
+                        </div>
+                    </td>
+                    <td>
+                        <div class="kpi_layaer kpi_td_data">
+                            <p>{{ kpi.layerName }} </p>({{kpi.layerCode}})
+                        </div>
+                    </td>
+                    <td>
+                        <div class="kpi_layaer kpi_td_data">
+                            <p>{{ getConditionByid(kpi) }} </p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="kpi_cat01 kpi_td_data">
+                            <p>{{ kpi.calText1 || '-'}} </p>
+                            <div class="bold_num">{{ (kpi.aiCalValue1 ?? 0).toFixed(2) }}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="kpi_cat02 kpi_td_data">
+                            <p>{{ kpi.calText2 || '-'}} </p>
+                            <div class="bold_num">{{ (kpi.aiCalValue2 ??0).toFixed(2) }}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="kpi_cat03 kpi_td_data">
+                            <p>{{ kpi.calText3 || '-'}}</p>
+                            <div class="bold_num">{{ (kpi.aiCalValue3 ?? 0).toFixed(2) }}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="kpi_cat04 kpi_td_data">
+                            <p>{{ kpi.calText4 || '-'}} </p>
+                            <div class="bold_num">{{ (kpi.aiCalValue4 ?? 0).toFixed(2) }}</div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="kpi_cat05 kpi_td_data">
+                            <p>{{ kpi.calText5 || '-'}}</p>
+                            <div class="bold_num">{{ (kpi.aiCalValue5 ?? 0).toFixed(2) }}</div>
+                        </div>
+                    </td>
+                    <td class="action_td">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="action_icons">
+                                            <a style="cursor: pointer" matTooltip="View"
+                                                (click)="viewDetails(kpi); $event.preventDefault()">
+                                                <span style="display: inline-block">
+                                                    View Details
+                                                </span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div>
+                                            <!-- <input type="checkbox" (change)="CompareSelection()" /> -->
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+        (pageChange)="GetAnalyticalLayerResults($event)"></app-pagination>
+</div>
+
+<!-- Bootstrap 5 Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-end custom-sidebar kpi_sidebar" tabindex="-1" id="kpiLayerSidebar">
+    <div class="offcanvas-body">
+        <app-view-city-user-kpi-layer [selectedLayer]="selectedKpi"></app-view-city-user-kpi-layer>
+    </div>
+</div>

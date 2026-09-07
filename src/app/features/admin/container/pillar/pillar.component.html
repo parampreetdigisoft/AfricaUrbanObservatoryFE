@@ -1,0 +1,55 @@
+<div class="heading_area">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-auto">
+            <h3 class="page_head">Pillars</h3>
+        </div>
+    </div>
+</div>
+
+<div class="table_outer">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Pillars</th>
+                <th>Descriptions</th>
+                <th class="action_th">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pillar of pillars; let i = index">
+                <td>{{i+1}}</td>
+                <td>{{pillar.pillarName}}</td>
+                <td>
+                    <div class="desc" [class.collapsed]="!pillar.expand" [innerHTML]="decodeHtml(pillar.description)">
+                    </div>
+
+                    <a *ngIf="pillar.showToggle" class="read-more" (click)="pillar.expand = !pillar.expand">
+                        {{ pillar.expand ? 'Read Less' : 'Read More' }}
+                    </a>
+                </td>
+
+                <td>
+                    <div class="action_icons">
+                        <a style="cursor: pointer;" (click)="editPillar(pillar); $event.preventDefault()"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"
+                                fill="none">
+                                <path
+                                    d="M19.3355 6.1724L15.5809 2.41871C15.2658 2.10371 14.8385 1.92676 14.393 1.92676C13.9475 1.92676 13.5202 2.10371 13.2051 2.41871L2.84462 12.7783C2.68806 12.9339 2.56393 13.119 2.47942 13.323C2.39491 13.5269 2.3517 13.7455 2.3523 13.9663V17.7208C2.3523 18.1664 2.52933 18.5938 2.84444 18.9089C3.15954 19.224 3.58692 19.401 4.03255 19.401H18.1467C18.4141 19.401 18.6705 19.2948 18.8596 19.1058C19.0486 18.9167 19.1548 18.6603 19.1548 18.3929C19.1548 18.1255 19.0486 17.8691 18.8596 17.68C18.6705 17.4909 18.4141 17.3847 18.1467 17.3847H10.5015L19.3355 8.54912C19.4916 8.39308 19.6154 8.20782 19.6999 8.00392C19.7844 7.80002 19.8278 7.58147 19.8278 7.36076C19.8278 7.14005 19.7844 6.9215 19.6999 6.7176C19.6154 6.51369 19.4916 6.32843 19.3355 6.1724ZM7.6451 17.3847H4.36861V14.1082L11.4257 7.05117L14.7022 10.3277L7.6451 17.3847ZM16.1304 8.89945L12.8539 5.62296L14.3947 4.08216L17.6712 7.35866L16.1304 8.89945Z"
+                                    fill="#7AC2AE" />
+                            </svg>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div *ngIf="isLoader" class="loader_main">
+        <div class="loader"></div>
+    </div>
+</div>
+<div class="modal fade modal_design" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="">
+    <app-update-pillar [pillar]="selectedPillar" (pillarChange)="addUpdatePillar($event)"
+        [loading]="loading"></app-update-pillar>
+</div>

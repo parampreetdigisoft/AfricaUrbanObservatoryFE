@@ -1,0 +1,245 @@
+<ng-container *ngIf="!isLoader">
+    <div class="heading_area">
+        <div class="row justify-content-between align-items-center">
+            <div class="col-md-auto">
+                <h3 class="page_head">Cross-City Performance Comparison</h3>
+                <p style="font-size: 14px; color: #64748b;">
+                    Compare multiple cities across all evaluation categories
+                </p>
+            </div>
+
+            <div class="col-md-3 ms-auto">
+                <div class="compare_select input_field input_flex">
+                    <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName" [multiple]="true"
+                        [searchable]="true" class="form-control analyst_multi_select"
+                        [placeholder]="selectedPillars.length ? '' : 'View selected Pillars'"
+                        [(ngModel)]="selectedPillars" (change)="getRadarChartOptions()" [searchFn]="customSearchFn">
+                        <!-- ✅ IMPORTANT FIX -->
+                        <ng-template ng-multi-label-tmp>
+                            <span class="selexted_piller" *ngIf="selectedPillars.length === 1">
+                                {{ getPillarName(selectedPillars[0]) }}
+                            </span>
+
+                            <span class="selexted_piller" *ngIf="selectedPillars.length > 1">
+                                {{ getPillarName(selectedPillars[0]) }} +{{ selectedPillars.length - 1 }}
+                            </span>
+                        </ng-template>
+
+                        <ng-template ng-option-tmp let-item="item">
+                            {{ item.pillarName }}
+                        </ng-template>
+                    </ng-select>
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="compare_select input_field input_flex">
+                    <ng-select [items]="cities" bindValue="cityID" bindLabel="cityName" [multiple]="true"
+                        [searchable]="true" class="form-control analyst_multi_select"
+                        [placeholder]="selectedCities.length ? '' : 'Select Cities'" [(ngModel)]="selectedCities"
+                        (change)="pillarChanged()">
+                        <ng-template ng-label-tmp let-item="item" class="select_item">
+                            {{ item.cityName }}
+                        </ng-template>
+
+                        <ng-template ng-option-tmp let-item="item">
+                            {{ item.cityName }}, {{ item.state }} ({{ item.score?.toFixed(1) || 'NA'}})
+                        </ng-template>
+                    </ng-select>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="comparison-wrapper">
+        <div class="kpi-section">
+            <div class="dashboard_cards">
+                <div class="dashboard_cards_inner">
+                    <div class="row">
+                        <div class="kpi-card col-md-12">
+                            <div class="dashboard_card">
+                                <div class="dashboard_card_inner">
+                                    <div class="dashboard_card_top">
+                                        <span>
+                                            <svg _ngcontent-ng-c2609285825="" width="26" height="26" viewBox="0 0 26 26"
+                                                fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path _ngcontent-ng-c2609285825=""
+                                                    d="M24.8331 0.000153052H16.5469C16.3539 0.000153052 16.1978 0.156263 16.1978 0.349259V7.94343L13.1174 9.72333V5.83766C13.1174 5.67909 13.0104 5.54019 12.858 5.49963L3.66463 3.03628C3.56015 3.00801 3.44706 3.03013 3.36101 3.09651C3.27497 3.16289 3.22457 3.26492 3.22457 3.37432V17.0727L0.531351 17.0714C0.439159 17.0714 0.349428 17.1083 0.284277 17.1735C0.219129 17.2398 0.182251 17.3283 0.182251 17.4218V24.8252C0.182251 24.9174 0.219129 25.0059 0.284277 25.0723C0.349425 25.1375 0.439159 25.1743 0.531351 25.1743H24.8332C24.9253 25.1743 25.0151 25.1375 25.0802 25.0723C25.1454 25.0059 25.1823 24.9174 25.1823 24.8252V0.3491C25.1823 0.256908 25.1454 0.168404 25.0802 0.102026C25.0138 0.0368776 24.9253 0.000153052 24.8331 0.000153052ZM16.8972 0.699593H24.4825V24.4752H18.1606V7.41612C18.1606 7.29074 18.093 7.1752 17.9848 7.11374C17.8766 7.05104 17.7439 7.05104 17.6357 7.11374L16.8957 7.54029L16.8972 0.699593ZM9.93737 17.771V24.4752H5.75937V17.771H9.93737ZM17.4614 8.0222V10.5716L10.6366 14.5101V11.9607L17.4614 8.0222ZM10.6366 15.3177L17.4614 11.377V13.9264L10.6366 17.865V15.3177ZM10.6366 18.6722L17.4614 14.7324V17.2794L10.6366 21.2201V18.6722ZM10.6366 22.028L17.4614 18.0872V24.4756H10.6366V22.028ZM3.92384 3.8294L12.4177 6.1047V10.1266L10.1129 11.4579L10.1043 11.4628C10.0982 11.4665 10.092 11.4702 10.0871 11.4739C10.0822 11.4775 10.0785 11.48 10.0736 11.4837C10.0687 11.4874 10.065 11.4911 10.06 11.4948C10.0564 11.4984 10.0502 11.5034 10.0453 11.507L10.0355 11.5169L10.0219 11.5316L10.0133 11.5427C10.0096 11.5476 10.006 11.5525 10.0023 11.5587L9.99367 11.571C9.98998 11.5759 9.98752 11.5808 9.98506 11.5857L9.97646 11.6005L9.97031 11.614L9.96294 11.6312L9.95802 11.6447L9.95679 11.6459C9.95433 11.6521 9.95188 11.6582 9.95065 11.6644L9.94696 11.6779C9.94696 11.6841 9.9445 11.6902 9.94327 11.6963C9.94204 11.7025 9.94204 11.7074 9.94081 11.7136L9.93835 11.7295V11.7504V17.0717H3.92387L3.92384 3.8294ZM5.05964 17.77V24.4756H0.881637V17.7713L5.05964 17.77ZM19.4478 6.79809H21.9332C22.1262 6.79809 22.2836 6.64075 22.2836 6.44776V3.96229C22.2836 3.86887 22.2479 3.77914 22.1815 3.71276C22.1164 3.64638 22.0267 3.60951 21.9332 3.60951H19.4478C19.3556 3.60951 19.2658 3.64638 19.2007 3.71153C19.1343 3.77791 19.0987 3.86641 19.0987 3.95983V6.4453C19.0974 6.53872 19.1343 6.62846 19.1995 6.69483C19.2658 6.75998 19.3543 6.79809 19.4478 6.79809ZM19.7969 4.31262H21.5842V6.09991H19.7956L19.7969 4.31262ZM19.4478 11.897H21.9332C22.1262 11.897 22.2823 11.7422 22.2823 11.5492V9.06369C22.2836 8.97027 22.2467 8.88054 22.1815 8.81416C22.1164 8.74902 22.0267 8.71091 21.9332 8.71091H19.4478C19.3556 8.71091 19.2658 8.74779 19.2007 8.81416C19.1343 8.87931 19.0987 8.96782 19.0987 9.06124V11.5467C19.0974 11.6401 19.1343 11.7286 19.2007 11.795C19.2658 11.8602 19.3543 11.897 19.4478 11.897ZM19.7969 9.41157H21.5842V11.1989H19.7956L19.7969 9.41157ZM19.4478 16.9982H21.9332C22.0266 16.9982 22.1152 16.9613 22.1815 16.8962C22.2467 16.831 22.2836 16.7413 22.2836 16.6491V14.1612C22.2823 13.9682 22.1262 13.8121 21.9332 13.8121H19.4478C19.3543 13.8121 19.2658 13.8489 19.1995 13.9141C19.1343 13.9792 19.0974 14.0677 19.0962 14.1612V16.6466C19.0962 16.7401 19.1331 16.8298 19.1982 16.8962C19.2646 16.9625 19.3543 16.9994 19.4478 16.9982ZM19.7969 14.5127H21.5842L21.5854 16.3012H19.7956L19.7969 14.5127ZM19.4478 22.1006H21.9332C22.1262 22.1006 22.2836 21.9433 22.2836 21.7503V19.2648C22.2836 19.1714 22.2479 19.0817 22.1815 19.0165C22.1164 18.9501 22.0267 18.9132 21.9332 18.9132H19.4478C19.2548 18.9132 19.0987 19.0694 19.0987 19.2624V21.7478C19.0974 21.8412 19.1343 21.931 19.1995 21.9974C19.2658 22.0625 19.3543 22.1006 19.4478 22.1006ZM19.7969 19.6151H21.5842V21.4024H19.7956L19.7969 19.6151ZM5.39774 9.64135V6.36302C5.39774 6.17003 5.55385 6.01391 5.74684 6.01391C5.93983 6.01391 6.09595 6.17002 6.09595 6.36302V9.64135C6.09595 9.83434 5.93984 9.99046 5.74684 9.99046C5.55386 9.99046 5.39774 9.83435 5.39774 9.64135ZM7.39891 12.1318L7.39768 9.19394C7.39768 9.00095 7.55502 8.84361 7.74802 8.84361C7.941 8.84361 8.09712 9.00095 8.09712 9.19394V12.1318V12.1305C8.09712 12.3235 7.94101 12.4809 7.74802 12.4809C7.55503 12.4809 7.39768 12.3235 7.39768 12.1305L7.39891 12.1318ZM6.29999 12.9099C6.39341 12.9099 6.48191 12.9455 6.54706 13.0119C6.61344 13.077 6.65031 13.1668 6.65031 13.259V15.7285C6.64417 15.9166 6.48929 16.0677 6.29998 16.0677C6.11067 16.0677 5.95578 15.9166 5.95087 15.7285V13.259C5.95087 13.1668 5.98775 13.0771 6.0529 13.0119C6.11805 12.9468 6.20779 12.9099 6.29999 12.9099ZM10.1217 9.00217V7.64021C10.1217 7.44722 10.2791 7.28988 10.4721 7.28988C10.6651 7.28988 10.8212 7.44722 10.8212 7.64021V9.00217C10.8212 9.19516 10.6651 9.35251 10.4721 9.35251C10.2791 9.35251 10.1217 9.19517 10.1217 9.00217Z"
+                                                    fill="#12352f"></path>
+                                            </svg>
+                                        </span>
+                                    </div>
+                                    <div class="dashboard_number" *ngIf="maxCity">
+                                        <div class="card_ttile">
+                                            <h4>{{ maxCity.cityName }}</h4>
+                                            <h5>{{ maxCity.value.toFixed(2) }}</h5>
+                                        </div>
+                                        <div class="pileer_info">
+                                            <h6 class="city_pile">Highest City</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kpi-card col-md-12">
+                            <div class="dashboard_card dashboard_card2">
+                                <div class="dashboard_card_inner" *ngIf="highestPillar">
+                                    <span>
+                                        <img [src]="environment + '/' + highestPillar.imagePath"
+                                            [alt]="'No image found'" />
+                                    </span>
+                                    <div class="dashboard_number">
+
+                                        <div class="card_ttile">
+                                            <h4>{{ highestPillar.pillarName }}</h4>
+                                            <h5>{{ highestPillar.value.toFixed(2) }}</h5>
+                                        </div>
+                                        <div class="pileer_info">
+                                            <h6 class="city_pile">Highest Pillar</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kpi-card col-md-12">
+                            <div class="dashboard_card dashboard_card3">
+                                <div class="dashboard_card_inner" *ngIf="lowestPillar">
+                                    <span>
+                                        <img [src]="environment + '/' + lowestPillar.imagePath"
+                                            [alt]="'No image found'" />
+                                    </span>
+                                    <div class="dashboard_number">
+                                        <div class="card_ttile">
+                                            <h4>{{ lowestPillar.pillarName }}</h4>
+                                            <h5>{{ lowestPillar.value.toFixed(2) }}</h5>
+                                        </div>
+                                        <div class="pileer_info">
+                                            <h6 class="city_pile">Lowest Pillar</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="kpi-card col-md-12">
+                            <div class="dashboard_card dashboard_card3">
+                                <div class="dashboard_card_inner">
+                                    <span>
+
+                                        <svg width="26" height="19" viewBox="0 0 26 23" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M3.23803 19.0352V18.5745C3.23803 18.0973 3.54698 17.6877 3.97732 17.5111L3.97869 6.1793C3.54977 6.00414 3.23941 5.59453 3.23941 5.11592V4.65526C2.70566 4.54216 2.28912 4.08288 2.28912 3.52843V3.09396H1.48088C0.845053 3.09396 0.326481 2.57535 0.326481 1.93956C0.326481 1.30373 0.845089 0.785156 1.48088 0.785156H24.1721C24.8079 0.785156 25.3265 1.30376 25.3265 1.93956C25.3265 2.57539 24.8079 3.09396 24.1721 3.09396H23.3638V3.52843C23.3638 4.08288 22.9473 4.54216 22.4163 4.65526V5.11592C22.4163 5.59315 22.1074 6.00276 21.677 6.1793L21.6743 17.514C22.1032 17.6891 22.4135 18.0987 22.4135 18.5773V19.038C22.9473 19.1511 23.3611 19.6104 23.3611 20.1648V20.5993H24.1693C24.8052 20.5993 25.3237 21.1179 25.3237 21.7537C25.3237 22.3895 24.8051 22.9081 24.1693 22.9081L1.48236 22.9067C0.846532 22.9067 0.327959 22.3881 0.327959 21.7523C0.327959 21.1165 0.846567 20.5979 1.48236 20.5979H2.2906V20.1634C2.28922 19.6076 2.70565 19.1496 3.23803 19.0352ZM22.6438 20.5965V20.162C22.6438 19.9096 22.4121 19.7275 22.1569 19.7275H16.855C16.5971 19.7275 16.3682 19.9096 16.3682 20.162V20.5965H22.6438ZM15.6457 20.5965V20.162C15.6457 19.6076 16.0622 19.1483 16.596 19.0352V18.5745C16.596 18.0973 16.9049 17.6877 17.3353 17.5111V6.1793C16.9063 6.00414 16.596 5.59453 16.596 5.11592V4.65526C16.0622 4.54216 15.6457 4.08288 15.6457 3.52843V3.09396L10.0073 3.09534V3.52981C10.0073 4.08425 9.5908 4.54354 9.05704 4.65664V5.1173C9.05704 5.59453 8.74809 6.00414 8.31776 6.18068V17.5139C8.74668 17.6891 9.05704 18.0987 9.05704 18.5773V19.038C9.5908 19.1511 10.0073 19.6103 10.0073 20.1648V20.5993L15.6457 20.5979V20.5965ZM9.28739 20.5965V20.162C9.28739 19.9096 9.05568 19.7275 8.80053 19.7275H3.49864C3.24073 19.7275 3.01178 19.9096 3.01178 20.162V20.5965H9.28739ZM1.48251 22.1853H24.1737C24.5516 22.1853 24.7557 21.7233 24.4785 21.4461C24.3985 21.3661 24.2909 21.3192 24.1737 21.3192L1.48251 21.3178C1.1046 21.3178 0.900485 21.7798 1.1777 22.0571C1.25493 22.1357 1.36251 22.1853 1.48251 22.1853ZM3.0093 3.097V3.53147C3.0093 3.78386 3.24102 3.96593 3.49617 3.96593H8.79806C9.05597 3.96593 9.28492 3.78387 9.28492 3.53147V3.097H3.0093ZM1.48251 2.37703H24.1737C24.5516 2.37703 24.7557 1.91498 24.4785 1.63774C24.3985 1.55775 24.2909 1.51085 24.1737 1.51085H1.48251C1.1046 1.51085 0.900485 1.9729 1.1777 2.25014C1.25493 2.32737 1.36251 2.37703 1.48251 2.37703ZM22.6441 3.097H16.366V3.53147C16.366 3.78386 16.5977 3.96593 16.8529 3.96593H22.1547C22.4127 3.96593 22.6416 3.78387 22.6416 3.53147L22.643 3.097H22.6441ZM21.6939 4.68449H17.3135V5.11896C17.3135 5.37136 17.5452 5.55343 17.8004 5.55343H21.2043C21.4622 5.55343 21.6912 5.37137 21.6912 5.11896L21.6926 4.68449H21.6939ZM20.956 6.27199H18.0541V17.4202H20.956V6.27199ZM17.315 19.0091H21.6953V18.5746C21.6953 18.3222 21.4636 18.1401 21.2085 18.1401H17.8046C17.5466 18.1401 17.3177 18.3222 17.3177 18.5746L17.3163 19.0091H17.315ZM4.69796 17.4216H7.59987V6.27195H4.69796V17.4216ZM8.33894 4.68449H3.96001V5.11896C3.96001 5.37136 4.19172 5.55343 4.44688 5.55343H7.85081C8.10872 5.55343 8.33767 5.37137 8.33767 5.11896V4.68449H8.33894ZM8.33894 19.009V18.5746C8.33894 18.3222 8.10723 18.1401 7.85208 18.1401H4.44677C4.18886 18.1401 3.95991 18.3222 3.95991 18.5746V19.009H8.33894Z"
+                                                fill="white" />
+                                        </svg>
+                                    </span>
+                                    <div class="dashboard_number" *ngIf="avgScore">
+                                        <div class="card_ttile">
+                                            <h4>All Pillars</h4>
+                                            <h5>{{ avgScore }}</h5>
+                                        </div>
+                                        <div class="pileer_info">
+                                            <h6 class="city_pile">Average Score</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chart-section">
+            <div class="chart-container" id="chart" *ngIf="radarChartOptions && radarChartOptions?.series">
+                <apx-chart [series]="radarChartOptions.series!" [chart]="radarChartOptions.chart!"
+                    [xaxis]="radarChartOptions.xaxis!" [yaxis]="radarChartOptions.yaxis!"
+                    [stroke]="radarChartOptions.stroke!" [fill]="radarChartOptions.fill!"
+                    [markers]="radarChartOptions.markers!" [legend]="radarChartOptions.legend!"
+                    [plotOptions]="radarChartOptions.plotOptions!" [tooltip]="radarChartOptions.tooltip!"
+                    [colors]="radarChartOptions.colors!" [responsive]="radarChartOptions.responsive!">
+                </apx-chart>
+            </div>
+        </div>
+
+    </div>
+    <div class="table_outer table-responsive cross_city" *ngIf="chartTableData && chartTableData.length > 0">
+        <table class="table table-striped table-bordered compare_table">
+            <thead>
+                <tr>
+                    <th>Pillar Name</th>
+                    <th *ngFor="let city of chartTableData">
+                        <div class="city_piller compare_piller">
+                            <div class="position-relative city_card_outter">
+                                <div class="city_card">
+                                    <div class="city_card_inner">
+                                        <div class="melbourne-card-text">
+                                            <div class="card_title card_title--compact">
+                                                <h2 class="city_cards_h1 country_header_name">{{ city.cityName }}</h2>
+                                                <div class="header_Score">
+                                                    <span class="header_score_chip">
+                                                        AI Score <strong>{{ city.value.toFixed(2) }}</strong>
+                                                    </span>
+                                                    <span
+                                                        class="research_date"
+                                                        [ngClass]="commonService.researchStatusClass(city.updatedAt)"
+                                                        [utcToLocalTooltip]="
+                                                            commonService.isValidDate(city?.updatedAt)
+                                                                ? city?.updatedAt
+                                                                : 'null'
+                                                        "
+                                                        matTooltip
+                                                        tooltipFormat="fullDate">
+                                                        {{ commonService.getGeneratedTime(city?.updatedAt) }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor="let piller of pillarWiseData"
+                    [matTooltip]="piller.isAccess ? '' : 'Upgrade your plan to access this feature.'"
+                    [class]="!piller.isAccess ?'pillar_disabled':''">
+                    <td>
+                        <div class="faq_sidebar_item" [class.active]="piller.isAccess">
+                            <div class="faq_sidebar_item_inner">
+                                <span class="faq_inner_svg">
+                                    <img [src]="environment + '/' + piller.imagePath" [alt]="'No image found'" />
+                                </span>
+                                <div class="pillar_confidence_outer">
+                                    <p>{{ piller.pillarName }}</p>
+                                    <div class="city_cards_p"> Avg Score:
+                                        <span>
+                                            {{ calculatePillarAvg(piller.pillarID) }}
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <ng-container *ngFor="let value of piller.values">
+                        <td>
+                            <div class="kpi_city kpi_td_data">
+                                <app-circular-score [value]="value.value"></app-circular-score>
+
+                            </div>
+                        </td>
+                    </ng-container>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</ng-container>
+
+<div *ngIf="isLoader" class="loader_main">
+    <div class="loader"></div>
+</div>

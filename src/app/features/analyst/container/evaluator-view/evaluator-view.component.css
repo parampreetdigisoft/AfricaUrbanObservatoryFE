@@ -1,0 +1,52 @@
+.no_result_found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.no_result_found h3{    
+    font-weight: 700;
+}
+
+
+/* Common button style */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* space between text and spinner */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  min-width: 110px; /* keeps consistent size even with spinner */
+}
+
+/* Confirmed button (green) */
+.btn-confirmed {
+  background-color: #4CAF50;
+  color: white;
+  cursor: default;
+}
+
+.btn-confirmed:hover {
+  background-color: #45a049;
+}
+
+/* Resend button (blue) */
+.btn-resend {
+  background-color: #007BFF;
+  color: white;
+}
+
+.btn-resend:hover {
+  background-color: #0056b3;
+}
+
+/* Spinner adjustment */
+button .spinner-border {
+  width: 14px;
+  height: 14px;
+}

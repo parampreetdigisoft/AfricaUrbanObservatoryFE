@@ -1,0 +1,37 @@
+
+
+
+/*===== Confirmation popup =========*/
+
+.custom_popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1050;
+    background: rgba(15, 14, 23, 0.72);
+    backdrop-filter: blur(8.5px);
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.popup_container {
+    border-radius: 15px;
+    background: var(--White-Color);
+    padding: 50px;
+    width: 460px;
+    max-width: 100%;
+}
+
+.confirm_check_icon svg {
+    height: 40px;
+    width: auto;
+    margin-bottom: 15px;
+}
+
+

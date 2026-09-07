@@ -1,0 +1,130 @@
+<div class="modal-dialog modal-dialog-centered">
+	<div class="modal-content">
+		<div class="modal-body">
+			<button (click)="closeModel()"
+				type="button"
+				class="btn-close"
+				data-bs-dismiss="modal"
+				aria-label="Close"></button>
+			<div class="row">
+				<div class="col-md">
+					<h4 class="modal_head">
+						{{ blog ? 'Edit Blog' : 'Add Blog' }}
+					</h4>
+				</div>
+				<div class="col-md-auto" *ngIf="imagePreview || blog?.imageUrl">
+				<img 
+					[src]="imagePreview ? imagePreview : (blog?.imageUrl ? urlBase + blog?.imageUrl : 'assets/images/default-profile.png')"
+					alt="Blog Image"
+					(error)="onImgError($event)"
+					class="pp_pic">
+				</div>
+
+			</div>
+			<div class="modal_tabs">
+
+				<form [formGroup]="blogForm"
+					(ngSubmit)="onSubmit()">
+
+					<!-- Title -->
+					<div class="input_field">
+						<label>Title *</label>
+						<input type="text"
+							formControlName="title"
+							placeholder="Enter title"
+							class="form-control">
+
+						<div *ngIf="blogForm.get('title')?.invalid && (blogForm.get('title')?.touched || isSubmitted)"
+							class="error-msg">
+							Title is required.
+						</div>
+					</div>
+
+					<!-- Category -->
+					<div class="input_field">
+						<label>Category *</label>
+						<input type="text"
+							formControlName="category"
+							placeholder="Enter category like- Urban Insights"
+							class="form-control">
+
+						<div *ngIf="blogForm.get('category')?.invalid && (blogForm.get('category')?.touched || isSubmitted)"
+							class="error-msg">
+							Category is required.
+						</div>
+					</div>
+
+					<!-- Author -->
+					<div class="input_field">
+						<label>Author *</label>
+						<input type="text"
+							formControlName="author"
+							placeholder="Enter author name"
+							class="form-control">
+
+						<div *ngIf="blogForm.get('author')?.invalid && (blogForm.get('author')?.touched || isSubmitted)"
+							class="error-msg">
+							Author is required.
+						</div>
+					</div>
+
+					<!-- Date -->
+					<div class="input_field">
+						<label>Publish Date</label>
+						<input 
+							(focus)="openPicker($event)"
+							type="date"
+							formControlName="publishDate"
+							class="form-control"
+							[min]="minDate">
+
+							<div *ngIf="blogForm.get('publishDate')?.invalid && (blogForm.get('publishDate')?.touched || isSubmitted)"
+								class="error-msg">
+								Publish date is required.
+							</div>
+					</div>
+
+					<div class="col">
+						<div class="input_field">
+							<label>Upload Image</label>
+							<input (change)="onFileChange($event)"
+								type="file"
+								class="form-control"
+								accept="image/*"
+								formControlName="imageFile">
+							<div *ngIf="blogForm.get('imageFile')?.invalid && (blogForm.get('imageFile')?.touched || isSubmitted)"
+								class="error-msg">
+								Image is required.
+							</div>
+						</div>
+					</div>
+
+					<!-- Description -->
+					<div class="input_field">
+						<label>Description *</label>
+
+						<quill-editor [format]="'html'"
+							[style]="{height: '200px'}"
+							formControlName="description"
+							placeholder="Enter description here...">
+						</quill-editor>
+
+						<div *ngIf="blogForm.get('description')?.invalid && (blogForm.get('description')?.touched || isSubmitted)"
+							class="error-msg">
+							Description is required.
+						</div>
+					</div>
+
+					<!-- Submit Button -->
+					<button type="submit"
+						class="common_button w-100 mt-4">
+						{{ blog ? 'Update Blog' : 'Save Blog' }}
+						<span *ngIf="loading"
+							class="spinner-border spinner-border-sm ms-2">
+						</span>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

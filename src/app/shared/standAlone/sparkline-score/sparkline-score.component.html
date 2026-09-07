@@ -1,0 +1,23 @@
+<div *ngIf="value !== null; else noData" class="sparkline-container" [matTooltip]="tooltipText == null ? '' : tooltipText" matTooltipPosition="above">
+  <div class="sparkline-track" >
+    <!-- Score indicator dot -->
+    <div class="score-dot" [style.left.%]="value" [style.background-color]="getColor(value)">
+      <div class="dot-pulse"></div>
+    </div>
+
+    <!-- Gradient segments -->
+    <div class="segment bad"></div>
+    <div class="segment poor"></div>
+    <div class="segment average"></div>
+    <div class="segment good"></div>
+    <div class="segment excellent"></div>
+  </div>
+
+  <span class="score-label" [style.color]="getColor(value)">
+    {{ formattedValue }}{{sign}}
+  </span>
+</div>
+
+<ng-template #noData>
+  <span class="no-data">NA</span>
+</ng-template>

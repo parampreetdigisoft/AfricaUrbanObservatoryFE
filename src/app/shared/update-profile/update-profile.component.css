@@ -1,0 +1,29 @@
+
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+
+.pp_pic
+{
+  height: 55px;
+  width: 55px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+.form-switch label {
+    font-size: 13px;
+}
+.auth_text{
+    font-size: 11px;
+}
+.form-switch input[type="checkbox"]{
+  box-shadow: none;
+  outline: none;
+}
+.form-switch input[type="checkbox"]:checked {
+    background-color: #397b69 !important;
+    border-color: #397b69;
+}

@@ -1,0 +1,27 @@
+
+.cus_pagination>li.active span {
+    background: #304a43;
+    color: #fff;
+}
+.pagi_label:hover {
+    color: #2e9573;
+}
+.pagi_label {
+    transition: 0.3s all;
+}
+
+.no_result_found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  text-align: center;
+  color: #6c757d; /* subtle grey */
+}
+
+.no_result_found h3 {    
+  font-weight: 600;        /* semi-bold, cleaner */
+  font-size: 20px;
+  color: #495057;          /* darker grey for text */
+  letter-spacing: 0.5px;
+}

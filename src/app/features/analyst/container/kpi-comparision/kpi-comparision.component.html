@@ -1,0 +1,228 @@
+<div class="heading_area">
+	<div class="row justify-content-between align-items-center">
+		<div class="col-md-auto">
+			<h3 class="page_head">
+				Cities Performance & Comparison
+			</h3>
+		</div>
+		<div class="col-auto ms-auto">
+			<app-ai-button [isAiViewEnabled]="isAiViewEnabled"
+				(onAiViewToggle)="onAiViewToggle($event)"></app-ai-button>
+		</div>
+
+
+		<div class="col-md-3 ms-auto">
+			<div class="compare_select input_field input_flex">
+				<ng-select [items]="kpis"
+					[multiple]="true"
+					[searchable]="true"
+					[placeholder]="selectedKpis.length ? '' : 'Search by Kpis'"
+					[(ngModel)]="selectedKpis"
+					[searchFn]="customSearchFn"
+					(change)="kpiChanged()"
+					[maxSelectedItems]="4"
+					bindValue="layerID"
+					bindLabel="layerNmme"
+					class="form-control analyst_multi_select">
+					<ng-template ng-label-tmp
+						let-item="item"
+						class="select_item">
+						{{ item.layerCode }}
+					</ng-template>
+					<ng-template ng-option-tmp
+						let-item="item">
+						({{ item.layerCode }}) {{ item.layerName }}
+					</ng-template>
+				</ng-select>
+
+
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="compare_select input_field input_flex">
+				<ng-select [items]="cities"
+					[multiple]="true"
+					[searchable]="true"
+					[placeholder]="selectedCities.length ? '' : 'Select Cities'"
+					[(ngModel)]="selectedCities"
+					[maxSelectedItems]="4"
+					(change)="kpiChanged()"
+					bindValue="cityID"
+					bindLabel="cityName"
+					class="form-control analyst_multi_select">
+					<ng-template ng-label-tmp
+						let-item="item"
+						class="select_item">
+						{{ item.cityName }}
+					</ng-template>
+
+
+					<ng-template ng-option-tmp
+						let-item="item">
+						{{ item.cityName }}, {{ item.state }} ({{ item.score?.toFixed(1) || 'NA'}})
+					</ng-template>
+				</ng-select>
+
+
+			</div>
+		</div>
+
+
+	</div>
+</div>
+<ng-container *ngIf="!isLoader">
+	<div *ngIf="chartOptions && chartOptions?.series"
+		id="chart">
+		<apx-chart [series]="chartOptions.series!"
+			[chart]="chartOptions.chart!"
+			[xaxis]="chartOptions.xaxis!"
+			[yaxis]="chartOptions.yaxis!"
+			[stroke]="chartOptions.stroke!"
+			[tooltip]="chartOptions.tooltip!"
+			[grid]="chartOptions.grid!"
+			[markers]="chartOptions.markers!"
+			[dataLabels]="chartOptions.dataLabels!"
+			[legend]="chartOptions.legend!">
+		</apx-chart>
+	</div>
+	<ng-container *ngIf="selectedKpis.length == 0 || totalRecords==0">
+		<app-pagination [totalPage]="totalRecords"
+			[currentPage]="currentPage"
+			[pageSize]="pageSize"
+			[isLoader]="isLoader"
+			(pageChange)="compareCities($event)"></app-pagination>
+	</ng-container>
+
+
+	<div *ngIf="chartTableData && chartTableData.length > 0"
+		class="table_outer table-responsive">
+		<table class="table table-striped table-bordered compare_table">
+			<thead>
+				<tr>
+					<th>KPI Name</th>
+
+
+					<th *ngFor="let city of chartTableData[0].cityValues">
+						<div class="city_piller compare_piller">
+							<div class="position-relative city_card_outter">
+								<div class="city_card">
+									<div class="city_card_inner">
+										<div class="melbourne-card-text">
+											<div class="card_title">
+												<h1 class="city_cards_h1">{{ city.cityName }}</h1>
+												<div class="header_Score">
+													<p class="city_cards_p">
+														Evaluation : {{ getCityScore(city.cityID) }}
+													</p>
+													<p *ngIf="isAiViewEnabled"
+														class="city_cards_p">
+														AI Score : {{ getCityScore(city.cityID,true) }}
+													</p>
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</th>
+
+
+					<th *ngIf="!isAiViewEnabled">
+						<div class="card_title">
+							<h1 class="city_cards_h1">Peer Group</h1>
+							<p class="city_cards_p">
+								Score : {{ getPeerScore() }}
+							</p>
+						</div>
+					</th>
+					<th>
+                        <div class="card_title">
+                            <h1 class="city_cards_h1">Action</h1>
+                            <p class="city_cards_p">
+                               Details
+                            </p>
+                        </div>
+                    </th>
+				</tr>
+			</thead>
+
+
+			<tbody>
+				<tr *ngFor="let row of chartTableData; let i = index">
+					<td>
+						{{ row.layerName }}
+						<div class="bold_num">
+							({{ row.layerCode }})
+						</div>
+					</td>
+
+
+					<ng-container *ngFor="let value of row.cityValues">
+						<td>
+
+
+							<div class="kpi_city kpi_td_data">
+								<app-circular-score [value]="value.value"></app-circular-score>
+								<app-circular-score *ngIf="isAiViewEnabled"
+									[value]="value.aiValue"></app-circular-score>
+							</div>
+						</td>
+					</ng-container>
+
+
+					<td *ngIf="!isAiViewEnabled">
+						<app-circular-score [value]="row.peerCityScore"></app-circular-score>
+					</td>
+					<td class="action_td">
+						<table>
+							<tbody>
+								<tr>
+									<div class="action_icons">
+										<a (click)=" getMutiplekpiLayerResults(row.layerID,i); $event.preventDefault()"
+											style="cursor: pointer" matTooltip="View details Kpi insights">
+											<span *ngIf="viewDetailIndex != i" style="display: inline-block">
+												<svg width="21" height="20" viewBox="0 0 21 20" fill="none"
+													xmlns="http://www.w3.org/2000/svg">
+													<g clip-path="url(#clip0_1444_1025)">
+														<path
+															d="M20.3195 9.61953C20.2906 9.55625 19.6062 8.03672 18.0945 6.525C16.0719 4.50547 13.5226 3.4375 10.7101 3.4375C7.89765 3.4375 5.34843 4.50547 3.32811 6.525C1.8164 8.03672 1.13202 9.55625 1.10077 9.61953C1.04784 9.73953 1.02051 9.86924 1.02051 10.0004C1.02051 10.1315 1.04784 10.2613 1.10077 10.3813C1.12968 10.4453 1.81405 11.9641 3.32655 13.4758C5.34843 15.4953 7.89765 16.5625 10.7101 16.5625C13.5226 16.5625 16.0719 15.4953 18.0914 13.4758C19.6039 11.9641 20.2883 10.4453 20.3172 10.3813C20.3705 10.2614 20.3982 10.1318 20.3986 10.0006C20.399 9.86949 20.3721 9.73969 20.3195 9.61953ZM16.7211 12.1977C15.0437 13.8492 13.0219 14.6875 10.7101 14.6875C8.39843 14.6875 6.37655 13.8492 4.70155 12.1969C4.04245 11.5447 3.47549 10.8056 3.0164 10C3.47562 9.19473 4.04257 8.45589 4.70155 7.80391C6.37733 6.15078 8.39843 5.3125 10.7101 5.3125C13.0219 5.3125 15.043 6.15078 16.7187 7.80391C17.3778 8.45583 17.9447 9.19469 18.4039 10C17.9447 10.8055 17.3778 11.5447 16.7187 12.1969L16.7211 12.1977ZM10.7101 6.5625C10.0303 6.5625 9.36567 6.76411 8.80037 7.14182C8.23508 7.51954 7.79449 8.0564 7.53431 8.68453C7.27413 9.31265 7.20606 10.0038 7.3387 10.6706C7.47133 11.3374 7.79872 11.9499 8.27947 12.4307C8.76021 12.9114 9.37271 13.2388 10.0395 13.3714C10.7063 13.5041 11.3975 13.436 12.0256 13.1758C12.6537 12.9157 13.1906 12.4751 13.5683 11.9098C13.946 11.3445 14.1476 10.6799 14.1476 10C14.1466 9.08864 13.7841 8.21489 13.1397 7.57046C12.4953 6.92603 11.6215 6.56353 10.7101 6.5625ZM10.7101 11.5625C10.4011 11.5625 10.099 11.4709 9.84207 11.2992C9.58512 11.1275 9.38485 10.8835 9.26658 10.5979C9.14832 10.3124 9.11738 9.99827 9.17767 9.69517C9.23796 9.39208 9.38677 9.11367 9.60529 8.89515C9.82381 8.67663 10.1022 8.52781 10.4053 8.46752C10.7084 8.40723 11.0226 8.43818 11.3081 8.55644C11.5936 8.6747 11.8376 8.87497 12.0093 9.13192C12.181 9.38887 12.2726 9.69097 12.2726 10C12.2726 10.4144 12.108 10.8118 11.815 11.1049C11.522 11.3979 11.1245 11.5625 10.7101 11.5625Z"
+															fill="#7AC2AE"></path>
+													</g>
+													<defs>
+														<clipPath id="clip0_1444_1025">
+															<rect width="20" height="20" fill="white"
+																transform="translate(0.710144)"></rect>
+														</clipPath>
+													</defs>
+												</svg>
+											</span>
+											<p *ngIf="viewDetailIndex == i" class="btn_spinner">
+												<span class="spinner-border spinner-border-sm ms-2"></span>
+											</p>
+										</a>
+									</div>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</ng-container>
+
+
+<div *ngIf="isLoader"
+	class="loader_main">
+	<div class="loader"></div>
+</div>
+
+<!-- Bootstrap 5 Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-end custom-sidebar kpi_sidebar" tabindex="-1" id="kpiLayerSidebar">
+    <div class="offcanvas-body">
+        <app-compare-city-kpi-detail [selectedLayer]="mutipleCitykpiLayerResults"></app-compare-city-kpi-detail>
+    </div>
+</div>

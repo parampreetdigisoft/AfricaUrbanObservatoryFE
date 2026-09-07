@@ -1,0 +1,11 @@
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+textarea.form-control {
+  min-height: 150px;  /* default is ~60px, this doubles it */
+  resize: vertical;   /* allow user to drag resize if needed */
+  border-radius: 5px;
+}

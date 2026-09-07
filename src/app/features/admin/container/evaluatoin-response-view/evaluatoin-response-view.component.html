@@ -1,0 +1,65 @@
+<div class="heading_area">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-auto">
+      <h3 class="page_head">Assessment Results > <span class="user_name_active">{{userName}}</span></h3>
+    </div>
+    <div class="col-md-6">
+      <div class="input_field">
+        <select [(ngModel)]="selectedPillarId" name="pillarID" class="form-control ms-auto"
+          (change)="getAssessmentQuestoins()">
+          <option value="">Select Pillar</option>
+          <option *ngFor="let pillar of pillers" [value]="pillar.pillarID">
+            {{ pillar.pillarName }}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table_outer">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>Pillar</th>
+        <th>Questions</th>
+        <th>Score</th>
+        <th>Comment</th>
+        <th>Source</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let question of questionResponse?.data; let i = index">
+        <td>{{((currentPage-1) * pageSize ) +(i+1)}}</td>
+        <td>{{question.pillarName}}</td>
+        <td>{{question.questionText}}</td>
+        <td class="score_col">{{question.score !=null ? question.score.toFixed(1)+' - ' : ''}}
+          {{question.questionOptionText}}</td>       
+        <td>
+					<div [class.collapsed]="!question.showComment"
+						class="desc">
+						{{question.justification}}
+					</div>
+					<a *ngIf="(question?.justification?.length ?? 0) > 30" (click)="question.showComment = !question.showComment"
+						class="read-more">
+						{{ question.showComment ? 'Read Less' : 'Read More' }}
+					</a>
+				</td>
+
+				<td>
+					<div [class.collapsed]="!question.showSource"
+						class="desc">
+						{{question.source}}
+					</div>
+					<a *ngIf="(question?.source?.length ?? 0) > 30" (click)="question.showSource = !question.showSource"
+						class="read-more">
+						{{ question.showSource ? 'Read Less' : 'Read More' }}
+					</a>
+				</td>
+      </tr>
+    </tbody>
+  </table>
+  <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+    (pageChange)="getAssessmentQuestoins($event)"></app-pagination>
+</div>

@@ -1,0 +1,152 @@
+<div class="heading_area">
+  <div class="row justify-content-between align-items-center  custom_gap">
+    <div class="col-md-auto">
+      <h3 class="page_head">Add/Edit Questions</h3>
+    </div>
+    <div class="col-md-auto">
+      <div class="inner_div d-flex align-items-center justify-content-center">
+        <div class="input_field m-0">
+          <select
+            [(ngModel)]="selectedPillarId"
+            name="pillarID"
+            class="form-control"
+            (change)="onPillarChange()"
+          >
+            <option value="">Select Pillar</option>
+            <option *ngFor="let pillar of pillers" [value]="pillar.pillarID">
+              {{ pillar.pillarName }}
+            </option>
+          </select>
+        </div>
+        <a
+          (click)="editQuestion(null)"
+          href="javascript:void(0)"
+          class="common_button"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="20"
+            height="20"
+            viewBox="0 0 20 20"
+            fill="none"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M9.99992 3.33301C10.4602 3.33301 10.8333 3.7061 10.8333 4.16634V9.16634H15.8333C16.2935 9.16634 16.6666 9.53944 16.6666 9.99967C16.6666 10.4599 16.2935 10.833 15.8333 10.833H10.8333V15.833C10.8333 16.2932 10.4602 16.6663 9.99992 16.6663C9.53968 16.6663 9.16658 16.2932 9.16658 15.833V10.833H4.16659C3.70635 10.833 3.33325 10.4599 3.33325 9.99967C3.33325 9.53944 3.70635 9.16634 4.16659 9.16634H9.16658V4.16634C9.16658 3.7061 9.53968 3.33301 9.99992 3.33301Z"
+              fill="white"
+            />
+          </svg>
+          Add Questions</a
+        >
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table_outer">
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>Questions</th>
+        <th>Categories</th>
+        <th class="action_th">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let q of questions; let i = index">
+        <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+        <td>{{ q.questionText }}</td>
+        <td>{{ q.pillarName }}</td>
+        <td>
+          <div class="action_icons">
+            <a
+              style="cursor: pointer"
+              (click)="editQuestion(q); $event.preventDefault()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="22"
+                height="22"
+                viewBox="0 0 22 22"
+                fill="none"
+              >
+                <path
+                  d="M19.3355 6.1724L15.5809 2.41871C15.2658 2.10371 14.8385 1.92676 14.393 1.92676C13.9475 1.92676 13.5202 2.10371 13.2051 2.41871L2.84462 12.7783C2.68806 12.9339 2.56393 13.119 2.47942 13.323C2.39491 13.5269 2.3517 13.7455 2.3523 13.9663V17.7208C2.3523 18.1664 2.52933 18.5938 2.84444 18.9089C3.15954 19.224 3.58692 19.401 4.03255 19.401H18.1467C18.4141 19.401 18.6705 19.2948 18.8596 19.1058C19.0486 18.9167 19.1548 18.6603 19.1548 18.3929C19.1548 18.1255 19.0486 17.8691 18.8596 17.68C18.6705 17.4909 18.4141 17.3847 18.1467 17.3847H10.5015L19.3355 8.54912C19.4916 8.39308 19.6154 8.20782 19.6999 8.00392C19.7844 7.80002 19.8278 7.58147 19.8278 7.36076C19.8278 7.14005 19.7844 6.9215 19.6999 6.7176C19.6154 6.51369 19.4916 6.32843 19.3355 6.1724ZM7.6451 17.3847H4.36861V14.1082L11.4257 7.05117L14.7022 10.3277L7.6451 17.3847ZM16.1304 8.89945L12.8539 5.62296L14.3947 4.08216L17.6712 7.35866L16.1304 8.89945Z"
+                  fill="#7AC2AE"
+                />
+              </svg>
+            </a>
+            <a
+              data-bs-toggle="modal"
+              data-bs-target="#confirmModal"
+              style="cursor: pointer"
+              (click)="editQuestion(q,false); $event.preventDefault()"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+              >
+                <g clip-path="url(#clip0_167_1414)">
+                  <path
+                    d="M16.7098 3.9985H3.5078C3.26907 3.9985 3.04012 4.09334 2.87131 4.26214C2.7025 4.43095 2.60767 4.6599 2.60767 4.89864C2.60767 5.13737 2.7025 5.36632 2.87131 5.53513C3.04012 5.70394 3.26907 5.79877 3.5078 5.79877H3.80785V16.0003C3.80785 16.3982 3.96591 16.7798 4.24725 17.0611C4.5286 17.3425 4.91019 17.5005 5.30807 17.5005H14.9095C15.3074 17.5005 15.689 17.3425 15.9703 17.0611C16.2517 16.7798 16.4097 16.3982 16.4097 16.0003V5.79877H16.7098C16.9485 5.79877 17.1775 5.70394 17.3463 5.53513C17.5151 5.36632 17.6099 5.13737 17.6099 4.89864C17.6099 4.6599 17.5151 4.43095 17.3463 4.26214C17.1775 4.09334 16.9485 3.9985 16.7098 3.9985ZM14.6095 15.7003H5.60812V5.79877H14.6095V15.7003ZM6.20821 1.89818C6.20821 1.65945 6.30304 1.4305 6.47185 1.26169C6.64066 1.09288 6.86961 0.998047 7.10835 0.998047H13.1093C13.348 0.998047 13.5769 1.09288 13.7457 1.26169C13.9146 1.4305 14.0094 1.65945 14.0094 1.89818C14.0094 2.13691 13.9146 2.36587 13.7457 2.53467C13.5769 2.70348 13.348 2.79832 13.1093 2.79832H7.10835C6.86961 2.79832 6.64066 2.70348 6.47185 2.53467C6.30304 2.36587 6.20821 2.13691 6.20821 1.89818Z"
+                    fill="#7AC2AE"
+                  />
+                </g>
+                <defs>
+                  <clipPath id="clip0_167_1414">
+                    <rect
+                      width="19.2029"
+                      height="19.2029"
+                      fill="white"
+                      transform="translate(0.507324 0.398438)"
+                    />
+                  </clipPath>
+                </defs>
+              </svg>
+            </a>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <app-pagination
+    [totalPage]="totalRecords"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [isLoader]="isLoader"
+    (pageChange)="GetQuestions($event)"
+  ></app-pagination>
+</div>
+
+<!-- Modal -->
+<ng-container *ngIf="isOpendialog">
+  <div
+    class="modal fade modal_design"
+    id="exampleModal"
+    tabindex="-1"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden=""
+  >
+    <app-add-update-question
+      [question]="selectedQuestion"
+      [pillers]="pillers"
+      (questionChange)="addUpdateQuestion($event)"
+      (bulkQuestionChange)="addBulkQuestion($event)"
+      [loading]="loading"
+      (closeModal)="closeModal()"
+    ></app-add-update-question>
+  </div>
+</ng-container>
+
+<app-prompt
+  [title]="'Delete Question'"
+  [message]="'Are you sure you want to delete this question'"
+  [confirmText]="'Delete'"
+  [cancelText]="'Cancel'"
+  (confirm)="deleteQuestion()"
+></app-prompt>

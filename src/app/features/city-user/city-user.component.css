@@ -1,0 +1,16 @@
+.footer_tagline {
+    text-align: center;
+    padding-top: 30px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #304a43;
+    margin-top: auto;
+}
+.inner_content_area {
+    display: flex;
+    flex-direction: column;
+}
+.footer_tagline p {
+    padding-top: 20px;
+    border-top: 1px solid #304a431f;
+}

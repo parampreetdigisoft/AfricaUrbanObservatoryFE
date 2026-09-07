@@ -1,0 +1,70 @@
+/* position toast in center-bottom of screen */
+.toast {
+  position: fixed !important;
+  bottom: 30px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 2000;
+  min-width: 320px;
+  max-width: 420px;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Default hidden state for icons */
+.toast-body svg {
+  width: 30px;
+  height: 30px;
+  display: none;
+  margin-bottom: 8px;
+}
+
+/* Show icon for matching type */
+.toast.success .success_svg { display: block; }
+.toast.danger .danger_svg { display: block; }
+.toast.info .info_svg { display: block; }
+.toast.warning .warning_svg { display: block; }
+
+/* Background colors for each toast type */
+.toast.success {
+  background-color: #28a745;
+  color: #fff;
+}
+.toast.danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+.toast.info {
+  background-color: #0dcaf0;
+  color: #fff;
+}
+.toast.warning {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+/* toast body layout */
+.toast-body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  font-size: 18px;
+}
+
+/* transparent header with close button */
+.toast-header {
+  background: transparent;
+  border: none;
+  position: absolute;
+  right: 5px;
+  top: 5px;
+}
+
+button.btn-close {
+  filter: invert(1);
+  opacity: 1;
+}

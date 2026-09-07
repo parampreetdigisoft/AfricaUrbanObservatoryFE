@@ -1,0 +1,38 @@
+<!-- AI Toggle Button with Animation -->
+
+    <div class="ai-toggle-container">
+        <input 
+            type="checkbox" 
+            id="is2FAEnabled" 
+            class="ai-toggle-input"
+            [(ngModel)]="isAiViewEnabled" 
+            (ngModelChange)="aiViewToggle($event)"
+        />
+        <label class="ai-toggle-label" for="is2FAEnabled">
+            <div class="toggle-track">
+                <div class="toggle-thumb">
+                    <svg class="icon icon-manual" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                    </svg>
+                    <svg class="icon icon-ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                </div>
+                <div class="particles">
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                    <span class="particle"></span>
+                </div>
+            </div>
+            <div class="toggle-labels">
+                <span class="label-manual">Manual</span>
+                <span class="label-ai">
+                    <span class="ai-text">AI View</span>
+                    <span class="ai-pulse"></span>
+                </span>
+            </div>
+        </label>
+    </div>

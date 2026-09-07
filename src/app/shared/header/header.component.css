@@ -1,0 +1,222 @@
+.aui_header
+{
+    /* background-color: var(--White-Color); */
+    padding:24px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.aui_header_inner
+{
+    border-radius: 10px;
+    /* border: 1px solid var(--Light-Border-Color); */
+    /* background: var(--background-Color); */
+    padding: 20px;
+    background-color: #ffffff;
+}
+
+.aui_header_inner
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    grid-gap: 30px;
+    align-items: center;
+}
+
+.aui_dashboard_logo img
+{
+    width: 115px;
+}
+
+.user_detail > ul
+{
+    display: flex;
+    flex-wrap: wrap;
+    grid-gap: 16px;
+    align-items: center;
+}
+
+.profile_pic img
+{
+    width: 58px;
+    height: 58px;
+    border-radius: 100%;
+    overflow: hidden;
+    object-fit: cover;
+    box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 10%);
+}
+
+.profile_pic
+{
+    position: relative;
+    
+}
+
+.user_name
+{
+    color: var(--Text-Color);
+font-size: 20px;
+font-style: normal;
+font-weight: 600;
+line-height: normal;
+display: block;
+}
+
+.user_role
+{
+    /* color: var(--Light-Text-Color); */
+    color: #7D7D7D;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: normal;
+display: block;
+/* margin-top: 2px; */
+}
+
+.profile_name_div
+{
+    width: auto;
+    min-width: 100px;
+}
+
+.chat_icon
+{
+    background-color: var(--White-Color);
+    border: 1px solid var(--Border-Color);
+    height: 54px;
+    width: 54px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.chat_icon_notification::after
+{
+      content: "";
+    height: 9px;
+    width: 9px;
+    border-radius: 100%;
+    background-color: var(--Light-Bg-Color);
+    position: absolute;
+    top: 15px;
+    right: 14px;
+    z-index: 1;
+}
+
+
+
+
+/*menu icon*/
+
+.menu-icon {
+  width: 28px;
+  height: 23px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+.menu-icon span {
+  background: #000;
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  transition: 0.3s ease-in-out;
+}
+
+.menu-icon span:nth-child(1) {
+  top: 0;
+}
+.menu-icon span:nth-child(2) {
+  top: 11px;
+}
+.menu-icon span:nth-child(3) {
+  bottom: 0;
+}
+
+/* When menu is toggled (show cross) */
+.menu-icon.toggle_nav span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 11px;
+}
+
+.menu-icon.toggle_nav span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-icon.toggle_nav span:nth-child(3) {
+  transform: rotate(-45deg);
+  bottom: 11px;
+}
+
+/*menu icon close*/
+
+
+@media only screen and (max-width:991px){
+    .profile_name_div {
+        display: none;
+    }
+    .aui_header_inner {
+        padding: 15px;
+        border-radius: 15px;
+    }
+    .menu_toggle #toggleMenu svg {
+        width: 40px;
+        height: auto;
+    }
+    .menu_toggle #toggleMenu {
+        border: 0;
+        padding: 0;
+        background-color: transparent;
+        display: block;
+    }
+    .profile_pic img, .chat_icon{
+        width: 40px;
+        height: 40px;
+    }
+    .chat_icon_notification:after {
+        top: 6px;
+        right: 5px;
+    }
+    .aui_dashboard_logo img {
+        width: 90px;
+    }
+    .aui_header_inner {
+        padding: 15px;
+    }
+    .menu_toggle {
+        display: inline-block !important;
+    }
+    .content_area {
+        width: 100%;
+        flex: unset;
+    }
+    
+}
+
+
+.edit_img
+{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+}
+
+.edit_img svg
+{
+        width: 20px;
+    height: auto;
+}
+
+@media only screen and (max-width:1330px) {
+    .aui_header {
+        padding: 0px;
+    }
+}

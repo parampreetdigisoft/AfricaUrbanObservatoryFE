@@ -1,0 +1,172 @@
+<div class="offcanvas-header">
+    <h5 id="offcanvasLabel">KPI Details</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+</div>
+
+<ng-container>
+    <div class="city_piller">
+        <div #pillarChart style="width:100%; height: 100%;">
+            <div class="position-relative city_card_outter">
+                <div class="city_card_img">
+                    <img [src]="urlBase+city?.image " [alt]="'Profile Image'" (error)="onImgError($event)" />
+                    <div class="score">
+                        Evaluation : {{ getEvaluationCalculatedValue }}% , AI : {{ getAiCalculatedValue }}%
+
+                    </div>
+                </div>
+                <div class="city_card">
+                    <div class="city_card_inner">
+                        <div class="melbourne-card-text">
+                            <div class="card_title">
+                                <h1 class="city_cards_h1">{{city?.cityName}}</h1>
+                                <p class="city_cards_p"> <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M8.5 4.28955C7.97464 4.28955 7.46108 4.44534 7.02427 4.73721C6.58745 5.02908 6.24699 5.44393 6.04594 5.9293C5.8449 6.41466 5.7923 6.94875 5.89479 7.46401C5.99728 7.97927 6.25026 8.45257 6.62175 8.82405C6.99323 9.19554 7.46653 9.44852 7.98179 9.55101C8.49705 9.6535 9.03114 9.6009 9.5165 9.39986C10.0019 9.19881 10.4167 8.85835 10.7086 8.42153C11.0005 7.98472 11.1562 7.47116 11.1562 6.9458C11.1562 6.24132 10.8764 5.56569 10.3783 5.06755C9.88011 4.5694 9.20448 4.28955 8.5 4.28955ZM8.5 8.53955C8.18479 8.53955 7.87665 8.44608 7.61456 8.27096C7.35247 8.09583 7.14819 7.84692 7.02757 7.5557C6.90694 7.26448 6.87538 6.94403 6.93687 6.63488C6.99837 6.32572 7.15016 6.04174 7.37305 5.81885C7.59594 5.59596 7.87992 5.44417 8.18907 5.38267C8.49823 5.32118 8.81868 5.35274 9.1099 5.47337C9.40112 5.59399 9.65003 5.79827 9.82516 6.06036C10.0003 6.32245 10.0938 6.63059 10.0938 6.9458C10.0938 7.36849 9.92584 7.77387 9.62695 8.07275C9.32807 8.37164 8.92269 8.53955 8.5 8.53955ZM8.5 1.10205C6.95068 1.10381 5.46532 1.72005 4.36979 2.81559C3.27425 3.91112 2.65801 5.39648 2.65625 6.9458C2.65625 9.03096 3.6198 11.241 5.44531 13.3374C6.26558 14.2847 7.18878 15.1378 8.19785 15.8808C8.28718 15.9433 8.39359 15.9769 8.50266 15.9769C8.61172 15.9769 8.71814 15.9433 8.80746 15.8808C9.81468 15.1375 10.7361 14.2844 11.5547 13.3374C13.3775 11.241 14.3438 9.03096 14.3438 6.9458C14.342 5.39648 13.7257 3.91112 12.6302 2.81559C11.5347 1.72005 10.0493 1.10381 8.5 1.10205ZM8.5 14.7817C7.4023 13.9185 3.71875 10.7476 3.71875 6.9458C3.71875 5.67773 4.22249 4.4616 5.11915 3.56495C6.0158 2.66829 7.23193 2.16455 8.5 2.16455C9.76807 2.16455 10.9842 2.66829 11.8809 3.56495C12.7775 4.4616 13.2812 5.67773 13.2812 6.9458C13.2812 10.7462 9.5977 13.9185 8.5 14.7817Z"
+                                            fill="#1D1D1D" />
+                                    </svg>{{city?.country}}, {{city?.state}}
+                                </p>
+                            </div>
+                            <p class="city_cards_disc">{{city?.cityName}}, in the {{city?.region}} region of
+                                {{city?.state}}, {{city?.country}}, is actively progressing toward sustainable and
+                                inclusive urban growth through continuous improvements in infrastructure and
+                                governance.</p>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    &nbsp;
+    <div class="cross-pillar_outter">
+        <div class="cross-pillar">
+            <h5>{{selectedLayer?.layerName}} ({{selectedLayer?.layerCode}}) :</h5>
+            &nbsp;
+            <div [innerHtml]="selectedLayer?.purpose"></div>
+        </div>
+
+        <div class="integrate_outter">
+            <div class="integrate_list">
+                <table class="kpi_custom_table">
+                    <tr class="sidebar_table">
+                        <th>
+                            <div class="kpi_cat_name">Categories</div>
+                        </th>
+                        <th>
+                            <span class="bold_num">Evaluation</span>
+                            /
+                            <span class="bold_num"> Ai </span>
+                        </th>
+                    </tr>
+
+                    <tr *ngIf="selectedLayer?.calText1">
+                        <td>
+                            <div class="kpi_cat_name">{{ selectedLayer?.calText1 }}</div>
+                        </td>
+                        <td>
+                            <span class="bold_num">{{ selectedLayer?.calValue1?.toFixed(2) }}</span>
+                            /
+                            <span class="bold_num">{{ selectedLayer?.aiCalValue1?.toFixed(2) || 'NA'}}</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="selectedLayer?.calText2">
+                        <td>
+                            <div class="kpi_cat_name">{{ selectedLayer?.calText2 }}</div>
+                        </td>
+                        <td>
+                            <span class="bold_num">{{ selectedLayer?.calValue2?.toFixed(2) }}</span>
+                            /
+                            <span class="bold_num">{{ selectedLayer?.aiCalValue2?.toFixed(2) || 'NA' }}</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="selectedLayer?.calText3">
+                        <td>
+                            <div class="kpi_cat_name">{{ selectedLayer?.calText3 }}</div>
+                        </td>
+                        <td>
+                            <span class="bold_num">{{ selectedLayer?.calValue3?.toFixed(2) }}</span>
+                            /
+                            <span class="bold_num">{{ selectedLayer?.aiCalValue3?.toFixed(2) || 'NA'}}</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="selectedLayer?.calText4">
+                        <td>
+                            <div class="kpi_cat_name">{{ selectedLayer?.calText4 }}</div>
+                        </td>
+                        <td>
+                            <span class="bold_num">{{ selectedLayer?.calValue4?.toFixed(2) }}</span>
+                            /
+                            <span class="bold_num">{{ selectedLayer?.aiCalValue4?.toFixed(2) || 'NA'}}</span>
+                        </td>
+                    </tr>
+                    <tr *ngIf="selectedLayer?.calText5">
+                        <td>
+                            <div class="kpi_cat_name">{{ selectedLayer?.calText5 }}</div>
+                        </td>
+                        <td>
+                            <span class="bold_num">{{ selectedLayer?.calValue5?.toFixed(2) }}</span>
+                            /
+                            <span class="bold_num">{{ selectedLayer?.aiCalValue5?.toFixed(2) || 'NA' }}</span>
+                        </td>
+                    </tr>
+                    <tr class="last_data">
+                        <td>
+                            <div class="kpi_cat_name">Interpretation Condition </div>
+                        </td>
+                        <td>
+                            <span>{{getConditionByid()}}</span>
+                            <span>{{getAiConditionByid()}}</span>
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
+           
+            <div class="outer_graph" *ngIf="chartOptions?.series">
+                <!-- <app-ag-bar [options]="pieOptions"> </app-ag-bar> -->
+                <div id="card">
+                    <div id="chart">
+                        <apx-chart
+                        [series]="chartOptions.series!"
+                        [chart]="chartOptions.chart!"
+                        [plotOptions]="chartOptions.plotOptions!"
+                        [labels]="chartOptions.labels!"
+                        [stroke]="chartOptions.stroke!"
+                        [fill]="chartOptions.fill!"
+                        ></apx-chart>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    &nbsp;
+
+    <div class="cus_table kpi_table">
+        <div class="table-responsive">
+            <table class="table table-striped" >
+                <thead>
+                    <tr>
+                        <th scope="col">Score Range</th>
+                        <th scope="col">System Condition</th>
+                        <th scope="col">Descriptor</th>
+                        <th scope="col">Urban Signal</th>
+                        <th scope="col">Strategic Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let inerpretaion of interpretaions" [ngClass]="inerpretaion.interpretationID == selectedLayer?.interpretationID
+                     ? 'active_row' : inerpretaion.interpretationID == selectedLayer?.aiInterpretationID ? 'active_ai' : ''">
+                        <td><span class="score_label_tab">{{inerpretaion.minRange}}–{{inerpretaion.maxRange}}</span>
+                        </td>
+                        <td>{{inerpretaion.condition}}</td>
+                        <td>{{inerpretaion.descriptor}}</td>
+                        <td>{{inerpretaion.urbanSignal}}</td>
+                        <td>{{inerpretaion.strategicAction}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</ng-container>

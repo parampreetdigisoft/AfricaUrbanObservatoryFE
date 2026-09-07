@@ -1,0 +1,147 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+        <div class="modal-body">
+            <button type="button" (click)="closeModel()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <h4 class="modal_head"> {{question ?'Update':'Add' }} Question</h4>
+            <p class="modal_sub_head">Enter The details and marked</p>
+            <div class="modal_tabs">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                            aria-selected="true">{{question ?'Update':'Add' }} Single</button>
+                    </li>
+                    <li class="nav-item" role="presentation" *ngIf="!question">
+                        <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile"
+                            aria-selected="false">Bulk Import</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home">
+                        <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+                            <!-- Question -->
+                            <div class="input_field">
+                                <label>Question *</label>
+                                <input type="text" formControlName="questionText" placeholder="Enter question text"
+                                    class="form-control" />
+                                <div class="error-msg"
+                                    *ngIf="questionForm.get('questionText')?.invalid && (questionForm.get('questionText')?.touched || isSubmitted)">
+                                    Question text is required.
+                                </div>
+                            </div>
+
+                            <!-- Pillar -->
+                            <div class="input_field">
+                                <label>Pillar *</label>
+                                <select formControlName="pillarID" class="form-control">
+                                    <option value="">Select Pillar</option>
+                                    <option *ngFor="let pillar of pillers" [value]="pillar.pillarID">
+                                        {{ pillar.pillarName }}
+                                    </option>
+                                </select>
+                                <div class="error-msg"
+                                    *ngIf="questionForm.get('pillarID')?.invalid && (questionForm.get('pillarID')?.touched || isSubmitted)">
+                                    Pillar is required.
+                                </div>
+                            </div>
+                            <div formArrayName="questionOptions" class="input_field mt-3">
+                                <label>Options *</label>
+
+                                <div *ngFor="let option of questionOptions.controls; let i = index" [formGroupName]="i"
+                                    class="option-row">
+
+                                    <div class="row mb-2">
+
+                                        <!-- Score Dropdown -->
+                                        <div class="col-4">
+                                            <select formControlName="scoreValue" class="form-control">
+                                                <option value="">Select Score</option>
+                                                <option *ngFor="let score of scoreOptions" [value]="score.scoreValue">
+                                                    {{ score.scoreValue }}
+                                                </option>
+                                            </select>
+                                            <!-- Validation message -->
+                                            <div class="error-msg"
+                                                *ngIf="(option.get('scoreValue')?.touched ||isSubmitted) && option.get('scoreValue')?.hasError('required')">
+                                                Score is required
+                                            </div>
+                                        </div>
+
+                                        <!-- Option Text -->
+                                        <div class="col-md px-0">
+                                            <input type="text" formControlName="optionText" placeholder="Option text"
+                                                class="form-control" />
+                                            <!-- Validation message -->
+                                            <div class="error-msg"
+                                                *ngIf="(option.get('optionText')?.touched || isSubmitted) && option.get('optionText')?.hasError('required')">
+                                                Option text is required
+                                            </div>
+                                        </div>
+
+                                        <!-- Remove Button -->
+                                        <div class="col-auto align-self-start mt-2">
+                                            <button type="button" class=" minus_btn" (click)="removeOption(i)"
+                                                [disabled]="questionOptions.length == 1">
+                                                <svg _ngcontent-ng-c94318325="" xmlns="http://www.w3.org/2000/svg"
+                                                    width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                                    <g _ngcontent-ng-c94318325="" clip-path="url(#clip0_167_1414)">
+                                                        <path _ngcontent-ng-c94318325=""
+                                                            d="M16.7098 3.9985H3.5078C3.26907 3.9985 3.04012 4.09334 2.87131 4.26214C2.7025 4.43095 2.60767 4.6599 2.60767 4.89864C2.60767 5.13737 2.7025 5.36632 2.87131 5.53513C3.04012 5.70394 3.26907 5.79877 3.5078 5.79877H3.80785V16.0003C3.80785 16.3982 3.96591 16.7798 4.24725 17.0611C4.5286 17.3425 4.91019 17.5005 5.30807 17.5005H14.9095C15.3074 17.5005 15.689 17.3425 15.9703 17.0611C16.2517 16.7798 16.4097 16.3982 16.4097 16.0003V5.79877H16.7098C16.9485 5.79877 17.1775 5.70394 17.3463 5.53513C17.5151 5.36632 17.6099 5.13737 17.6099 4.89864C17.6099 4.6599 17.5151 4.43095 17.3463 4.26214C17.1775 4.09334 16.9485 3.9985 16.7098 3.9985ZM14.6095 15.7003H5.60812V5.79877H14.6095V15.7003ZM6.20821 1.89818C6.20821 1.65945 6.30304 1.4305 6.47185 1.26169C6.64066 1.09288 6.86961 0.998047 7.10835 0.998047H13.1093C13.348 0.998047 13.5769 1.09288 13.7457 1.26169C13.9146 1.4305 14.0094 1.65945 14.0094 1.89818C14.0094 2.13691 13.9146 2.36587 13.7457 2.53467C13.5769 2.70348 13.348 2.79832 13.1093 2.79832H7.10835C6.86961 2.79832 6.64066 2.70348 6.47185 2.53467C6.30304 2.36587 6.20821 2.13691 6.20821 1.89818Z"
+                                                            fill="#7AC2AE"></path>
+                                                    </g>
+                                                    <defs _ngcontent-ng-c94318325="">
+                                                        <clipPath _ngcontent-ng-c94318325="" id="clip0_167_1414">
+                                                            <rect _ngcontent-ng-c94318325="" width="19.2029"
+                                                                height="19.2029" fill="white"
+                                                                transform="translate(0.507324 0.398438)"></rect>
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <button type="button" class="btn add_btn btn-primary mt-2" (click)="addOption()"
+                                    [disabled]="this.questionOptions.length>=5">Add</button>
+                            </div>
+
+                            <!-- Submit -->
+                            <button type="submit" class="common_button w-100 mt-4">
+                                {{ question ? 'Update' : 'Save' }} <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                        tabindex="0">
+                        <div class="input_field">
+                            <label for="">
+                                Upload Excel File *
+                                <a href="javascript:void(0)" (click)="downloadTemplate()" class="ms-2 text-primary"
+                                    style="text-decoration: underline; cursor: pointer;">
+                                    Download Template
+                                </a>
+                            </label>
+                            <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileChange($event)"
+                                class="form-control">
+                        </div>
+                        <div class="wrong_upload_alert">
+                            <p>{{this.alertMsg}}</p>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="common_button" [disabled]="!this.excelData.length"
+                                (click)="bulkImport()">
+                                Import <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

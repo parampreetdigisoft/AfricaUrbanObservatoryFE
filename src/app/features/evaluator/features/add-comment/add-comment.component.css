@@ -1,0 +1,97 @@
+/* Modal width */
+.transfer_popup {
+  max-width: 560px;
+}
+
+/* Modal container */
+.modal-content {
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+/* Body spacing */
+.modal-body {
+  padding: 28px 26px 26px;
+  position: relative;
+}
+
+/* Header */
+.modal_head {
+  font-weight: 600;
+  margin-bottom: 18px;
+  text-align: center;
+  font-size: 18px;
+  color: #1f2937;
+}
+
+/* Close button */
+.close-btn {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  opacity: 0.8;
+  transition: opacity 0.2s ease;
+}
+
+.close-btn:hover {
+  opacity: 1;
+}
+
+/* City + Scores Card */
+.details_list {
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
+}
+
+.details_list strong {
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Spacing between rows */
+.details_list > div,
+.details_list > span {
+  margin-top: 6px;
+  display: block;
+}
+
+/* Score emphasis */
+.details_list span {
+  margin-left: 4px;
+}
+
+/* Comment label */
+.form-label {
+  font-weight: 500;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #374151;
+}
+
+/* Textarea */
+.form-control {
+  border-radius: 8px;
+  resize: none;
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-control:focus {
+  border-color: var(--bs-body-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
+}
+
+/* Validation error */
+.error {
+  color: #dc2626;
+  margin-top: 6px;
+  font-size: 12px;
+}

@@ -1,0 +1,145 @@
+<div class="heading_area">
+	<div class="row justify-content-between align-items-center">
+		<div class="col-md-auto">
+			<h3 class="page_head">AI Documents</h3>
+		</div>
+
+		<div class="col-md-3 ">
+			<div class="compare_select input_field input_flex">
+				<ng-select [items]="cityList"
+					[searchable]="true"
+					[placeholder]="!selectedCityID? 'Select Cities' :''"
+					[(ngModel)]="selectedCityID"
+					(change)="getAICityDocuments()"
+					bindValue="cityID"
+					bindLabel="cityName"
+					class="form-control analyst_multi_select">
+					<ng-template ng-label-tmp
+						let-item="item"
+						class="select_item">
+						{{ item.cityName }}
+					</ng-template>
+
+					<ng-template ng-option-tmp
+						let-item="item">
+						{{ item.cityName }}, {{ item.continent }} ({{ item.score?.toFixed(1) || 'NA'}})
+					</ng-template>
+				</ng-select>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="table_outer compare_city_table">
+	<div class="table_custom_inner">
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>S.No.</th>
+					<th>City</th>
+					<th>Files</th>
+					<th>Types</th>
+					<th>Size (kb)</th>
+					<th>Users</th>
+					<th class="action_th">Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let document of documentLayersResponse?.data; let i = index">
+					<td>
+						{{ (currentPage - 1) * pageSize + (i + 1) }}
+					</td>
+					<td>
+						<div class="document_city document_td_data">
+							<p>
+								{{ document.cityName }}
+							</p>
+						</div>
+					</td>
+					<td>
+						<div class="document_layaer document_td_data">
+							<p>
+								{{document.noOfFiles}}
+							</p>
+						</div>
+					</td>
+					<td>
+						<div class="document_layaer document_td_data">
+							<p>
+								{{ document.fileTypes || 'NA' }}
+							</p>
+						</div>
+					</td>
+					<td>
+						<div class="document_layaer document_td_data">
+							<p>
+								{{formatFileSize(document.filesSize || 0)}}	
+							</p>
+						</div>
+					</td>
+					<td>
+						<div class="document_layaer document_td_data">
+							<p>
+								{{document.noOfUsers}}
+							</p>
+						</div>
+					</td>
+					<td class="action_td">
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<div class="action_icons">
+											<a (click)="viewDetails(document,i); $event.preventDefault()"
+												style="cursor:viewDetails pointer"
+												matTooltip="View">
+												<span *ngIf="sidebarLoader.index!=i"
+													style="display: inline-block">
+													View Details
+												</span>
+												<p *ngIf="sidebarLoader.index==i && sidebarLoader.loader"
+													class="btn_spinner">
+													<span class="spinner-border spinner-border-sm ms-2"></span>
+												</p>
+											</a>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<app-pagination [totalPage]="totalRecords" [selectedYear]="selectedYear"
+		[currentPage]="currentPage"
+		[pageSize]="pageSize"
+		[isLoader]="isLoader"
+		(pageChange)="getAICityDocuments($event)"></app-pagination>
+</div>
+
+
+<div class="offcanvas offcanvas-end custom-sidebar document_sidebar"
+	tabindex="-1"
+	id="documentLayerSidebar">
+	<div class="offcanvas-body">
+		<app-ai-document-view-details [selectedCity]="selectedCity"
+			[documents]="cityPillarDocuments"
+            (uploadedDocuments)="uploadAiDocuments($event)"
+            (deleteDocument)="onDeleteClick($event)"
+			[pillars]="pillars" [saveDocumentLoader]="saveDocumentLoader" (downloadDocument)="downloadDocument($event)"
+			(refresh)="getAICityDocuments()"></app-ai-document-view-details>
+	</div>
+</div>
+
+<app-prompt
+  *ngIf="isDeletePromptOpen"
+  [uniqueId]="'exampleModal'"
+  [title]="'Delete Document'"
+  [message]="'Are you sure you want to delete this document?'"
+  [confirmText]="'Delete'"
+  [cancelText]="'Cancel'"
+  (confirm)="onConfirmDelete()"
+  (cancel)="closeModal()">
+</app-prompt>

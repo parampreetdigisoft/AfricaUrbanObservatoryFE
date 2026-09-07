@@ -1,0 +1,28 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body position-relative">
+        <button type="button" class="btn-close position-absolute top-0 end-0 m-3" 
+                data-bs-dismiss="modal" aria-label="Close"
+                (click)="closeModal()"></button>
+        <h4 class="modal_head">Upload File</h4>
+        <p class="modal_sub_head">Choose your file and upload to continue</p>
+
+        <div class="input_field mt-3">
+          <label>Select File *</label>
+          <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileSelected($event)" class="form-control">
+        </div>
+
+        <div class="d-flex justify-content-end mt-4">
+          <button type="button" class="btn btn-outline-secondary me-2 px-4 outline_btn" 
+                data-bs-dismiss="modal" (click)="closeModal()">Cancel</button>
+          <button type="button" class="common_button px-4" 
+                [disabled]="!selectedFile" (click)="saveFile()">
+            Upload
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,127 @@
+<div class="heading_area">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-8 me-auto">
+      <h3 class="page_head ai_table_title">
+        <!-- {{headerText()}} -->
+        @if(headerTextValue==null){
+        <span>Analyzing....</span>
+        }
+        @else{
+           <!-- <span>{{headerTextValue}}</span> -->
+        <app-typing-text [text]="headerTextValue" [speed]="20" [numberOfWordAfterHideText]="100"></app-typing-text>
+        }
+
+      </h3>
+    </div>
+    <div class="col-md-2">
+      <div class="compare_select input_field input_flex">
+        <ng-select [items]="cities" bindValue="cityID" bindLabel="cityName" [searchable]="true"
+          class="form-control analyst_multi_select" [placeholder]="selectedCityID > 0? '' : 'Search City..'"
+          [(ngModel)]="selectedCityID" (change)="getAIPillarQuestions()">
+          <ng-template ng-label-tmp let-item="item" class="select_item">
+            {{ item.cityName }}
+          </ng-template>
+
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.cityName }}, {{ item.state }} ({{ item.score?.toFixed(1) || 'NA'}})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="compare_select input_field input_flex">
+        <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName" [searchable]="true"
+          class="form-control analyst_multi_select" [placeholder]="selectedPillarID > 0? '' : 'Search Pillar..'"
+          [(ngModel)]="selectedPillarID" (change)="getAIPillarQuestions()">
+          <ng-template ng-label-tmp let-item="item" class="select_item">
+            {{ item.pillarName }}
+          </ng-template>
+
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.pillarName }}
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+    <div class="col-md-auto">
+      <div class="compare_select input_field input_flex">
+        <a style="cursor: pointer" [matTooltip]="'Refresh..'" (click)="getAIPillarQuestions(currentPage); $event.preventDefault()">
+          <span style="display: inline-block">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-0.45 0 60.369 60.369">
+              <g id="Group_63" data-name="Group 63" transform="translate(-446.571 -211.615)">
+                <path id="Path_54" data-name="Path 54"
+                  d="M504.547,265.443h-9.019a30.964,30.964,0,0,0-29.042-52.733,1.5,1.5,0,1,0,.792,2.894,27.955,27.955,0,0,1,25.512,48.253l0-10.169h-.011a1.493,1.493,0,0,0-2.985,0h0v13.255a1.5,1.5,0,0,0,1.5,1.5h13.256a1.5,1.5,0,1,0,0-3Z"
+                  fill="#0c2c67" />
+                <path id="Path_55" data-name="Path 55"
+                  d="M485.389,267.995a27.956,27.956,0,0,1-25.561-48.213l0,10.2h.015a1.491,1.491,0,0,0,2.978,0h.007V216.791a1.484,1.484,0,0,0-1.189-1.532l-.018-.005a1.533,1.533,0,0,0-.223-.022c-.024,0-.046-.007-.07-.007H448.071a1.5,1.5,0,0,0,0,3h8.995a30.963,30.963,0,0,0,29.115,52.664,1.5,1.5,0,0,0-.792-2.894Z"
+                  fill="#0c2c67" />
+              </g>
+            </svg>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table_outer compare_city_table">
+  <div class="table_custom_inner">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Question</th>
+          <th>Score</th>
+          <th>Year</th>
+          <th class="action_th">View Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of aiQuestions; let i = index">
+          <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+          <td class="city-col">
+            {{question.questionText}}
+          </td>
+
+          <td>
+            <app-circular-score [value]="question?.aiProgress ?? 0"></app-circular-score>
+          </td>
+          <td>
+            <span class="confidence-badge" [ngClass]="(question?.confidenceLevel || 'low').toLowerCase()">
+              {{ question?.dataYear }}
+            </span>
+          </td>
+          <td class="action_td">
+            <table>
+              <tbody>
+                <tr>
+                  <td>
+                    <div class="action_icons">
+                      <a style="cursor: pointer" [matTooltip]="'View details question insights'"
+                        (click)=" viewDetails(question); $event.preventDefault()">
+                        <span style="display: inline-block">
+                          View Details
+                        </span>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+    (pageChange)="getAIPillarQuestions($event)"></app-pagination>
+
+</div>
+
+<!-- Bootstrap 5 Offcanvas Sidebar -->
+<div class="offcanvas offcanvas-end custom-sidebar kpi_sidebar" tabindex="-1" id="kpiLayerSidebar">
+  <div class="offcanvas-body">
+    <app-view-ai-question-details [question]="selectedQuestion"
+      [aiTrustLevels]="aiTrustLevels"></app-view-ai-question-details>
+  </div>
+</div>

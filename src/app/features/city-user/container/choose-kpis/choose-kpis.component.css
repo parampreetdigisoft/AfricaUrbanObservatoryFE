@@ -1,0 +1,57 @@
+
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* Highlight selected options */
+::ng-deep .analyst_multi_select .ng-option-selected {
+  background-color: #e8f0ff !important;
+  color: #304a43 !important;
+  font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+  background-color: #f2f6ff !important;
+}
+
+.alert-info {
+  background-color: #E7F1EE;
+  color: #304A43;
+  border: 1px solid #C8E0DA;
+}
+
+ ::ng-deep .multi_select .ng-select-container {
+  color: #332;
+  background-color: #ffffff00 !important;
+  border-radius: 0 !important;
+  border: none !important;
+  min-height: auto !important;
+  align-items: flex-start;
+}
+::ng-deep .multi_select .input_field .form-control:not(.ng-select-opened) {
+    overflow: auto !important;
+}
+::ng-deep .multi_select .input_field .form-control:not(.ng-select-opened)::-webkit-scrollbar {
+  display: none !important;
+}
+::ng-deep .multi_select .ng-select-container:hover {
+    box-shadow: none;
+}
+::ng-deep .multi_select .ng-select-container:focus, ::ng-deep .multi_select .ng-select-container:focus-visible {
+    box-shadow: none !important;
+    outline: none !important;
+    border: none !important;
+}
+::ng-deep .multi_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    border-color: #007eff;
+    box-shadow: none !important;
+}
+::ng-deep .multi_select .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+    background-color: #ffffff00;
+}
+::ng-deep .multi_select .ng-clear-wrapper, ::ng-deep .multi_select span.ng-arrow-wrapper {
+    margin-top: 4px;
+}

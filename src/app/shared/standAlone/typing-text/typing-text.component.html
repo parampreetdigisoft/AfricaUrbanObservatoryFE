@@ -1,0 +1,14 @@
+<div class="typing-container" [class.collapsed]="!isExpanded">
+  <span class="typing-text">{{ displayedText }}</span>
+  <span class="cursor" *ngIf="!isTypingCompleted"></span>
+</div>
+
+
+<button 
+  *ngIf="shouldShowToggle"
+  (click)="toggleExpand()"
+  class="toggle-btn">
+
+  <ng-container *ngIf="!isExpanded">Show more <span class="arrow_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 7.33l2.829-2.83 9.175 9.339 9.167-9.339 2.829 2.83-11.996 12.17z"/></svg></span></ng-container>
+  <ng-container *ngIf="isExpanded">Show less <span class="arrow_icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 16.67l2.829 2.83 9.175-9.339 9.167 9.339 2.829-2.83-11.996-12.17z"/></svg></span></ng-container>
+</button>

@@ -1,0 +1,189 @@
+
+
+::ng-deep app-analyst-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px; /* modern version of grid-gap */
+}
+
+/* Target first two bars */
+::ng-deep app-analyst-dashboard .city_piller {
+    flex: 0 0 auto;
+    width: calc(66.6% - 6px);
+}
+
+/* Target third (or last) bar */
+::ng-deep app-analyst-dashboard app-ag-bar:nth-child(2) {
+    flex: 1;
+}
+
+::ng-deep app-analyst-dashboard .outer_graph {
+    width: 100%;
+}
+
+
+.city_piller {
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+    border-radius: 15px;
+}
+
+.city_piller>.input_field .analyst_multi_select {
+    width: 220px;
+    padding: 0;
+    border: 0;
+}
+.city_piller>.input_field .analyst_multi_select input[type="text"] {
+    line-height: 26px;
+}
+
+.city_piller+app-ag-bar {
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+}
+
+::ng-deep .city_piller + app-ag-bar > div {
+    width: 100%;
+}
+
+.outer_graph {
+    border-radius: 15px;
+    overflow: hidden;
+    padding-top: 30px;
+    background-color: #fff;
+}
+
+::ng-deep .city_piller .input_field .analyst_multi_select .ng-select-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    min-height: 36px;
+    align-items: center;
+    /* font-family: Montserrat; */
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none!important;
+    height: 100%;
+    border-radius: 100px;
+    border-radius: 12px !important;
+    padding: 10px!important;
+    border: 1px solid #ddd !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+::ng-deep .city_piller .input_field .analyst_multi_select input[type=text] {
+    line-height: 26px;
+}
+
+
+.city_piller {
+    background-color: #fff;
+    padding: 20px;
+    position: relative;
+    border-radius: 15px;
+}
+/* .city_piller > .input_field {
+    position: absolute;
+    top: 10px;
+    right: 30px;
+} */
+.city_piller .input_field .analyst_multi_select {
+    width: 220px;
+    padding: 0;
+    border: 0;
+}
+.city_piller .input_field .analyst_multi_select input[type="text"] {
+    line-height: 26px;
+}
+
+.city_piller .input_field .analyst_multi_select .ng-select-container{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    min-height: 36px;
+    align-items: center;
+    /* color: #7a7a7a; */
+    /* font-family: Montserrat; */
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none !important;
+    height: 100%;
+    border-radius: 100px;
+}
+
+.city_piller .input_field .analyst_multi_select .ng-select-container .ng-value-container {
+    padding-left: 5px;
+}
+.city_piller .input_field .analyst_multi_select .ng-select-container .ng-value-container > .ng-input{
+    padding-right: 45px;
+    padding-left: 15px;
+}
+
+.mb_15
+{
+    margin-bottom: 15px;
+}
+
+.city_piller + app-ag-bar
+{
+    border-radius: 15px;
+    background-color: #ffffff;
+    overflow: hidden;
+    display: flex;
+}
+
+.city_piller + app-ag-bar > div
+{
+    width: 100%;
+}
+
+.city_piller .input_field {
+    min-width: 150px;
+}
+.apx_chart_new {
+    flex: 1;
+    border-radius: 15px;
+    background-color: #fff;
+    overflow: hidden;
+    display: flex;
+    box-shadow: 0px 7px 20px 0px rgb(0 0 0 / 5%);
+    flex-direction: column;
+}
+.card_heading {
+    border-bottom: 1px solid #e9ebec;
+    padding: 16px;
+}
+.card_heading h3{
+    font-size: 18px;
+    margin: 0;
+}
+
+
+
+@media only screen and (max-width:1530px){
+    .dashboard_number h4 {
+        font-size: 20px;
+        line-height: 40px;
+    }
+    .dashboard_number h5 {
+        font-size: 16px;
+    }
+    .main_area .sub_menu .nav_links svg {
+        width: auto;
+        height: auto;
+    }
+    .content_area .inner_content_area{
+        padding: 30px !important;
+    }
+}
+
+@media only screen and (max-width:1300px){
+     .content_area .inner_content_area {
+        padding: 20px;
+    }
+}

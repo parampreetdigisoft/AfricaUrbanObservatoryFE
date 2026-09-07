@@ -1,0 +1,126 @@
+::ng-deep .analyst_multi_select .ng-select-container {
+  border: 0;
+  min-height: 30px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .analyst_multi_select .ng-select-container .ng-value-container {
+  padding: 0 !important;
+}
+
+/* Modal Container */
+.transfer_popup .modal-content {
+  border-radius: 14px;
+  border: none;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
+  background: #ffffff;
+}
+
+/* Modal Body */
+.transfer_popup .modal-body {
+  padding: 28px 30px;
+}
+
+/* Header */
+.modal_head {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: #1f2937;
+}
+
+/* Close Button */
+.btn-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  opacity: 0.8;
+}
+
+/* City Info */
+.details_list strong {
+  font-weight: 600;
+  color: #374151;
+}
+
+.details_list span {
+  margin-left: 6px;
+  color: #4b5563;
+}
+
+/* Section Title */
+h5 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #111827;
+}
+
+/* AI Options Card */
+.details_list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  transition: all 0.25s ease;
+}
+
+.details_list:hover {
+  background: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+/* AI Option Text */
+.details_list span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Toggle Switch */
+.form-check-input {
+  width: 42px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 2px rgba(100, 104, 112, 0.25);
+}
+
+/* Viewer Section */
+.input_field {
+  margin-top: 22px;
+}
+
+.input_field label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #374151;
+}
+
+/* ng-select customization */
+.analyst_multi_select {
+  border-radius: 10px;
+}
+
+/* Spinner */
+.spinner-border {
+  width: 16px;
+  height: 16px;
+}
+
+.form-switch input {
+  box-shadow: none;
+}
+
+.form-switch input:checked {
+  background-color: #304a43 !important;
+  border-color: #304a43;
+}

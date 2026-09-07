@@ -1,0 +1,66 @@
+<div class="heading_area">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-auto">
+      <h3 class="page_head">Assigned Cities</h3>
+    </div>
+    <!-- <div class="col-md-3">
+      <div class="input_field justify-content-end input_flex">
+        <button [matTooltip]="'Export reports for the selected cities'"
+          [disabled]="isExporting || selectedCities.length < 1" (click)="aiAllCityDetailsReport()"
+          class="common_button">
+          Export
+          <ng-container *ngIf="!isExporting">
+            <div class="export-icon-wrapper">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 256 256"
+                class="ms-1">
+                <path
+                  d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z">
+                </path>
+              </svg>
+              <span *ngIf="selectedCities.length > 0" class="export-count">
+                {{ selectedCities.length }}
+              </span>
+            </div>
+          </ng-container>
+          <p *ngIf="isExporting" class="btn_spinnerForAll">
+            <span class="spinner-border spinner-border-sm ms-2"></span>
+          </p>
+        </button>
+      </div>
+    </div> -->
+  </div>
+</div>
+
+<div class="table_outer">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>S.No.</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Score</th>
+        <!-- <th class="action-header">
+          <div class="action-header-content">
+            <span>Action</span>
+            <input type="checkbox" class="global_Checkbox" [checked]="isAllCurrentPageSelected"
+              [indeterminate]="isSomeCurrentPageSelected" (change)="AllCitySelected($event)" />
+          </div>
+        </th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let city of citiesResponse?.data; let i = index">
+        <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+        <td>{{ city.cityName }}</td>
+        <td>{{ city.state }}</td>
+        <td>{{ (city.score ?? 0).toFixed(1) }}</td>
+        <!-- <td class="action_td">
+          <input type="checkbox" [checked]="city.selected" (change)="CitySelected($event, city)" />
+        </td> -->
+      </tr>
+    </tbody>
+  </table>
+
+  <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [isLoader]="isLoader" [pageSize]="pageSize"
+    (pageChange)="getCities($event)"></app-pagination>
+</div>

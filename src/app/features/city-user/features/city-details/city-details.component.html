@@ -1,0 +1,290 @@
+<ng-container *ngIf="!isLoader">
+    <div class="city_piller">
+        <div #pillarChart style="width:100%; height: 100%;">
+            <div class="position-relative city_card_outter">
+                <div class="city_card_img">
+                    <img [src]="urlBase+city?.image" [alt]="'Profile Image'" (error)="onImgError($event)" />
+                    <div class="score">
+                        Kpi Score: {{city?.score?.toFixed(2) || '0.0'}}
+                    </div>
+                </div>
+                <div class="city_card">
+                    <div class="city_card_inner">
+                        <div class="melbourne-card-text">
+                            <div class="card_title">
+                                <h1 class="city_cards_h1">{{city?.cityName}}</h1>
+                                <p class="city_cards_p"> <svg xmlns="http://www.w3.org/2000/svg" width="17" height="17"
+                                        viewBox="0 0 17 17" fill="none">
+                                        <path
+                                            d="M8.5 4.28955C7.97464 4.28955 7.46108 4.44534 7.02427 4.73721C6.58745 5.02908 6.24699 5.44393 6.04594 5.9293C5.8449 6.41466 5.7923 6.94875 5.89479 7.46401C5.99728 7.97927 6.25026 8.45257 6.62175 8.82405C6.99323 9.19554 7.46653 9.44852 7.98179 9.55101C8.49705 9.6535 9.03114 9.6009 9.5165 9.39986C10.0019 9.19881 10.4167 8.85835 10.7086 8.42153C11.0005 7.98472 11.1562 7.47116 11.1562 6.9458C11.1562 6.24132 10.8764 5.56569 10.3783 5.06755C9.88011 4.5694 9.20448 4.28955 8.5 4.28955ZM8.5 8.53955C8.18479 8.53955 7.87665 8.44608 7.61456 8.27096C7.35247 8.09583 7.14819 7.84692 7.02757 7.5557C6.90694 7.26448 6.87538 6.94403 6.93687 6.63488C6.99837 6.32572 7.15016 6.04174 7.37305 5.81885C7.59594 5.59596 7.87992 5.44417 8.18907 5.38267C8.49823 5.32118 8.81868 5.35274 9.1099 5.47337C9.40112 5.59399 9.65003 5.79827 9.82516 6.06036C10.0003 6.32245 10.0938 6.63059 10.0938 6.9458C10.0938 7.36849 9.92584 7.77387 9.62695 8.07275C9.32807 8.37164 8.92269 8.53955 8.5 8.53955ZM8.5 1.10205C6.95068 1.10381 5.46532 1.72005 4.36979 2.81559C3.27425 3.91112 2.65801 5.39648 2.65625 6.9458C2.65625 9.03096 3.6198 11.241 5.44531 13.3374C6.26558 14.2847 7.18878 15.1378 8.19785 15.8808C8.28718 15.9433 8.39359 15.9769 8.50266 15.9769C8.61172 15.9769 8.71814 15.9433 8.80746 15.8808C9.81468 15.1375 10.7361 14.2844 11.5547 13.3374C13.3775 11.241 14.3438 9.03096 14.3438 6.9458C14.342 5.39648 13.7257 3.91112 12.6302 2.81559C11.5347 1.72005 10.0493 1.10381 8.5 1.10205ZM8.5 14.7817C7.4023 13.9185 3.71875 10.7476 3.71875 6.9458C3.71875 5.67773 4.22249 4.4616 5.11915 3.56495C6.0158 2.66829 7.23193 2.16455 8.5 2.16455C9.76807 2.16455 10.9842 2.66829 11.8809 3.56495C12.7775 4.4616 13.2812 5.67773 13.2812 6.9458C13.2812 10.7462 9.5977 13.9185 8.5 14.7817Z"
+                                            fill="#1D1D1D" />
+                                    </svg>{{city?.country}}, {{city?.state}}
+                                </p>
+                            </div>
+                            <p class="city_cards_disc">{{city?.cityName}}, in the {{city?.region}} region of
+                                {{city?.state}}, {{city?.country}}, is actively progressing toward sustainable and
+                                inclusive urban growth through continuous improvements in infrastructure and governance.</p>
+                        </div>
+                        <ul class="city_card_ul">
+                            <li> High Score: {{cityDetail?.avgHighScore?.toFixed(2) || '0.0'}}</li>
+                            <li> Lower Score: {{cityDetail?.avgLowerScore?.toFixed(2) || '0.0'}}</li>
+                            <li> Total Evaluation: {{cityDetail?.totalEvaluation || '0.0'}} </li>
+                            <li> Score Progress: {{cityDetail?.scoreProgress?.toFixed(2) || '0.0'}}</li>
+                            <li> Total Questions: {{cityDetail?.totalQuestion || '0.0'}}</li>
+                            <li> Total Ans Questions: {{cityDetail?.ansQuestion || '0.0'}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="apx_chart_new" *ngIf="chartOptions?.series">
+        <div class="card_heading">
+            <h3>City Overview</h3>
+        </div>
+        <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
+            [plotOptions]="chartOptions.plotOptions!" [labels]="chartOptions.labels!" [legend]="chartOptions.legend!"
+            [colors]="chartOptions.colors!">
+        </apx-chart>
+    </div>
+    <div class="table_title w-100 mt-4">
+        <div class="row justify-content-between align-items-center w-100">
+            <div class="col-md-auto">
+                <h3 class="page_head">Category Performance View</h3>
+            </div>
+            <!-- <div class="col-md-auto" style="opacity: hide;">
+                <button class="common_button">
+                    Export
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 256 256">
+                        <path
+                            d="M216,112v96a16,16,0,0,1-16,16H56a16,16,0,0,1-16-16V112A16,16,0,0,1,56,96H80a8,8,0,0,1,0,16H56v96H200V112H176a8,8,0,0,1,0-16h24A16,16,0,0,1,216,112ZM93.66,69.66,120,43.31V136a8,8,0,0,0,16,0V43.31l26.34,26.35a8,8,0,0,0,11.32-11.32l-40-40a8,8,0,0,0-11.32,0l-40,40A8,8,0,0,0,93.66,69.66Z">
+                        </path>
+                    </svg>
+                </button>
+            </div> -->
+        </div>
+    </div>
+    <div class="evaluater_design">
+        <div class="table_responsive">
+            <ng-container *ngIf="!isLoader && displayedColumns && displayedColumns.length > 0">
+                <table mat-table [dataSource]="dataSource" multiTemplateDataRows
+                    class="mat-elevation-z8 accordion_icon">
+
+                    <ng-container matColumnDef="pillarName">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'Pillar Name' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element" class="table_col_one">
+                            <div class="pillar_icon_outter"
+                                [ngClass]="element.isAccess ? 'expand-toggle' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'"
+                                (click)="element.isAccess ? toggleRow(element) : $event.preventDefault()">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <rect y="10.4961" width="24" height="3" rx="1.5" fill="white" />
+                                    <rect x="10.5" y="23.9961" width="24" height="3" rx="1.5"
+                                        transform="rotate(-90 10.5 23.9961)" fill="white" />
+                                </svg>
+                            </div>
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.pillarName ?? "-" }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="totalScore">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'Total Score' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.totalScore ?? "-" }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="scoreProgress">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'City Progress' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.scoreProgress?.toFixed(2) ?? "-" }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="totalAnsPillar">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'Total Ans Pillar' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.totalAnsPillar ?? "-"}}/{{ element.totalPillar ?? "-"}}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="ansQuestion">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'Ans Question' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.ansQuestion ?? "-" }}/{{ element.totalQuestion ?? "-" }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="highLowerScore">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'High/Lower Score' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.avgHighScore ?? "-" }}/ {{ element.avgLowerScore ?? "-" }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="totalUnKnown">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'Total UnKnown' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.totalUnKnown ?? "-" }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="totalNA">
+                        <th mat-header-cell *matHeaderCellDef>
+                            {{ 'Total NA' }}
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span [ngClass]="element.isAccess ? 'pillar_name' : 'inactivePillar'"
+                                [matTooltip]="element.isAccess ? '' : 'Upgrade your plan to access this feature'">
+                                {{ element.totalNA ?? "-" }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <!-- Header Row -->
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+
+                    <!-- Data Row -->
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="row-element"
+                        [class.expanded]="expandedElement === row"></tr>
+
+                    <!-- Expanded Detail Row -->
+                    <tr mat-row *matRowDef="let row; columns: ['detail']" class="detail-row"></tr>
+
+                    <!-- Detail Column -->
+                    <ng-container matColumnDef="detail">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                            <!-- Sub-table only for expanded row -->
+                            <div *ngIf="expandedElement === element" class="bg-gray-50 rounded">
+                                <table mat-table [dataSource]="questionsPillars" class="mat-elevation-z2 w-full">
+                                    <!-- Dynamic Question Columns -->
+
+                                    <ng-container matColumnDef="questionText">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            {{ 'Question Text' }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let element ; let i = index">
+
+                                            <span class="pillar_name">
+                                                {{i+1}}- {{ element.questionText ?? "-" }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="totalScore">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            {{ 'Total Score' }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <span class="pillar_name">
+                                                {{ element.totalScore ?? "-" }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="scoreProgress">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            {{ 'City Progress' }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <span class="pillar_name">
+                                                {{ element.scoreProgress?.toFixed(2) ?? "-" }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="ansQuestion">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            {{ 'Ans Question' }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <span class="pillar_name">
+                                                {{ element.ansQuestion ?? "-" }}/{{ element.totalQuestion ?? "-" }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="highLowerScore">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            {{ 'High/Lower Score' }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <span class="pillar_name">
+                                                {{ element.avgHighScore ?? "-" }}/ {{ element.avgLowerScore ?? "-" }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="totalUnKnown">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            {{ 'Total UnKnown' }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <span class="pillar_name">
+                                                {{ element.totalUnKnown ?? "-" }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+                                    <ng-container matColumnDef="totalNA">
+                                        <th mat-header-cell *matHeaderCellDef>
+                                            {{ 'Total NA' }}
+                                        </th>
+                                        <td mat-cell *matCellDef="let element">
+                                            <span class="pillar_name">
+                                                {{ element.totalNA ?? "-" }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- Sub-table header & rows -->
+                                    <tr mat-header-row *matHeaderRowDef="displayedQuestionColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedQuestionColumns"></tr>
+                                </table>
+                            </div>
+                        </td>
+                    </ng-container>
+                </table>
+            </ng-container>
+
+            <ng-container *ngIf="displayedColumns?.length == 0 && !isLoader">
+                <div class="no_result_found">
+                    <div class="no_result_found_inner">
+                            <h3 *ngIf="selectedYear == currentYear"><i class="fas fa-search"></i> No Result Found</h3>
+                            <h3 *ngIf="selectedYear != currentYear"><i class="fas fa-search"></i> No result from previous year </h3>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</ng-container>
+
+
+<div *ngIf="isLoader" class="loader_main">
+    <div class="loader"></div>
+</div>

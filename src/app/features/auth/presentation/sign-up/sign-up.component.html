@@ -1,0 +1,191 @@
+<section class="aui_before_login aui_before_signup">
+  <div class="aui_before_login_cards">
+
+    <form [formGroup]="signupForm" (ngSubmit)="submit()" class="">
+
+      <figure class="aui_logo">
+        <a href=""><img src="assets/images/veridian-urban-index.png" alt=""></a>
+      </figure>
+      <h4 class="before_login_card_head">Create an account</h4>
+      <p class="before_login_card_desc">Sign up to your account.</p>
+      @if(externalLogin() == null){
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input_field">
+            <label class="form-label">Full name</label>
+            <input type="text" formControlName="fullName" appAlphaOnly placeholder="Your full name"
+              class="form-control" />
+            @if(f['fullName'] !=null && f['fullName'].touched && f['fullName'].errors){
+            @if(f['fullName'].errors['required']){
+            <div class="error-msg">Full name is required.</div>
+            } @else if(f['fullName'].errors['minlength']){
+            <div class="error-msg">Minimum 3 characters required.</div>
+            } }
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input_field">
+            <label class="form-label">Email</label>
+            <input type="email" formControlName="email" placeholder="name@example.com" class="form-control" />
+            @if(f['email'] !=null && f['email'].touched && f['email'].errors){
+            @if(f['email'].errors['required']){
+            <div class="error-msg">Email is required.</div>
+            } @else if(f['email'].errors['email']){
+            <div class="error-msg">Please enter a valid email.</div>
+            } }
+          </div>
+        </div>
+      </div>
+      }
+
+      <div class="row">
+        <div class="col-md-6">
+          <div class="input_field">
+            <label class="form-label">Phone</label>
+            <input type="tel" formControlName="phone" appNumberOnly placeholder="e.g. +919900112233"
+              class="form-control" />
+            @if(f['phone'] !=null && f['phone'].touched && f['phone'].errors){
+            @if(f['phone'].errors['required']){
+            <div class="error-msg">Phone is required.</div>
+            } @else if(f['phone'].errors['pattern']){
+            <div class="error-msg">Enter a valid phone (7-15 digits, optional +).</div>
+            } }
+          </div>
+        </div>
+
+        <!-- <div class="col-md-6">
+          <div class="input_field">
+            <label class="form-label">City</label>
+            <select formControlName="city" class="form-select">
+              <option value="" disabled selected>Select your city</option>
+              <option *ngFor="let c of cities()" [value]="c.cityID">{{ c.cityName }}</option>
+            </select>
+              @if(f['city'] !=null && f['city'].touched && f['city'].errors){
+              @if(f['city'].errors['required']){
+              <div class="error-msg">City is required.</div>
+              } }
+          </div>
+        </div> -->
+        <div class="col-md-6">
+          <div class="input_field password_eye mb-2">
+            <label for="">Password *</label>
+            <div class="position-relative">
+              <input type="password" formControlName="password" placeholder="Enter Password" class="form-control"
+                #password style="appearance: none !important;">
+              <span class="password_eye_icon" *ngIf="password.type === 'password'" (click)="password.type = 'text'">
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_654_46374)">
+                    <path
+                      d="M20.1446 9.99712C20.1172 9.9354 19.4555 8.46743 17.9844 6.99634C16.0243 5.03618 13.5485 4.00024 10.8235 4.00024C8.09848 4.00024 5.6227 5.03618 3.66254 6.99634C2.19145 8.46743 1.5266 9.93774 1.50239 9.99712C1.46685 10.0771 1.44849 10.1636 1.44849 10.251C1.44849 10.3385 1.46685 10.425 1.50239 10.5049C1.52973 10.5666 2.19145 12.0338 3.66254 13.5049C5.6227 15.4643 8.09848 16.5002 10.8235 16.5002C13.5485 16.5002 16.0243 15.4643 17.9844 13.5049C19.4555 12.0338 20.1172 10.5666 20.1446 10.5049C20.1801 10.425 20.1985 10.3385 20.1985 10.251C20.1985 10.1636 20.1801 10.0771 20.1446 9.99712ZM10.8235 15.2502C8.41879 15.2502 6.31801 14.376 4.57895 12.6526C3.86539 11.943 3.25831 11.1338 2.7766 10.2502C3.25818 9.3666 3.86527 8.55741 4.57895 7.8479C6.31801 6.12446 8.41879 5.25024 10.8235 5.25024C13.2282 5.25024 15.3289 6.12446 17.068 7.8479C17.783 8.55724 18.3914 9.36643 18.8743 10.2502C18.311 11.3018 15.8571 15.2502 10.8235 15.2502ZM10.8235 6.50024C10.0818 6.50024 9.35677 6.72018 8.74009 7.13223C8.12341 7.54429 7.64276 8.12996 7.35893 8.81518C7.0751 9.5004 7.00084 10.2544 7.14553 10.9818C7.29023 11.7093 7.64738 12.3774 8.17183 12.9019C8.69627 13.4263 9.36446 13.7835 10.0919 13.9282C10.8193 14.0729 11.5733 13.9986 12.2585 13.7148C12.9438 13.431 13.5294 12.9503 13.9415 12.3336C14.3535 11.7169 14.5735 10.9919 14.5735 10.2502C14.5724 9.256 14.177 8.30277 13.474 7.59974C12.7709 6.8967 11.8177 6.50128 10.8235 6.50024ZM10.8235 12.7502C10.329 12.7502 9.84568 12.6036 9.43455 12.3289C9.02343 12.0542 8.703 11.6638 8.51378 11.207C8.32456 10.7501 8.27505 10.2475 8.37152 9.76252C8.46798 9.27757 8.70608 8.83211 9.05571 8.48248C9.40534 8.13285 9.8508 7.89474 10.3358 7.79828C10.8207 7.70182 11.3234 7.75133 11.7802 7.94055C12.237 8.12976 12.6274 8.4502 12.9022 8.86132C13.1769 9.27244 13.3235 9.75579 13.3235 10.2502C13.3235 10.9133 13.0601 11.5492 12.5912 12.018C12.1224 12.4869 11.4865 12.7502 10.8235 12.7502Z"
+                      fill="#7A7A7A"></path>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_654_46374">
+                      <rect width="20" height="20" fill="white" transform="translate(0.823486 0.250244)">
+                      </rect>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+
+              <span class="password_eye_icon" *ngIf="password.type === 'text'" (click)="password.type = 'password'">
+                <svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g clip-path="url(#clip0_654_46374)">
+                    <path
+                      d="M5.2125 2.70468C5.15761 2.64281 5.09099 2.59245 5.0165 2.55652C4.942 2.52058 4.86112 2.49979 4.77853 2.49535C4.69594 2.49091 4.6133 2.5029 4.53538 2.53063C4.45746 2.55837 4.38582 2.60129 4.32461 2.65691C4.2634 2.71254 4.21385 2.77976 4.17881 2.85468C4.14377 2.92959 4.12395 3.01072 4.1205 3.09336C4.11705 3.17599 4.13003 3.25849 4.1587 3.33607C4.18736 3.41365 4.23114 3.48477 4.28749 3.5453L5.79062 5.19921C2.95312 6.94062 1.73281 9.625 1.6789 9.74687C1.64336 9.8268 1.625 9.9133 1.625 10.0008C1.625 10.0883 1.64336 10.1748 1.6789 10.2547C1.70624 10.3164 2.36796 11.7836 3.83906 13.2547C5.79921 15.2141 8.275 16.25 11 16.25C12.4005 16.258 13.7868 15.9696 15.068 15.4039L16.7867 17.2953C16.8416 17.3572 16.9082 17.4075 16.9827 17.4435C17.0572 17.4794 17.1381 17.5002 17.2207 17.5046C17.3033 17.5091 17.3859 17.4971 17.4638 17.4694C17.5418 17.4416 17.6134 17.3987 17.6746 17.3431C17.7358 17.2875 17.7854 17.2202 17.8204 17.1453C17.8554 17.0704 17.8753 16.9893 17.8787 16.9066C17.8822 16.824 17.8692 16.7415 17.8405 16.6639C17.8119 16.5863 17.7681 16.5152 17.7117 16.4547L5.2125 2.70468ZM8.91015 8.62968L12.1656 12.2117C11.6754 12.4696 11.1134 12.5574 10.5678 12.4613C10.0223 12.3652 9.52414 12.0906 9.15158 11.6806C8.77901 11.2707 8.55315 10.7486 8.50945 10.1964C8.46576 9.6442 8.6067 9.09311 8.91015 8.62968ZM11 15C8.59531 15 6.49453 14.1258 4.75546 12.4023C4.04165 11.693 3.43454 10.8837 2.95312 10C3.31953 9.31328 4.48906 7.3914 6.65234 6.14218L8.05859 7.68515C7.51417 8.38242 7.23377 9.24971 7.26697 10.1337C7.30018 11.0177 7.64483 11.8616 8.24003 12.516C8.83522 13.1705 9.64262 13.5935 10.5195 13.7102C11.3964 13.8269 12.2864 13.6299 13.032 13.1539L14.1828 14.4195C13.1672 14.8092 12.0878 15.006 11 15ZM11.4688 7.54453C11.3059 7.51345 11.162 7.41894 11.0689 7.28181C10.9757 7.14467 10.9408 6.97614 10.9719 6.81328C11.003 6.65042 11.0975 6.50657 11.2346 6.41339C11.3717 6.32021 11.5403 6.28532 11.7031 6.3164C12.4997 6.47083 13.225 6.87863 13.7709 7.47897C14.3167 8.07931 14.6539 8.84003 14.732 9.64765C14.7475 9.81269 14.6967 9.97709 14.5909 10.1047C14.4851 10.2323 14.333 10.3127 14.168 10.3281C14.1485 10.3293 14.1289 10.3293 14.1094 10.3281C13.9532 10.3288 13.8024 10.2709 13.6867 10.166C13.571 10.061 13.4988 9.91648 13.4844 9.76093C13.4318 9.22374 13.2072 8.71787 12.844 8.31854C12.4809 7.91922 11.9985 7.64776 11.4688 7.54453ZM20.3188 10.2547C20.2859 10.3281 19.4945 12.0805 17.7125 13.6766C17.6516 13.7328 17.5801 13.7764 17.5022 13.8048C17.4243 13.8332 17.3416 13.8458 17.2587 13.8419C17.1759 13.8379 17.0947 13.8176 17.0198 13.782C16.945 13.7463 16.8779 13.6962 16.8226 13.6344C16.7673 13.5726 16.7249 13.5005 16.6977 13.4221C16.6706 13.3438 16.6593 13.2608 16.6646 13.1781C16.6698 13.0953 16.6914 13.0144 16.7282 12.9402C16.765 12.8659 16.8163 12.7996 16.8789 12.7453C17.7532 11.9599 18.4876 11.0315 19.0508 10C18.5683 9.11545 17.9599 8.30569 17.2445 7.59609C15.5055 5.87421 13.4047 4.99999 11 4.99999C10.4933 4.99938 9.98745 5.0404 9.4875 5.12265C9.4062 5.13703 9.32285 5.13515 9.24228 5.11714C9.1617 5.09912 9.0855 5.06532 9.01806 5.01768C8.95062 4.97005 8.8933 4.90952 8.84938 4.8396C8.80547 4.76969 8.77585 4.69176 8.76223 4.61033C8.7486 4.5289 8.75125 4.44557 8.77001 4.36517C8.78877 4.28476 8.82328 4.20888 8.87154 4.14188C8.9198 4.07489 8.98085 4.01813 9.05117 3.97487C9.1215 3.9316 9.19969 3.9027 9.28125 3.88984C9.84935 3.79603 10.4242 3.74926 11 3.74999C13.725 3.74999 16.2008 4.78593 18.1609 6.74609C19.632 8.21718 20.2938 9.68515 20.3211 9.74687C20.3566 9.8268 20.375 9.9133 20.375 10.0008C20.375 10.0883 20.3566 10.1748 20.3211 10.2547H20.3188Z"
+                      fill="#7A7A7A"></path>
+                  </g>
+                  <defs>
+                    <clipPath id="clip0_654_46374">
+                      <rect width="20" height="20" fill="white" transform="translate(0.823486 0.250244)">
+                      </rect>
+                    </clipPath>
+                  </defs>
+                </svg>
+              </span>
+
+            </div>
+            <div *ngIf="signupForm.controls['password'].touched">
+              <span class="error-msg" *ngIf="signupForm.controls['password'].hasError('required')">Password is
+                required</span>
+              <span class="error-msg" *ngIf="signupForm.controls['password'].hasError('minlength')">Minimum eight
+                characters.</span>
+              <span class="error-msg" *ngIf="signupForm.controls['password'].hasError('pattern')">
+                There should be a pattern,
+                one upper case letter,
+                a small letter, a number and a special
+                Character.</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="input_field mb-0">
+            <label for="">Confirm New Password *</label>
+            <input class="form-control" type="password" placeholder="Confirm Password" formControlName="confirmPassword"
+              #ConfirmPasswordField>
+            <span class="error-msg"
+              *ngIf="signupForm.controls['confirmPassword'].hasError('confirmPasswordValidator')">Password
+              mismatch</span>
+            <div *ngIf=" signupForm.controls['confirmPassword'].touched">
+              <span class="error-msg" *ngIf="signupForm.controls['confirmPassword'].hasError('required')">Confirm
+                password
+                is
+                required</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-check form-switch mt-3">
+            <input style="cursor: pointer;" class="form-check-input" type="checkbox" id="is2FAEnabled"
+              formControlName="is2FAEnabled" />
+            <label class="form-check-label" for="is2FAEnabled">
+              Enable Two-Factor Authentication
+            </label>
+          </div>
+
+          <!-- Optional helper text -->
+          <small class="text-muted d-block mt-1 auth_text">
+            When enabled, you’ll receive an OTP on your registered email during login.
+          </small>
+        </div>
+
+        <div class="col-md-6">
+          <div class="input_field mb-0">
+            <re-captcha (resolved)="resolved($event)" class="d-table mx-auto cus_capcha">
+            </re-captcha>
+            <div class="text-danger mt-1"
+              *ngIf="signupForm.get('recaptcha')?.touched && signupForm.get('recaptcha')?.invalid">
+              Please verify that you are not a robot.
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <button type="submit" class="common_button w-100 mt-4" [disabled]="signupForm.invalid">
+        Sign Up
+        @if(loading()){
+        <span class="spinner-border spinner-border-sm ms-2"></span>
+        }
+      </button>
+      <div class="text-center aui_reset_pass_link">
+        Already have an account <a [routerLink]="'auth/clientPortalLogin'"
+          class="aui_reset_pass_link d-inline-block mt-2 mb-4" style="font-weight: 700;">Log In</a>
+      </div>
+    </form>
+    @if(externalLogin() == null){
+    <div class="or">
+      <span>or sign up with</span>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div id="googleBtn" class="mb-3"></div>
+      </div>
+      <div class="col-md-6">
+        <button type="button" class="btn btn-primary w-100 mb-2 face_button" (click)="loginWithFacebook()">
+          Sign Up with Facebook
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+</section>

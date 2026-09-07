@@ -1,0 +1,64 @@
+.main_area
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sidebar_area
+{
+    width: 370px;
+    padding: 0 20px 20px 20px;
+}
+
+.content_area
+{
+    flex: 1;
+    padding-bottom: 20px;
+    padding-right: 20px;
+    width: calc(100% - 370px);
+}
+@media only screen and (max-width:1540px) {
+  .sidebar_area{
+      width: 335px;
+      padding: 0 15px 20px 15px;
+  }
+ 
+}
+
+
+@media only screen and (max-width:1339px){
+    ::ng-deep .main_area .inner_sidebar .nav_links{
+        font-size: 14px;
+    }
+    ::ng-deep .main_area .inner_sidebar {
+        padding: 22px 15px 22px;
+        border-radius: 20px;
+    }
+    ::ng-deep .main_area .nav_links svg {
+        width: 22px;
+        height: auto;
+    }
+    ::ng-deep .main_area .sub_menu .nav_links svg {
+        width: auto;
+        height: auto;
+    }
+    .main_area .sidebar_area{
+        width: 330px;
+    }
+    ::ng-deep .dashboard_card_inner span {
+        padding: 10px !important;
+        width: 50px !important;
+        height: 50px !important;
+    }
+    ::ng-deep .city_piller .input_field {
+        min-width: 100px !important;
+    }
+}
+
+
+@media only screen and (max-width:767px){
+    .sidebar_area {
+        /* transform: translateX(-100%); */
+        width: 100%;
+    }
+}

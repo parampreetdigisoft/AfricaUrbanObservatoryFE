@@ -1,0 +1,34 @@
+<div class="heading_area">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-auto">
+      <h3 class="page_head">Assigned Cities</h3>
+    </div>
+  </div>
+</div>
+
+<div class="table_outer">
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Score</th>
+        <th>Analyst</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let city of citiesResponse?.data; let i = index">
+        <td>{{((currentPage-1) * pageSize ) +(i+1)}}</td>
+        <td>{{city.cityName}}</td>
+        <td>{{city.state}}</td>
+        <td>{{(city.score ?? 0).toFixed(1)}}</td>
+        <td>{{city.assignedBy}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+  <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+    (pageChange)="getCities($event)"></app-pagination>
+
+</div>

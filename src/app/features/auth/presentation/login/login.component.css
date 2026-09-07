@@ -1,0 +1,9 @@
+.error-msg {
+  color: red;
+  font-size: 12px;
+  margin-top: 2px;
+}
+input[type="password"]::-ms-reveal,
+      input[type="password"]::-ms-clear {
+        display: none;
+      }

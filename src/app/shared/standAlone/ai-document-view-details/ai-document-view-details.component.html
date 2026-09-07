@@ -1,0 +1,191 @@
+<div class="offcanvas-header">
+	<h5 id="offcanvasLabel">Documents Details</h5>
+	<button type="button"
+		class="btn-close text-reset"
+		data-bs-dismiss="offcanvas" (click)="onClose()"></button>
+</div>
+
+<ng-container>
+	<div class="city_piller">
+		<div #pillarChart
+			style="width:100%; height: 100%;">
+			<div class="position-relative city_card_outter">
+				<div class="city_card">
+					<div class="city_card_inner">
+						<div class="melbourne-card-text">
+							<div class="card_title">
+								<p class="city_cards_p">
+									<svg xmlns="http://www.w3.org/2000/svg"
+										width="17"
+										height="17"
+										viewBox="0 0 17 17"
+										fill="#77BD3E">
+										<path d="M8.5 4.28955C7.97464 4.28955 7.46108 4.44534 7.02427 4.73721C6.58745 5.02908 6.24699 5.44393 6.04594 5.9293C5.8449 6.41466 5.7923 6.94875 5.89479 7.46401C5.99728 7.97927 6.25026 8.45257 6.62175 8.82405C6.99323 9.19554 7.46653 9.44852 7.98179 9.55101C8.49705 9.6535 9.03114 9.6009 9.5165 9.39986C10.0019 9.19881 10.4167 8.85835 10.7086 8.42153C11.0005 7.98472 11.1562 7.47116 11.1562 6.9458C11.1562 6.24132 10.8764 5.56569 10.3783 5.06755C9.88011 4.5694 9.20448 4.28955 8.5 4.28955ZM8.5 8.53955C8.18479 8.53955 7.87665 8.44608 7.61456 8.27096C7.35247 8.09583 7.14819 7.84692 7.02757 7.5557C6.90694 7.26448 6.87538 6.94403 6.93687 6.63488C6.99837 6.32572 7.15016 6.04174 7.37305 5.81885C7.59594 5.59596 7.87992 5.44417 8.18907 5.38267C8.49823 5.32118 8.81868 5.35274 9.1099 5.47337C9.40112 5.59399 9.65003 5.79827 9.82516 6.06036C10.0003 6.32245 10.0938 6.63059 10.0938 6.9458C10.0938 7.36849 9.92584 7.77387 9.62695 8.07275C9.32807 8.37164 8.92269 8.53955 8.5 8.53955ZM8.5 1.10205C6.95068 1.10381 5.46532 1.72005 4.36979 2.81559C3.27425 3.91112 2.65801 5.39648 2.65625 6.9458C2.65625 9.03096 3.6198 11.241 5.44531 13.3374C6.26558 14.2847 7.18878 15.1378 8.19785 15.8808C8.28718 15.9433 8.39359 15.9769 8.50266 15.9769C8.61172 15.9769 8.71814 15.9433 8.80746 15.8808C9.81468 15.1375 10.7361 14.2844 11.5547 13.3374C13.3775 11.241 14.3438 9.03096 14.3438 6.9458C14.342 5.39648 13.7257 3.91112 12.6302 2.81559C11.5347 1.72005 10.0493 1.10381 8.5 1.10205ZM8.5 14.7817C7.4023 13.9185 3.71875 10.7476 3.71875 6.9458C3.71875 5.67773 4.22249 4.4616 5.11915 3.56495C6.0158 2.66829 7.23193 2.16455 8.5 2.16455C9.76807 2.16455 10.9842 2.66829 11.8809 3.56495C12.7775 4.4616 13.2812 5.67773 13.2812 6.9458C13.2812 10.7462 9.5977 13.9185 8.5 14.7817Z" fill="#77BD3E"></path>
+									</svg>
+									{{selectedCity()?.cityName}}
+								</p>
+								<!-- <h2 class="city_cards_h1">
+									Total files : {{totalFiles()}}
+								</h2>								 -->
+
+								<button (click)="openUploadModal()"
+									class="upload-btn">
+									Upload
+								</button>
+								<button [disabled]="!selectedFiles().length || saveDocumentLoader"
+									(click)="uploadDocuments()"
+									class="save-btn">
+									Save
+									<span *ngIf="saveDocumentLoader"
+										class="spinner-border spinner-border-sm ms-2"></span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="cus_table kpi_table">
+		<div class="table-responsive">
+			<table class="table table-striped file-table">
+				<thead>
+					<tr>
+						<th scope="col">File Belong</th>
+						<th>File Name</th>
+						<th>Size (KB)</th>
+						<th>Type</th>
+						<th>Uploaded By</th>
+						<th class="action-col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let f of selectedFiles(); let i = index"
+						class="new-file-row">
+						<td>
+							{{f.pillarName || selectedCity()?.cityName}}
+						</td>
+						<td>{{f.file.name}}</td>
+						<td>
+							{{formatFileSize(f.file.size)}}
+						</td>
+						<td>{{f.file.type}}</td>
+						<td>New</td>
+						<td>
+							<button (click)="removeFile(i)"
+								class="remove-btn">
+								✖
+							</button>
+						</td>
+					</tr>
+					<tr *ngFor="let doc of documents()">
+						<td>
+							{{ doc.pillarName ? doc.pillarName : selectedCity()?.cityName }}
+						</td>
+						<td class="file_blog">{{doc.fileName}}</td>
+						<td class="file_size">{{doc.fileSize}} kb</td>
+						<td class="file_type">{{doc.fileType}}</td>
+						<td class="uploadBy">{{doc.uploadedBy}}</td>
+						<td>
+							<div class="ai_doc_action_btn">
+								<button (click)="deleteCityDocument(doc)"
+								class="remove-btn">
+								✖
+							</button>
+							<button (click)="download(doc)"
+								class="remove-btn">
+								<svg xmlns="http://www.w3.org/2000/svg"
+									width="18"
+									height="18"
+									viewBox="0 0 24 24"
+									fill="none"
+									stroke="currentColor"
+									stroke-width="2"
+									stroke-linecap="round"
+									stroke-linejoin="round">
+									<path d="M12 3v12"></path>
+									<path d="M7 10l5 5 5-5"></path>
+									<path d="M5 21h14"></path>
+								</svg>
+							</button>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</ng-container>
+
+<div *ngIf="isUploadModalOpen"
+	class="modal-overlay">
+	<div class="modal-box">
+
+		<div class="modal-header">
+			<h3>Upload Documents</h3>
+			<button (click)="closeUploadModal()"
+				class="close-btn">
+				✖
+			</button>
+		</div>
+		<div class="modal-body">
+
+			<label> If the document is not related to any specific city, you can select the Global option to upload it as a platform-level document.</label>
+			<select [(ngModel)]="selectCityDocument"
+				class="form-control">
+				<option [value]="undefined">Mark as Global</option>
+				<option [value]="this.selectedCity()?.cityID">
+					{{this.selectedCity()?.cityName}}
+				</option>
+			</select>
+
+			<label>
+				Choose a pillar if applicable, otherwise leave blank to upload as city-level documents.
+			</label>
+			<select [(ngModel)]="selectedPillarID"
+				class="form-control">
+				<option [ngValue]="undefined">-- Select Pillar --</option>
+				<option *ngFor="let p of pillars()"
+					[value]="p.pillarID">
+					{{p.pillarName}}
+				</option>
+			</select>
+
+			<div class="row">                
+                <div class="col">
+                  <div class="input_field">
+                    <label>Upload Image </label>
+                    <input #imageInput type="file" 
+					(change)="onFileSelected($event)" class="form-control"
+					 accept=".pdf,.doc,.docx"/>
+                    
+                  </div>
+                </div>
+              </div>
+
+			<!-- Selected Files -->
+			<div *ngIf="selectedFiles().length"
+				class="file-list">
+				<div *ngFor="let f of selectedFiles(); let i = index"
+					class="file-item">
+					<span>{{f.file.name}}</span>
+					<button (click)="removeFile(i)"
+						class="remove-btn">
+						✖
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="modal-footer">
+			<button (click)="closeUploadModal()"
+				class="cancel-btn">
+				Cancel
+			</button>
+			<button (click)="doneUploadModal()"
+				class="save-btn">
+				done
+			</button>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,42 @@
+@if(!isLaoding()){
+  @if(this.verifySession()?.paymentStatus != sucess){
+    <div class="cancel_card">
+      <div class="row align-items-center justify-content-center w-100">
+        <div class="col-lg-5">
+          <div class="payment_text">
+            <h2>Payment pending</h2>
+            <p>Your payment is currently pending and will be processed shortly. Please check back soon for an update.</p>
+
+            <button (click)="check()" class="common_button">Re-check now</button>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="payment_img">
+            <img src="../../../../../assets/images/payment_cancel.png" alt="" class="payment-img-main">
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  @if(this.verifySession()?.paymentStatus === sucess){
+    <div class="cancel_card">
+      <div class="row align-items-center justify-content-center w-100">
+        <div class="col-lg-5">
+          <div class="payment_text">
+            <h2>Payment successful</h2>
+            <p>Payment successful! You can now log in and access all features. For any assistance, feel free to contact
+              support.</p>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="payment_img">
+            <img src="../../../../../assets/images/payment_sucess.png" alt="" class="payment-img-main">
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+}
+@else{
+<div class="checking_status">Checking Payment Status <span class="spinner-border spinner-border-sm ms-2"></span></div>
+}

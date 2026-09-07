@@ -1,0 +1,94 @@
+<div class="offcanvas-header">
+    <h5 id="offcanvasLabel">Analysis of : 
+        {{question?.questionText ?? ''}}
+        <!-- <app-typing-text [text]="question?.questionText ?? ''" [speed]="40"
+            [numberOfWordAfterHideText]="25">
+        </app-typing-text> -->
+
+    </h5>
+
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+</div>
+
+<ng-container>
+    <div class="cross-pillar_outter">
+        <div class="integrate_outter">
+            <div class="integrate_list">
+                <app-sparkline-score [value]="question?.aiProgress ?? 0"></app-sparkline-score>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>Executive Summary</h5>
+                &nbsp;
+                <div *ngIf="question?.evidenceSummary">
+                    <app-typing-text [text]="question?.evidenceSummary ?? ''" [speed]="10"
+                        [numberOfWordAfterHideText]="50">
+                    </app-typing-text>
+                </div>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>Red Flags</h5>
+                &nbsp;
+                <div *ngIf="question?.redFlags">
+                    <app-typing-text [text]="question?.redFlags ?? ''" [speed]="10" [numberOfWordAfterHideText]="10">
+                    </app-typing-text>
+                </div>
+            </div>
+
+            <div class="cross-pillar">
+                <h5>Geographic Equity Note</h5>
+                &nbsp;
+                <div *ngIf="question?.geographicEquityNote">
+                    <app-typing-text [text]="question?.geographicEquityNote ?? ''" [speed]="10"
+                        [numberOfWordAfterHideText]="10">
+                    </app-typing-text>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    &nbsp;
+
+    <div class="cus_table kpi_table">
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Category</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td> Source Type</td>
+                        <td> {{question?.sourceType ?? ''}}</td>
+                    </tr>
+                    <tr>
+                        <td> Source Name</td>
+
+                        <td [matTooltip]="'Go to link'">
+                            <a [href]="question?.sourceURL" target="_blank">
+                                {{question?.sourceName ?? ''}}.
+                            </a></td>
+                    </tr>
+                    <tr>
+                        <td> DataYear</td>
+                        <td> {{question?.sourceDataYear ?? ''}}</td>
+                    </tr>
+                    <tr>
+                        <td> Trust Level</td>
+                        <td> {{getLabelDesById(question?.sourceTrustLevel ?? 0 ) }}</td>
+                    </tr>
+                    <tr>
+                        <td> Data Extract</td>
+                        <td> {{question?.sourceDataExtract ?? ''}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</ng-container>

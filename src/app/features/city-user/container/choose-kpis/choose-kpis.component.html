@@ -1,0 +1,104 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="alert alert-info text-center mb-4 rounded-3 shadow-sm">
+                <h4>Customize Your Access</h4><br />
+                Select the <b>Pillars</b>, and <b>Cities</b> you want to work with.
+                You’ll only be able to view and manage data for the items you choose here.
+            </div>
+
+
+            <div class="modal_tabs multi_select">
+
+
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home">
+                        <form [formGroup]="kpiForm" (ngSubmit)="onSubmit()">
+                            <!-- Pillar Multi-Select -->
+                            <div class="input_field">
+                                <label>Select Pillars *</label>
+                                <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName"
+                                    formControlName="pillars" [multiple]="true" [searchable]="true"
+                                    class="form-control analyst_multi_select"
+                                    [placeholder]="kpiForm.get('pillars')?.invalid ? 'Select Pillars' : ''"
+                                    (change)="checkSelectionLimit('pillars')" [trackByFn]="trackByFn">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        {{ item.pillarName }},
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.pillarName }}
+                                    </ng-template>
+                                </ng-select>
+
+
+                                <div class="error-msg"
+                                    *ngIf="kpiForm.get('pillars')?.invalid && (isSubmitted || kpiForm.get('pillars')?.touched)">
+                                    Please select at least one pillar.
+                                </div>
+                                <div *ngIf="limitMessages['pillars']" class="text-danger small mt-1">
+                                    {{ limitMessages['pillars'] }}
+                                </div>
+                            </div>
+
+                            <!-- City Multi-Select -->
+                            <div class="input_field">
+                                <label>Assign City *</label>
+                                <ng-select [items]="cityList" bindValue="cityID" bindLabel="cityName"
+                                    formControlName="cities" [multiple]="true" class="form-control analyst_multi_select"
+                                    [searchable]="true"
+                                    [placeholder]="kpiForm.get('cities')?.invalid ? 'Assign City' : ''"
+                                    (change)="checkSelectionLimit('cities')">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        {{ item.cityName }},
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.cityName }}, {{ item.state }}
+                                    </ng-template>
+                                </ng-select>
+                                <div class="error-msg"
+                                    *ngIf="kpiForm.get('cities')?.invalid && (isSubmitted || kpiForm.get('cities')?.touched)">
+                                    Please select at least one city.
+                                </div>
+                                <div *ngIf="limitMessages['cities']" class="text-danger small mt-1">
+                                    {{ limitMessages['cities'] }}
+                                </div>
+                            </div>
+
+                            <!-- KPI Multi-Select -->
+                            <!-- <div class="input_field">
+                                <label>Select KPIs *</label>
+                                <ng-select [items]="kpis" bindValue="layerID" bindLabel="layerName"
+                                    formControlName="kpis" [multiple]="true" [searchable]="true"
+                                    (change)="checkSelectionLimit('kpis')" class="form-control analyst_multi_select"
+                                    [placeholder]="kpiForm.get('kpis')?.invalid ? 'Select KPIs' : ''">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        {{ item.layerCode }},
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.layerName }}({{ item.layerCode }})
+                                    </ng-template>
+                                </ng-select>
+                                <div class="error-msg"
+                                    *ngIf="kpiForm.get('kpis')?.invalid && (isSubmitted || kpiForm.get('kpis')?.touched)">
+                                    Please select at least one KPI.
+                                </div>
+                                <div *ngIf="limitMessages['kpis']" class="text-danger small mt-1">
+                                    {{ limitMessages['kpis'] }}
+                                </div>
+                            </div> -->
+
+                            <!-- Submit -->
+                            <button type="submit" class="common_button w-100 mt-4">
+                                {{'Save' }}
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

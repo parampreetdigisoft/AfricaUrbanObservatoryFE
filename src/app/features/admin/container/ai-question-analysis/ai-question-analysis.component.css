@@ -1,0 +1,298 @@
+.custom-sidebar {
+    width: 775px !important;
+    /* 👈 set your desired width */
+}
+
+
+.input_flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    grid-gap: 10px;
+}
+
+.input_flex select {
+    flex: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: center right 13px;
+    color: #7a7a7a;
+    height: auto;
+    background-color: #ffffff;
+    min-height: 36px;
+    align-items: center;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none !important;
+    border-radius: 12px !important;
+    padding: 10px 30px 10px 10px !important;
+    border: 1px solid #d7d7d7 !important;
+}
+
+.action_td input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #397b69;
+}
+
+.action_td td {
+    padding: 0 20px 0 0 !important;
+}
+
+.kpi_td_data div:empty,
+.kpi_sidebar app-view-city-detail .bold_num:empty {
+    display: none;
+}
+
+.kpi_td_data .bold_num,
+::ng-deep .kpi_sidebar app-view-city-detail .bold_num {
+    background: #304a43;
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 0.5rem;
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+::ng-deep .kpi_sidebar app-view-city-detail .city_card_outter .city_card_img img {
+    max-width: 300px;
+}
+
+::ng-deep .kpi_sidebar app-view-city-detail .city_card_outter .city_card_inner {
+    padding: 10px 0px;
+}
+
+::ng-deep .kpi_sidebar app-view-city-detail .city_card_outter .city_card_inner .city_cards_h1 {
+    font-size: 24px;
+}
+
+::ng-deep .kpi_sidebar .city_cards_disc {
+    margin: 10px 0 0px !important;
+    font-size: 14px;
+}
+
+.compare_city_table .table thead tr {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.compare_city_table .table tr th:first-child,
+.compare_city_table .table tr td:first-child {
+    border-left: 0;
+}
+
+.compare_city_table .table tr th:last-child,
+.compare_city_table .table tr td:last-child {
+    border-right: 0;
+}
+
+.compare_city_table tbody td.action_td table {
+    width: 100%;
+}
+
+.compare_city_table tbody td.action_td table .action_icons {
+    justify-content: flex-start;
+}
+
+.compare_city_table tbody td.action_td table .action_icons  span {
+    display: inline-block;
+    background-color: #397b69;
+    padding: 8px 10px;
+    white-space: nowrap;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+.compare_city_table .action_td td {
+    padding: 0 !important;
+}
+
+::ng-deep .analyst_multi_select .ng-option-selected {
+  background-color: #e8f0ff !important;
+  color: #304a43 !important;
+  font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+  background-color: #f2f6ff !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+    border: none !important;
+    background-color: #ffffff !important;
+    min-height: auto !important;
+    height: 100% !important;
+}
+::ng-deep .compare_select  .ng-select-container:hover {
+    box-shadow: none !important;
+}
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    box-shadow: none !important;
+}
+.compare_select .analyst_multi_select {
+    flex: 1;
+    height: auto;
+    background-color: #ffffff;
+    min-height: 36px;
+    align-items: center;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none!important;
+    border-radius: 12px !important;
+    padding: 6px 10px 6px 3px !important;
+    border: 1px solid #d7d7d7 !important;
+}
+
+::ng-deep .compare_select .ng-value-container .ng-value {
+    white-space: nowrap;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+    background-color: #304a43 !important;
+    color: #ffffff !important;
+}
+
+.compare_city_table table {
+  table-layout: auto; /* keep responsive behavior */
+  width: 100%;
+}
+.compare_city_table .city-col {
+  min-width: 500px;      /* adjust as needed */
+  white-space: normal;   /* allow wrapping */
+  word-break: break-word;
+}
+
+@media only screen and (max-width:1550px) {
+    .table_outer .table th {
+        padding: 11px 6px;
+        font-size: 15px;
+    }
+
+    .table_outer .table td {
+        font-size: 13px;
+        padding: 10px 10px;
+    }
+
+    .table_custom_inner {
+        overflow-x: auto !important;
+    }
+    .table_outer .table td.city-col {
+        min-width: unset !important;
+        max-width: 100%;
+        width: 400px;
+    }
+    ::ng-deep .table_custom_inner .circular-score svg{
+        width: 70px !important;
+        height: 70px !important;
+    }
+    ::ng-deep .table_custom_inner .score-text {
+        font-size: 12px !important;
+    }
+    .ai_table_title {
+        font-size: 22px;
+    }
+        
+}
+@media only screen and (max-width:1345px) {
+    .table_outer .table td.city-col {
+        min-width: unset !important;
+        max-width: 100%;
+        width: 400px;
+    }
+    .ai_table_title {
+        font-size: 20px;
+    }
+    ::ng-deep .compare_select .analyst_multi_select .ng-arrow-wrapper {
+        width: auto;
+        height: auto;
+        padding: 0;
+    }
+    .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+        top: 5px;
+        left: 0;
+        padding-left: 10px;
+        padding-right: 30px;
+    }
+    ::ng-deep .compare_select .ng-value-container .ng-value {
+        font-size: 11px;
+    }
+    .compare_select .analyst_multi_select .ng-input {
+        padding-right: 30px;
+    }
+    .table_outer .table th {
+        font-size: 15px;
+        white-space: nowrap;
+    }
+    td:has(.confidence-badge) {
+        text-align: center;
+    }
+}
+
+
+/* Ai date css start */
+.research_date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center; /* 👈 center text */
+  min-width: 120px;         /* 👈 adjust as needed */
+
+  gap: 6px;
+  padding: 6px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+
+  transition: all 0.25s ease;
+  cursor: default;
+}
+
+.research_date.fresh {
+  background: linear-gradient(135deg, #e6fdf4, #d2f7eb);
+  color: #116c4a;
+}
+.research_date.recent {
+  background: linear-gradient(135deg, #fff7df, #ffebba);
+  color: #8a6400;
+}
+.research_date.old {
+  background: linear-gradient(135deg, #ffe9e6, #ffd1cb);
+  color: #912018;
+}
+.research_date.just-now {
+  background: linear-gradient(135deg, #e8f0ff, #d9e6ff);
+  color: #204ecf;
+  animation: glow 1.8s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 0 rgba(32, 78, 207, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 12px rgba(32, 78, 207, 0.45);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(32, 78, 207, 0.4);
+  }
+}
+.research_date:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+}
+/* Ai date css end */
+

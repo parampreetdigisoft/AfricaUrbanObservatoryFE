@@ -1,0 +1,21 @@
+<div *ngIf="assessmentProgress && isShow" class="assessment_card">
+  <div class="chart-title">Assessment {{assessmentProgress.totalAnsPillar ==14 ? 'Completed':'Progress'}}</div>
+  <div class="assessment_card_inner" style="display: flex; justify-content: center; align-items: center; ">
+    <!-- <ag-charts [options]="options" style="width: 100%;"></ag-charts> -->
+    <div id="card">
+      <div id="chart" *ngIf="chartOptions?.series">
+        <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!"
+          [plotOptions]="chartOptions.plotOptions!" [labels]="chartOptions.labels!" [stroke]="chartOptions.stroke!"
+          [fill]="chartOptions.fill!"></apx-chart>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="assessmentdata">
+    Pillar Submitted: <span>{{assessmentProgress.totalAnsPillar}} / 14</span>
+  </div>
+  <div class="assessmentdata">
+    Questions Answered: <span>{{assessmentProgress.totalAnsQuestion}} / {{assessmentProgress.totalQuestion}}</span>
+  </div>
+</div>
