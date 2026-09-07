@@ -1,15 +1,15 @@
 
 .cus_table .table th {
-    background: #efbf07;
+    background: #C8994E;
     font-weight: 600;
-    color: #304a43;
+    color: #16352C;
     font-size: 14px;
     white-space: nowrap;
 }
 
 
 .cus_table .score_label_tab {
-    background: #304a43;
+    background: #16352C;
     color: #ffffff;
     padding: 0.3rem 0.5rem;
     border-radius: 0.5rem;
@@ -43,7 +43,7 @@ h4.kpi_head_col {
     font-size: 2.2rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    color: #304a43;
+    color: #16352C;
 }
 
 
@@ -101,8 +101,8 @@ span:empty, div:empty{
 }
 
 .kpi_custom_table th {
-  background-color: #efbf07;
-  color: #304a43;
+  background-color: #C8994E;
+  color: #16352C;
   font-weight: 600;
   padding: 8px;
   border: 1px solid #e5e7eb;
@@ -139,19 +139,19 @@ span:empty, div:empty{
     border-radius: 15px;
 }
 .active_row td {
-    background-color: #304a43;
+    background-color: #16352C;
     color: #ffffff;
 }
 .active_row td .score_label_tab {
-    background-color: #44625a !important;
+    background-color: #2A5F4C !important;
 }
 .last_data td {
-    background-color: #304a43;
+    background-color: #16352C;
     color: #ffffff;
 }
 .last_data td span {
     color: #000000;
-    background-color: #efbf04;
+    background-color: #C8994E;
     white-space: nowrap;
     padding: 5px 8px;
     border-radius: 30px;
@@ -172,10 +172,10 @@ button.btn-close:focus-visible {
     margin-top: 0;
 }
 .active_ai td {
-    background-color: #d1eae1 !important;
+    background-color: #E4EDE0 !important;
 }
 .side_sub_color {
-    color: #304a43;
+    color: #16352C;
     font-weight: 500 !important;
 }
 .side_city_title{

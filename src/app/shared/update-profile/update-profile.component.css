@@ -24,6 +24,6 @@
   outline: none;
 }
 .form-switch input[type="checkbox"]:checked {
-    background-color: #397b69 !important;
-    border-color: #397b69;
+    background-color: #1B4A3A !important;
+    border-color: #1B4A3A;
 }

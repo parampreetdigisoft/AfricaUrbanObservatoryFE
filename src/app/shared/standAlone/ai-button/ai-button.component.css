@@ -19,7 +19,7 @@
   position: relative;
   width: 122px;
   height: 38px;
-  background: linear-gradient(135deg, #2f4841 0%, #21342f 100%);
+  background: linear-gradient(135deg, #1B4A3A 0%, #0F2D24 100%);
   border-radius: 28px;
   padding: 4px;
   box-shadow: 
@@ -76,7 +76,7 @@
 .icon-manual {
   opacity: 1;
   transform: scale(1) rotate(0deg);
-  color: #4a7167;
+  color: #4A6741;
 }
 
 .icon-ai {
@@ -162,14 +162,14 @@
 }
 
 .label-manual {
-  color: #4a7167;
+  color: #4A6741;
   transition: all 0.3s ease;
   opacity: 1;
   transform: translateY(0);
 }
 
 .label-ai {
-  color: #8eb5ab;
+  color: #8AA682;
   transition: all 0.3s ease;
   opacity: 0.5;
   transform: translateY(0);
@@ -181,7 +181,7 @@
 
 .ai-toggle-input:checked + .ai-toggle-label .label-manual {
   opacity: 0.5;
-  color: #8eb5ab;
+  color: #8AA682;
 }
 
 .ai-toggle-input:checked + .ai-toggle-label .label-ai {
@@ -210,7 +210,7 @@
 }
 
 .ai-toggle-input:not(:checked) + .ai-toggle-label:hover .toggle-track {
-  background: linear-gradient(135deg, #3c5d54 0%, #2f4841 100%);
+  background: linear-gradient(135deg, #2A5F4C 0%, #1B4A3A 100%);
 }
 
 .ai-toggle-input:checked + .ai-toggle-label:hover .toggle-track {

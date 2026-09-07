@@ -20,7 +20,7 @@
 }
 
 .city_cards_p path {
-    fill: rgb(48 74 67);
+    fill: #16352C;
 }
 
 .city_cards_p svg {
@@ -55,7 +55,7 @@
 
 
 .cus_table .table th {
-    background-color: #EFBF04;
+    background-color: #C8994E;
     font-weight: 600;
     color: #ffffff;
     font-size: 14px;
@@ -98,7 +98,7 @@ h4.kpi_head_col {
     font-size: 2.2rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    color: #304a43;
+    color: #16352C;
 }
 
 
@@ -117,7 +117,7 @@ h4.kpi_head_col {
 
 button.btn-close:focus,
 button.btn-close:focus-visible {
-    box-shadow: 0 0 0 3px rgb(48 74 67); /* greenish glow */
+    box-shadow: 0 0 0 3px #16352C; /* greenish glow */
     outline: none; /* remove default outline */
 }
 
@@ -166,7 +166,7 @@ button.btn-close:focus-visible {
   cursor: pointer;
     white-space: nowrap;
     border-radius: 5px !important;
-    background-color: #397b69 !important;
+    background-color: #1B4A3A !important;
     color: #ffffff !important;
     display: inline-block;
     padding: 8px 10px;
@@ -178,7 +178,7 @@ button.btn-close:focus-visible {
 }
 
 .save-btn {
-    background: #397b69;
+    background: #1B4A3A;
     color: #ffffff !important;
     border: none;
     padding: 8px 10px;

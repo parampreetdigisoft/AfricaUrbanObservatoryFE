@@ -1,6 +1,6 @@
 .aui_before_login
 {
-    background: radial-gradient(50.87% 50.87% at 50% 50%, #4F786D 0%, #497066 18.27%, #35524A 70.67%, #304A43 100%);
+    background: radial-gradient(50.87% 50.87% at 50% 50%, #4A6741 0%, #1B4A3A 18.27%, #16352C 70.67%, #0F2D24 100%);
     min-height: 100dvh;
     display: flex;
     justify-content: center;
@@ -19,8 +19,10 @@ max-width: 100%;
 
 .aui_logo img
 {
-  width: 155px;
-  
+  height: 88px;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
 }
 
 .aui_logo > a

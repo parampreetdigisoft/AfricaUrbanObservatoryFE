@@ -1,49 +1,56 @@
 .main_area
 {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    align-items: stretch;
+    width: 100%;
 }
 
 .sidebar_area
 {
-    width: 370px;
-    padding: 0 20px 20px 20px;
+    width: 255px;
+    flex: 0 0 255px;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 .content_area
 {
-    flex: 1;
-    padding-bottom: 20px;
-    padding-right: 20px;
-    width: calc(100% - 370px);
+    flex: 1 1 auto;
+    min-width: 0;
+    width: auto;
+    padding: 12px 16px 16px;
+    box-sizing: border-box;
 }
+
 @media only screen and (max-width:1540px) {
   .sidebar_area{
-      width: 335px;
-      padding: 0 15px 20px 15px;
+      width: 245px;
+      flex-basis: 245px;
+      padding: 0;
   }
- 
 }
 
 
 @media only screen and (max-width:1339px){
     ::ng-deep .main_area .inner_sidebar .nav_links{
-        font-size: 14px;
+        font-size: 13px;
     }
     ::ng-deep .main_area .inner_sidebar {
-        padding: 22px 15px 22px;
-        border-radius: 20px;
+        padding: 8px 0 10px;
+        border-radius: 0;
     }
     ::ng-deep .main_area .nav_links svg {
-        width: 22px;
-        height: auto;
+        width: 18px;
+        height: 18px;
     }
     ::ng-deep .main_area .sub_menu .nav_links svg {
-        width: auto;
-        height: auto;
+        width: 10px;
+        height: 10px;
     }
     .main_area .sidebar_area{
-        width: 330px;
+        width: 240px;
+        flex-basis: 240px;
     }
     ::ng-deep .dashboard_card_inner span {
         padding: 10px !important;
@@ -57,8 +64,11 @@
 
 
 @media only screen and (max-width:767px){
+    .main_area {
+        flex-wrap: wrap;
+    }
     .sidebar_area {
-        /* transform: translateX(-100%); */
         width: 100%;
+        flex-basis: 100%;
     }
 }

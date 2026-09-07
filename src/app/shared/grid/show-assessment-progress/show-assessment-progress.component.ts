@@ -76,7 +76,7 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
           hollow: {
             margin: 2,
             size: "80%",
-            background: "#12352f",
+            background: "#0F2D24",
             image: undefined,
             position: "front",
             dropShadow: {

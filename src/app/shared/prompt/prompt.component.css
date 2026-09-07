@@ -62,14 +62,14 @@ line-height: normal;
 }
 button.btn.btn_cancel {
     border-radius: 5px;
-    color: #304a43 !important;
-    border: 1px solid #304a43;
+    color: #1B4A3A !important;
+    border: 1px solid #1B4A3A;
     transition: 0.3s all;
 }
 button.btn.btn_cancel:hover {
-   background-color: #304a43 !important;
+   background-color: #1B4A3A !important;
     color: #ffffff !important;
-    border: 1px solid #304a43;
+    border: 1px solid #1B4A3A;
 }
 button.btn-close:focus, button.btn-close:focus-visible {
     box-shadow: none !important;

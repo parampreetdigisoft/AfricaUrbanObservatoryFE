@@ -1,10 +1,10 @@
 
 .cus_pagination>li.active span {
-    background: #304a43;
+    background: #1B4A3A;
     color: #fff;
 }
 .pagi_label:hover {
-    color: #2e9573;
+    color: #C8994E;
 }
 .pagi_label {
     transition: 0.3s all;
