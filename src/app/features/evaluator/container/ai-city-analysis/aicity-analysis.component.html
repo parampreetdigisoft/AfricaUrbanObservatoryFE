@@ -13,7 +13,7 @@
           </ng-template>
 
           <ng-template ng-option-tmp let-item="item">
-            {{ item.cityName }}, {{ item.administrativeDivision }} ({{ item.score?.toFixed(1) || 'NA'}})
+            {{ item.cityName }}, {{ item.country }} ({{ item.score?.toFixed(1) || 'NA'}})
           </ng-template>
         </ng-select>
       </div>
@@ -40,8 +40,7 @@
         <tr *ngFor="let city of aiCities; let i = index">
           <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
           <td class="city-col">
-            <!-- {{ city.cityName }} {{ city.administrativeDivision }},{{ city.country }} -->
-            <app-typing-text [text]="city.cityName +', '+ city.administrativeDivision +', '+city.country" [speed]="40">
+            <app-typing-text [text]="city.cityName +', '+city.country" [speed]="40">
             </app-typing-text>
           </td>
 

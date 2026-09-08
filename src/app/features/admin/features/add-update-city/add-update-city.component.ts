@@ -184,7 +184,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
 
       // ✅ Header validation
       const requiredHeaders = [
-        "CityName", "CityAliasName", "Country", "AdministrativeDivision",
+        "CityName", "CityAliasName", "Country", "Province",
         "PostalCode", "Region", "Latitude", "Longitude",
         "Population", "Income", "LivingCost", "PurchasingPower"
       ];
@@ -204,7 +204,7 @@ export class AddUpdateCityComponent implements OnChanges, OnInit {
 
         const cityName = this.getString(row["CityName"]);
         const cityAliasName = this.getString(row["CityAliasName"]);
-        const administrativeDivision = this.getString(row["AdministrativeDivision"]);
+        const administrativeDivision = this.getString(row["Province"]);
         const region = this.getString(row["Region"]);
         const country = this.getString(row["Country"]);
         const postalCode = this.getString(row["PostalCode"]);

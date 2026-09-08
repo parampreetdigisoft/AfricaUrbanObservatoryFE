@@ -58,7 +58,7 @@
                             <!-- City Multi-Select -->
                             <div class="input_field">
                                 <label>Assign City *</label>
-                                <ng-select [items]="cities" bindValue="cityID" bindLabel="cityName"
+                                <ng-select [items]="cities" bindValue="cityID" bindLabel="cityName" 	    [searchFn]="customSearchFn"
                                     formControlName="city" [multiple]="true" class="form-control analyst_multi_select"
                                     [searchable]="true"
                                     [placeholder]="analystForm.get('city')?.invalid ? 'Assign City' : ''">
@@ -68,7 +68,7 @@
                                     </ng-template>
 
                                     <ng-template ng-option-tmp let-item="item">
-                                        {{ item.cityName }}, {{ item.administrativeDivision }}
+                                        {{ item.cityName }}, {{ item.country }}
                                     </ng-template>
                                 </ng-select>
 

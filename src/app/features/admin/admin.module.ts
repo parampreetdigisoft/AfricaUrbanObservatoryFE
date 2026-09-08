@@ -8,6 +8,8 @@ import { PillarComponent } from './container/pillar/pillar.component';
 import { QuestionComponent } from './container/question/question.component';
 import { AssesmentComponent } from './container/assesment/assesment.component';
 import { AddUpdateAnalystComponent } from './features/add-update-analyst/add-update-analyst.component';
+import { AddUpdateCityUserComponent } from './features/add-update-city-user/add-update-city-user.component';
+import { CityUserViewComponent } from './container/city-user-view/city-user-view.component';
 import { AddUpdateCityComponent } from './features/add-update-city/add-update-city.component';
 import { AnalystViewComponent } from './container/analyst-view/analyst-view.component';
 import { AddUpdateQuestionComponent } from './features/add-update-question/add-update-question.component';
@@ -28,8 +30,10 @@ import { KpiLayersComponent } from './container/kpi-layers/kpi-layers.component'
     QuestionComponent,
     AssesmentComponent,
     AddUpdateAnalystComponent,
+    AddUpdateCityUserComponent,
     AddUpdateCityComponent,
     AnalystViewComponent,
+    CityUserViewComponent,
     AddUpdateQuestionComponent,
     EvaluatoinResponseViewComponent,
     UpdatePillarComponent,

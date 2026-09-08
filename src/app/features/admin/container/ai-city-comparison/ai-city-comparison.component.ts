@@ -572,8 +572,10 @@ export class AiCityComparisonComponent implements OnInit {
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
     return (
-      item.layerCode?.toLowerCase().includes(term) ||
-      item.layerName?.toLowerCase().includes(term)
+      item.cityName?.toLowerCase().includes(term) ||
+      item.cityAliasName?.toLowerCase().includes(term) ||
+      item.country?.toLowerCase().includes(term) ||
+      item.region?.toLowerCase().includes(term) 
     );
   }
   private calculatePillarCards(): void {
@@ -615,7 +617,7 @@ export class AiCityComparisonComponent implements OnInit {
     return Math.round(avg * 100) / 100 + '';
   }
 
-  viewVUIAveumCrossComparision(){
+  viewAUIAveumCrossComparision(){
     this.chatService.crossComparisionCityIDs.next(this.selectedCities);
     this.router.navigate(['/admin/aevum'], { state: { role: UserRole.Admin } });
   }

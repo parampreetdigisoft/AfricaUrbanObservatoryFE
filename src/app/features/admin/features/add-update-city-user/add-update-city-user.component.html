@@ -1,0 +1,177 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+        <div class="modal-body">
+            <button type="button" (click)="closeModel()" class="btn-close"></button>
+            <h4 class="modal_head"> {{cityUser ?'Update':'Add' }} City User</h4>
+            <p class="modal_sub_head">Enter The details and marked</p>
+            <div class="modal_tabs">
+                <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
+                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                            aria-selected="true">{{cityUser ?'Update':'Add' }} Single</button>
+                    </li>
+                </ul>
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home">
+                        <form [formGroup]="cityUserForm" (ngSubmit)="onSubmit()">
+
+                            <div class="input_field">
+                                <label>Full Name *</label>
+                                <input type="text" formControlName="fullName" appAlphaOnly placeholder="Enter Full Name"
+                                    class="form-control">
+                                <div class="error-msg"
+                                    *ngIf="cityUserForm.get('fullName')?.invalid && (cityUserForm.get('fullName')?.touched || isSubmitted)">
+                                    Full name is required.
+                                </div>
+                            </div>
+
+                            <div class="input_field">
+                                <label>Email *</label>
+                                <input type="email" formControlName="email" placeholder="Enter Email"
+                                    class="form-control">
+                                <div class="error-msg" *ngIf="cityUserForm.get('email')?.touched || isSubmitted">
+                                    <span *ngIf="cityUserForm.get('email')?.errors?.['required']">Email is
+                                        required.</span>
+                                    <span *ngIf="cityUserForm.get('email')?.errors?.['email']">Invalid email
+                                        format.</span>
+                                    <span *ngIf="cityUserForm.get('email')?.errors?.['emailExists']">Email is
+                                        already taken.</span>
+                                </div>
+                            </div>
+
+                            <div class="input_field">
+                                <label>Phone No.*</label>
+                                <input type="text" formControlName="phone" placeholder="Enter Phone Number"
+                                    class="form-control" minlength="10" maxlength="15" (keypress)="numberOnly($event)">
+                                <div class="error-msg"
+                                    *ngIf="cityUserForm.get('phone')?.invalid && (cityUserForm.get('phone')?.touched || isSubmitted)">
+                                    Phone number is required.
+                                </div>
+                            </div>
+
+                            <div class="input_field">
+                                <label>Tier Plan*</label>
+                                <ng-select [items]="tierOptions" bindValue="value" bindLabel="label"
+                                    formControlName="tier" [multiple]="false"
+                                    class="form-control analyst_multi_select" [searchable]="false"
+                                    [placeholder]="cityUserForm.get('tier')?.invalid ? 'Select Tier Plan' : ''" appendTo="body">
+
+                                    <ng-template ng-label-tmp let-item="item" class="select_item">
+                                        {{ item.label }}
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.label }}
+                                    </ng-template>
+                                </ng-select>
+
+                                <div class="error-msg"
+                                    *ngIf="cityUserForm.get('tier')?.invalid && (isSubmitted || cityUserForm.get('tier')?.touched)">
+                                    Tier Plan is required.
+                                </div>
+                            </div>
+
+                            <div class="input_field" *ngIf="!isPremium">
+                                <label>Select Pillars *</label>
+                                <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName"
+                                    formControlName="pillars" [multiple]="true" [closeOnSelect]="false"
+                                    class="form-control analyst_multi_select" [searchable]="true"
+                                    [placeholder]="cityUserForm.get('pillars')?.invalid ? 'Select Pillars' : ''"
+                                    (change)="checkSelectionLimit('pillars')" [trackByFn]="trackByFn" appendTo="body">
+
+                                    <ng-template ng-label-tmp let-item="item" class="select_item">
+                                        {{ item.pillarName }}
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.pillarName }}
+                                    </ng-template>
+                                </ng-select>
+                                <div *ngIf="limitMessages['pillars']" class="error-msg">
+                                    {{ limitMessages['pillars'] }}
+                                </div>
+                            </div>
+
+                            <div class="input_field" *ngIf="isPremium">
+                                <label>Pillars</label>
+                                <p class="modal_sub_head mb-0">Premium includes access to all pillars automatically.</p>
+                            </div>
+
+                            <div class="input_field" *ngIf="isPremium">
+                                <label>Geographic Access *</label>
+                                <div class="d-flex flex-wrap gap-3 mt-1">
+                                    <label class="d-flex align-items-center gap-2 mb-0">
+                                        <input type="radio" name="premiumGeoMode" [checked]="premiumGeoMode === 'select'"
+                                            (change)="onPremiumGeoModeChange('select')">
+                                        <span>Select Cities</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 mb-0">
+                                        <input type="radio" name="premiumGeoMode" [checked]="premiumGeoMode === 'all'"
+                                            (change)="onPremiumGeoModeChange('all')">
+                                        <span>All Cities</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="input_field" *ngIf="!isPremium || premiumGeoMode === 'select'">
+                                <label>Assign City *</label>
+                                <ng-select [items]="cities" bindValue="cityID" bindLabel="cityName"
+                                    formControlName="city" [multiple]="true" [closeOnSelect]="false"
+                                    class="form-control analyst_multi_select" [searchable]="true" 	    [searchFn]="customSearchFn"
+                                    [placeholder]="cityUserForm.get('city')?.invalid ? 'Assign City' : ''"
+                                    (change)="checkSelectionLimit('city')" appendTo="body">
+
+                                    <ng-template ng-label-tmp let-item="item" class="select_item">
+                                        {{ item.cityName}}
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.cityName }}, {{ item.country }}
+                                    </ng-template>
+                                </ng-select>
+                                <div *ngIf="limitMessages['city']" class="error-msg">
+                                    {{ limitMessages['city'] }}
+                                </div>
+                            </div>
+
+                            <div class="input_field" *ngIf="isPremium && premiumGeoMode === 'all'">
+                                <label>Assign City *</label>
+                                <p class="modal_sub_head mb-0">All cities assigned.</p>
+                            </div>
+
+                            <button type="submit" class="common_button w-100 mt-4">
+                                {{cityUser ?'Update':'Save' }} <span *ngIf="loading"
+                                    class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab"
+                        tabindex="0" *ngIf="!cityUser">
+                        <div class="input_field">
+                            <label for="">
+                                Upload Excel File *
+                                <a href="javascript:void(0)" (click)="downloadTemplate()" class="ms-2 text-primary"
+                                    style="text-decoration: underline; cursor: pointer;">
+                                    Download Template
+                                </a>
+                            </label>
+                            <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileChange($event)"
+                                class="form-control">
+                        </div>
+                        <div class="wrong_upload_alert">
+                            <p>{{this.alertMsg}}</p>
+                        </div>
+                        <div class="d-flex justify-content-end mt-3">
+                            <button type="button" class="common_button" [disabled]="!this.excelData?.length"
+                                (click)="bulkImport()">
+                                Import <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

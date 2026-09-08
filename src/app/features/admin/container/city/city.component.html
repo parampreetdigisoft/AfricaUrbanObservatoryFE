@@ -106,8 +106,9 @@
         <th>S.No.</th>
         <th>Image</th>
         <th>City</th>
-        <th>State</th>
+        <th>Province</th>
         <th>Country</th>
+        <th>Region</th>
         <th>Score</th>
         <th class="action-header">
           <div class="action-header-content">
@@ -126,6 +127,7 @@
         <td>{{ city.cityName }}</td>
         <td>{{ city.administrativeDivision }}</td>
         <td>{{ city.country }}</td>
+        <td>{{ city.region }}</td>
         <td><span class="bold_num">{{ city.score?.toFixed(2) || 'NA' }}</span></td>
         <td class="action_td">
           <div class="action_icons">

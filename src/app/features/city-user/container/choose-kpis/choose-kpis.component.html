@@ -44,7 +44,7 @@
                             <!-- City Multi-Select -->
                             <div class="input_field">
                                 <label>Assign City *</label>
-                                <ng-select [items]="cityList" bindValue="cityID" bindLabel="cityName"
+                                <ng-select [items]="cityList" bindValue="cityID" bindLabel="cityName" 	    [searchFn]="customSearchFn"
                                     formControlName="cities" [multiple]="true" class="form-control analyst_multi_select"
                                     [searchable]="true"
                                     [placeholder]="kpiForm.get('cities')?.invalid ? 'Assign City' : ''"
@@ -54,7 +54,7 @@
                                     </ng-template>
 
                                     <ng-template ng-option-tmp let-item="item">
-                                        {{ item.cityName }}, {{ item.administrativeDivision }}
+                                        {{ item.cityName }}, {{ item.country }}
                                     </ng-template>
                                 </ng-select>
                                 <div class="error-msg"

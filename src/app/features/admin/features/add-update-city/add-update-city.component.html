@@ -55,12 +55,12 @@
                             <div class="row">
                                 <div class="col">
                                     <div class="input_field">
-                                        <label>Enter State *</label>
+                                        <label>Enter Province *</label>
                                         <input type="text" appAlphaOnly formControlName="administrativeDivision"
-                                            placeholder="Enter administrative division" class="form-control">
+                                            placeholder="Enter Province" class="form-control">
                                         <div class="error-msg"
                                             *ngIf="cityForm.get('administrativeDivision')?.invalid && (cityForm.get('administrativeDivision')?.touched || isSubmitted)">
-                                            State is required.
+                                            Province is required.
                                         </div>
                                     </div>
                                 </div>
@@ -232,7 +232,7 @@
                                             </ng-template>
 
                                             <ng-template ng-option-tmp let-item="item">
-                                                {{ item.cityName }}, {{ item.administrativeDivision }}
+                                                {{ item.cityName }}, {{ item.country }}
                                             </ng-template>
                                         </ng-select>
 

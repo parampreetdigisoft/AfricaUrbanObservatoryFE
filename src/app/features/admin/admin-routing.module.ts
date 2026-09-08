@@ -7,6 +7,7 @@ import { PillarComponent } from "./container/pillar/pillar.component";
 import { QuestionComponent } from "./container/question/question.component";
 import { AssesmentComponent } from "./container/assesment/assesment.component";
 import { AnalystViewComponent } from "./container/analyst-view/analyst-view.component";
+import { CityUserViewComponent } from "./container/city-user-view/city-user-view.component";
 import { AdminDashboardComponent } from "./container/admin-dashboard/admin-dashboard.component";
 import { ComparisionComponent } from "./container/comparision/comparision.component";
 import { KpiLayersComponent } from "./container/kpi-layers/kpi-layers.component";
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: "dashboard", component: AdminDashboardComponent },
       { path: "city", component: CityComponent },
       { path: "analyst", component: AnalystViewComponent },
+      { path: "cityuser", component: CityUserViewComponent },
       { path: "pillar", component: PillarComponent },
       { path: "question", component: QuestionComponent },
       { path: "assesment", component: AssesmentComponent },

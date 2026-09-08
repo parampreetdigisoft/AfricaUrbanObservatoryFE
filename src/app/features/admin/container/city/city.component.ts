@@ -7,10 +7,10 @@ import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { SortDirection } from 'src/app/core/enums/SortDirection';
 import { environment } from 'src/environments/environment';
-import { DownloadReportDto } from 'src/app/core/models/aiVm/downloadReportDto';
 import { AiComputationService } from 'src/app/core/services/ai-computation.service';
 import { ExportCityWithOptionDto } from 'src/app/core/models/ExportCityWithOptionDto';
 import { DocumentFormat } from 'src/app/core/enums/DocumentFormat';
+import { DownloadReportDto } from 'src/app/core/models/aiVm/downloadReportDto';
 declare var bootstrap: any;
 @Component({
   selector: 'app-city',

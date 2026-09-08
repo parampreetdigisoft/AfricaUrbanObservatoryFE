@@ -25,6 +25,7 @@ import { GetMutiplekpiLayerRequestDto } from 'src/app/core/models/aiVm/GetMutipl
 import { GetMutiplekpiLayerResultsDto } from 'src/app/core/models/aiVm/GetMutiplekpiLayerResultsDto';
 import { BlogVM } from 'src/app/core/models/blog/blogVM';
 import { ExportCityWithOptionDto } from 'src/app/core/models/ExportCityWithOptionDto';
+import { EmailExistDto } from 'src/app/core/models/EmailExistDto';
 
 @Injectable({
   providedIn: "root",
@@ -104,6 +105,11 @@ export class AdminService {
     return this.http
       .post(`Auth/UpdateInviteUser`, data)
       .pipe(map((x) => x as ResultResponseDto<unknown>));
+  }
+  public checkEmailExist(data: EmailExistDto) {
+    return this.http
+      .post<EmailExistDto, ResultResponseDto<any>>('Auth/CheckEmailExist', data)
+      .pipe(map((res) => res.isExist ?? false));
   }
   public deleteUser(id: number) {
     return this.http

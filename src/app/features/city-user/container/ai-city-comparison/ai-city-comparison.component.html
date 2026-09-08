@@ -43,7 +43,7 @@
                         </ng-template>
 
                         <ng-template ng-option-tmp let-item="item">
-                            {{ item.cityName }}, {{ item.administrativeDivision }} ({{ item.score?.toFixed(1) || 'NA'}})
+                            {{ item.cityName }}, {{ item.country }} ({{ item.score?.toFixed(1) || 'NA'}})
                         </ng-template>
                     </ng-select>
 
@@ -52,7 +52,7 @@
              <div class="col-md-auto">
 			<button *ngIf="selectedCities.length"
 				[matTooltip]="'View AUI Aevum Comparison'"
-				(click)="viewVUIAveumCrossComparision()"
+				(click)="viewAUIAveumCrossComparision()"
 				class="common_button d-flex align-items-center">
 			
 			   <svg width="20"

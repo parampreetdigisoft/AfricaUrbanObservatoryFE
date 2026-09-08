@@ -31,7 +31,7 @@
           
 					<ng-template ng-option-tmp
 						let-item="item">
-						{{ item.cityName }}, {{ item.administrativeDivision }} ({{ item.score?.toFixed(1) || 'NA'}})
+						{{ item.cityName }}, {{ item.country }} ({{ item.score?.toFixed(1) || 'NA'}})
 					</ng-template>
 				</ng-select>
         				<a 
@@ -79,7 +79,7 @@
         <tr>
           <th>S.No.</th>
           <th>City</th>
-          <th>State</th>
+          <th>Province</th>
           <th>Country</th>
           <th>Score</th>
           <th class="action_th">View Details</th>

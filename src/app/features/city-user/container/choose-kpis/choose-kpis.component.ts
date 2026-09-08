@@ -102,5 +102,14 @@ export class ChooseKpisComponent {
   closeModel() {
     this.closeAnalystModel.emit(true);
   }
+    customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.cityName?.toLowerCase().includes(term) ||
+      item.cityAliasName?.toLowerCase().includes(term) ||
+      item.country?.toLowerCase().includes(term) ||
+      item.region?.toLowerCase().includes(term) 
+    );
+  }
 }
 

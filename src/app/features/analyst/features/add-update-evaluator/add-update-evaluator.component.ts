@@ -81,7 +81,7 @@ export class AddUpdateEvaluatorComponent {
       FullName: "FullName of Evaluator",
       Email: "Enter Email of Evaluator",
       Phone: "Enter Phone Number of Evaluator",
-      CityName: "Enter city seprated by comma, like :- Chandigarh, Mohali, Swar"
+      CityName: "Enter city seprated by comma, like :- Cairo, Cape Town, Johannesburg"
     };
 
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([sampleRow], { header: headers });
@@ -198,5 +198,14 @@ export class AddUpdateEvaluatorComponent {
     this.fileInput.nativeElement.value = "";
     this.alertMsg =''
     this.closeModal.emit(true);
+  }
+    customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.cityName?.toLowerCase().includes(term) ||
+      item.cityAliasName?.toLowerCase().includes(term) ||
+      item.country?.toLowerCase().includes(term) ||
+      item.region?.toLowerCase().includes(term) 
+    );
   }
 }

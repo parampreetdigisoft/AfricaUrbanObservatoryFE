@@ -80,7 +80,7 @@ export class AddUpdateAnalystComponent implements OnInit {
       Email: "Enter Email of Analyst",
       Phone: "Enter Phone Number of Analyst",
       CityName:
-        "Enter city seprated by comma, like :- Chandigarh, Mohali, Swar",
+        "Enter city seprated by comma, like :- Cairo, Cape Town, Johannesburg",
     };
 
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([sampleRow], {
@@ -214,5 +214,14 @@ export class AddUpdateAnalystComponent implements OnInit {
       this.fileInput.nativeElement.value = "";
     this.alertMsg = "";
     this.closeAnalystModel.emit(true);
+  }
+    customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.cityName?.toLowerCase().includes(term) ||
+      item.cityAliasName?.toLowerCase().includes(term) ||
+      item.country?.toLowerCase().includes(term) ||
+      item.region?.toLowerCase().includes(term) 
+    );
   }
 }

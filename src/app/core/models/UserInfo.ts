@@ -9,6 +9,7 @@ export interface PublicUserResponse {
   fullName: string;
   email: string;
   phone?: string | null;
+  tier?: TieredAccessPlanValue | TieredAccessPlanValue.Pending;
   isDeleted: boolean;
   role: string;
   createdBy?: number | null;
@@ -17,6 +18,7 @@ export interface PublicUserResponse {
   isEmailConfirmed: boolean;
   isLoggedIn: boolean;
   is2FAEnabled?: boolean;
+  pillars?: number[] | [];
 }
 export interface PublicUserLocalStorageResponse {
   isActive: boolean;

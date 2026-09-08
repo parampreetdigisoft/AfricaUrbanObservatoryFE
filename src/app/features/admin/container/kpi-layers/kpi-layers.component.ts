@@ -114,8 +114,10 @@ export class KpiLayersComponent {
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
     return (
-      item.layerCode?.toLowerCase().includes(term) ||
-      item.layerName?.toLowerCase().includes(term)
+      item.cityName?.toLowerCase().includes(term) ||
+      item.cityAliasName?.toLowerCase().includes(term) ||
+      item.country?.toLowerCase().includes(term) ||
+      item.region?.toLowerCase().includes(term) 
     );
   }
 }
