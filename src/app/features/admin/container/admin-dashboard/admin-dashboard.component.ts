@@ -4,6 +4,9 @@ import {
   ViewEncapsulation,
   ViewChild,
   AfterViewInit,
+  signal,
+  effect,
+  untracked,
 } from "@angular/core";
 
 import { AdminService } from "../../admin.service";
@@ -67,6 +70,10 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   cityHistory: CityHistoryDto | null = null;
   cityQuestionHistoryReponse: AiCityPillarDashboardResponseDto | null = null;
   isLoader: boolean = false;
+  pillarRecords = signal<any[] | null>(null);
+  isChartBusy = signal(false);
+  chartVisible = signal(false);
+  private pillarChartData: any[] = [];
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
   @ViewChild("chartPillar") chartPillar!: ChartComponent;
@@ -78,7 +85,17 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     public commonService: CommonService,
     private router: Router
-  ) { }
+  ) {
+    effect(() => {
+      const records = this.pillarRecords();
+      if (records === null) {
+        return;
+      }
+      untracked(() => {
+        setTimeout(() => this.applyPillarChart(records), 0);
+      });
+    }, { allowSignalWrites: true });
+  }
 
   ngOnInit(): void {
     this.isLoader = true;
@@ -132,8 +149,8 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     ) {
       return;
     }
-    this.cityQuestionHistoryReponse =null;
-    this.buildPillarComparisonChart();
+    this.isChartBusy.set(true);
+    this.chartVisible.set(false);
     let request: UserCityRequstDto = {
       userID: this.userService?.userInfo?.userID ?? 0,
       cityID: this.selectedCities,
@@ -143,12 +160,11 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
       next: (res) => {
         this.isLoader = false;
         this.cityQuestionHistoryReponse = res.result;
-        if (this.cityQuestionHistoryReponse) {
-          this.buildPillarComparisonChart();
-        }
+        this.pillarRecords.set([...(res.result?.pillars ?? [])]);
       },
       error: (err) => {
         this.isLoader = false;
+        this.isChartBusy.set(false);
       },
     });
   }
@@ -283,21 +299,60 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     };
   }
 
-  buildPillarComparisonChart() {
-    const data = [...(this.cityQuestionHistoryReponse?.pillars ?? [])];
+  applyPillarChart(data: any[]) {
+    this.buildPillarComparisonChart(data);
+    this.isChartBusy.set(false);
+    this.chartVisible.set(false);
+    requestAnimationFrame(() => this.chartVisible.set(true));
+  }
+
+  buildPillarComparisonChart(dataSource?: any[]) {
+    const data = [...(dataSource ?? this.cityQuestionHistoryReponse?.pillars ?? [])];
+    this.pillarChartData = data;
 
     const categories = this.buildUniqueCategories(data);
     const aiSeries = data.map(x => x.aiValue);
     const evaluatorSeries = data.map(x => x.evaluationValue);
-    this.chartPillarOptions = {
-      series: [{
+    const series = [{
         name: 'AI Progress',
         data: aiSeries
       },
       {
         name: 'Evaluator',
         data: evaluatorSeries
-      }],
+      }];
+    const markers = {
+        size: 4,
+        colors: data.map(p => this.PillarColorByScore(p.aiValue)),
+        strokeColors: '#fff',
+        strokeWidth: 2,
+        hover: {
+          size: 8,
+          sizeOffset: 3
+        }
+      };
+
+    if (this.chartPillar && this.chartPillarOptions?.series?.length) {
+      this.chartPillarOptions = {
+        ...this.chartPillarOptions,
+        series,
+        xaxis: {
+          ...this.chartPillarOptions.xaxis,
+          categories,
+        },
+        markers,
+      };
+      this.chartPillar.updateOptions(
+        { xaxis: { categories }, markers },
+        false,
+        true
+      );
+      this.chartPillar.updateSeries(series, true);
+      return;
+    }
+
+    this.chartPillarOptions = {
+      series,
 
       chart: {
         type: 'area',
@@ -307,21 +362,21 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
         animations: {
           enabled: true,
           easing: 'easeinout',
-          speed: 800,
+          speed: 550,
+          animateGradually: {
+            enabled: true,
+            delay: 50
+          },
           dynamicAnimation: {
             enabled: true,
-            speed: 350
+            speed: 400
           }
         }
       },
 
       dataLabels: {
         enabled: true,
-        formatter: (val: number, opts) => {
-          const pillar = data[opts.dataPointIndex];
-
-          return `${Math.round(val)}`;
-        },
+        formatter: (val: number) => `${Math.round(val)}`,
         offsetY: -10,
         style: {
           fontSize: '11px',
@@ -372,16 +427,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
         }
       },
 
-      markers: {
-        size: data.map(p => 4),
-        colors: data.map(p => this.PillarColorByScore(p.aiValue)),
-        strokeColors: '#fff',
-        strokeWidth: 2,
-        hover: {
-          size: 8,
-          sizeOffset: 3
-        }
-      },
+      markers,
 
       xaxis: {
         categories: categories,
@@ -439,7 +485,10 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
       tooltip: {
         enabled: true,
         custom: ({ dataPointIndex }) => {
-          const pillar = data[dataPointIndex];
+          const pillar = this.pillarChartData[dataPointIndex];
+          if (!pillar) {
+            return '';
+          }
 
           const progressColor = this.PillarColorByScore(pillar.aiValue);
           const evaluatorProgressColor = this.PillarColorByScore(pillar.evaluationValue);

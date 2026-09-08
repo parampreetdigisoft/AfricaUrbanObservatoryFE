@@ -30,3 +30,7 @@
     color: #333;
     background-color: #b9b9b9ee;
 }
+
+:host ::ng-deep .city-user-modal-select .ng-select-container {
+    cursor: pointer;
+}

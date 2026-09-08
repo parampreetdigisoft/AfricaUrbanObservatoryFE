@@ -4,6 +4,9 @@ import {
   OnDestroy,
   OnInit,
   ViewChild,
+  signal,
+  effect,
+  untracked,
 } from "@angular/core";
 import { ToasterService } from "src/app/core/services/toaster.service";
 import { UserService } from "src/app/core/services/user.service";
@@ -29,6 +32,7 @@ import {
   ApexStroke,
   ApexLegend,
   ApexTooltip,
+  ChartComponent,
 } from "ng-apexcharts";
 
 export type ChartOptions = {
@@ -65,8 +69,12 @@ export class CityUserDashboardComponent implements OnInit, OnDestroy {
   minPillar: CityPillarQuestionHistoryReponseDto | null = null;
   maxPillar: CityPillarQuestionHistoryReponseDto | null = null;
   tier: TieredAccessPlanValue = TieredAccessPlanValue.Pending;
+  radialRecords = signal<number[] | null>(null);
+  isChartBusy = signal(false);
+  chartVisible = signal(false);
 
   @ViewChild("chartContainer") chartContainer!: ElementRef;
+  @ViewChild("radialChart") radialChart!: ChartComponent;
   public chartOptions: Partial<ChartOptions> = {
     series: [],
     chart: { type: 'radialBar' }
@@ -81,6 +89,15 @@ export class CityUserDashboardComponent implements OnInit, OnDestroy {
     private router: Router
   ) {
     this.tier = this.userService?.userInfo?.tier || 0;
+    effect(() => {
+      const records = this.radialRecords();
+      if (records === null) {
+        return;
+      }
+      untracked(() => {
+        setTimeout(() => this.applyRadialChart(records), 0);
+      });
+    }, { allowSignalWrites: true });
   }
   ngOnDestroy() {
     if (this.intervalId) {
@@ -147,6 +164,8 @@ export class CityUserDashboardComponent implements OnInit, OnDestroy {
       this.toaster.showWarning("Please select one city to view the records")
       return;
     }
+    this.isChartBusy.set(true);
+    this.chartVisible.set(false);
     let request: UserCityRequstDto = {
       userID: this.userService?.userInfo?.userID ?? 0,
       cityID: this.selectedCities,
@@ -169,11 +188,14 @@ export class CityUserDashboardComponent implements OnInit, OnDestroy {
             this.cityQuestionHistoryReponse.pillars.length > 0
               ? this.cityQuestionHistoryReponse.pillars[0]
               : null;
-          this.SetApexRadialBarOptions();
+          this.radialRecords.set(this.getRadialSeries());
+        } else {
+          this.isChartBusy.set(false);
         }
       },
       error: (err) => {
         this.isLoader = false;
+        this.isChartBusy.set(false);
       },
     });
   }
@@ -199,7 +221,7 @@ export class CityUserDashboardComponent implements OnInit, OnDestroy {
   pillarChanged(pillar: CityPillarQuestionHistoryReponseDto) {
     if (pillar?.isAccess) {
       this.selectedPillar = pillar;
-      this.SetApexRadialBarOptions();
+      this.radialRecords.set(this.getRadialSeries());
     }
   }
 
@@ -245,16 +267,51 @@ export class CityUserDashboardComponent implements OnInit, OnDestroy {
     });
   }
 
-  SetApexRadialBarOptions(refresh: boolean = true) {
-    if (this.selectedPillar?.scoreProgress == 0 && !refresh) return;
+  getRadialSeries(): number[] {
+    return [
+      this.cityQuestionHistoryReponse?.scoreProgress ?? 0,
+      this.selectedPillar?.scoreProgress ?? 0,
+      this.maxPillar?.scoreProgress ?? 0,
+      this.minPillar?.scoreProgress ?? 0,
+    ];
+  }
 
+  applyRadialChart(series: number[]) {
+    const wasBusy = this.isChartBusy();
+    if (this.radialChart && this.chartOptions?.series?.length) {
+      this.chartOptions = {
+        ...this.chartOptions,
+        series,
+      };
+      this.radialChart.updateSeries(series, true);
+    } else {
+      this.SetApexRadialBarOptions(series);
+    }
+    this.isChartBusy.set(false);
+    if (wasBusy || !this.chartVisible()) {
+      this.chartVisible.set(false);
+      requestAnimationFrame(() => this.chartVisible.set(true));
+    }
+  }
+
+  customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.cityName?.toLowerCase().includes(term) ||
+      item.cityAliasName?.toLowerCase().includes(term) ||
+      item.country?.toLowerCase().includes(term) ||
+      item.region?.toLowerCase().includes(term)
+    );
+  }
+
+  SetApexRadialBarOptions(seriesOverride?: number[]) {
     const pillarScore: number = this.selectedPillar?.scoreProgress ?? 0;
     const cityScore: number = this.cityQuestionHistoryReponse?.scoreProgress ?? 0;
     const minScore: number = this.minPillar?.scoreProgress ?? 0;
     const maxScore: number = this.maxPillar?.scoreProgress ?? 0;
     const pillarColors = this.commonService.PillarColors;
     this.chartOptions = {
-      series: [cityScore, pillarScore, maxScore, minScore],
+      series: seriesOverride ?? [cityScore, pillarScore, maxScore, minScore],
       chart: {
         height: 360,
         width: 670,
@@ -263,14 +320,14 @@ export class CityUserDashboardComponent implements OnInit, OnDestroy {
         animations: {
           enabled: true,
           easing: 'easeinout',
-          speed: 1000,
+          speed: 550,
           animateGradually: {
             enabled: true,
-            delay: 150
+            delay: 50
           },
           dynamicAnimation: {
             enabled: true,
-            speed: 450
+            speed: 400
           }
         },
         background: 'transparent',

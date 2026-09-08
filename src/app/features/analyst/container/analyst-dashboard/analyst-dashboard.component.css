@@ -30,7 +30,7 @@
 }
 
 .city_piller>.input_field .analyst_multi_select {
-    width: 220px;
+    width: 280px;
     padding: 0;
     border: 0;
 }
@@ -56,7 +56,7 @@
     background-color: #fff;
 }
 
-::ng-deep .city_piller .input_field .analyst_multi_select .ng-select-container {
+::ng-deep .city_piller .input_field .analyst_multi_select:not(.dashboard-city-select) .ng-select-container {
     background-color: #fff;
     border: 1px solid #ccc;
     min-height: 36px;
@@ -92,15 +92,27 @@
     right: 30px;
 } */
 .city_piller .input_field .analyst_multi_select {
-    width: 220px;
+    width: 280px;
     padding: 0;
     border: 0;
+}
+.city_piller .input_field .dashboard-city-select.analyst_multi_select {
+    min-width: 260px;
+    width: 280px;
+}
+::ng-deep .city_piller .input_field .dashboard-city-select .ng-select-container {
+    min-height: 44px !important;
+    border-radius: 14px !important;
+    border: 1px solid #d7e3de !important;
+    background: linear-gradient(180deg, #ffffff 0%, #f7faf9 100%) !important;
+    box-shadow: 0 6px 16px rgba(22, 53, 44, 0.06);
+    padding: 4px 10px 4px 12px !important;
 }
 .city_piller .input_field .analyst_multi_select input[type="text"] {
     line-height: 26px;
 }
 
-.city_piller .input_field .analyst_multi_select .ng-select-container{
+.city_piller .input_field .analyst_multi_select:not(.dashboard-city-select) .ng-select-container{
     background-color: #fff;
     border: 1px solid #ccc;
     min-height: 36px;

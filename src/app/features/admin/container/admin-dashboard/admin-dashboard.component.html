@@ -107,17 +107,18 @@
 						(change)="getCityPillarHistory()"
 						bindValue="cityID"
 						bindLabel="cityName"
-						class="form-control analyst_multi_select">
+						class="form-control analyst_multi_select dashboard-city-select"
+						[clearable]="false">
 						<ng-template ng-label-tmp
-							let-item="item "
-							class="select_item">
-							{{ item.cityName }}
+							let-item="item">
+							<span class="city-select-label">{{ item.cityName }}</span>
 						</ng-template>
-
-
 						<ng-template ng-option-tmp
 							let-item="item">
-							{{ item.cityName }}, {{ item.country }}
+							<div class="city-select-option">
+								<span class="city-select-name">{{ item.cityName }}</span>
+								<span class="city-select-meta">{{ item.country }}</span>
+							</div>
 						</ng-template>
 					</ng-select>
 				</div>
@@ -128,7 +129,7 @@
 					<select [(ngModel)]="selectedYear"
 						(change)="yearChanged()"
 						name="selectedYear"
-						class="form-control">
+						class="form-control dashboard-year-select">
 						<option *ngFor="let year of commonService.applicateYears"
 							[value]="year">
 							{{ year }}
@@ -195,10 +196,19 @@
 		</div>
 
 
-		<div *ngIf="chartPillarOptions && chartPillarOptions?.series"
-			id="chartPillar"
-			tyle="width:100%; height:500px;">
-			<apx-chart [series]="chartPillarOptions.series!"
+		<div class="pillar-chart-shell"
+			[class.is-busy]="isChartBusy()"
+			[class.is-visible]="chartVisible()">
+			<div class="pillar-chart-overlay" *ngIf="isChartBusy()">
+				<div class="pillar-chart-spinner"></div>
+				<span>Updating chart…</span>
+			</div>
+			<div *ngIf="chartPillarOptions?.series"
+				id="chartPillar"
+				class="chart-reveal"
+				style="width:100%; height:500px;">
+			<apx-chart #chartPillar
+				[series]="chartPillarOptions.series!"
 				[chart]="chartPillarOptions.chart!"
 				[xaxis]="chartPillarOptions.xaxis!"
 				[yaxis]="chartPillarOptions.yaxis!"
@@ -213,6 +223,7 @@
 				[markers]="chartPillarOptions.markers!"
 				[grid]="chartPillarOptions.grid!"
 				class="cus_chart_right"></apx-chart>
+			</div>
 		</div>
 	</div>
 

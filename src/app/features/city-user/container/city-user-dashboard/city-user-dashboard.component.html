@@ -103,24 +103,25 @@
 				<div class="input_field">
 					<label>Select City *</label>
 					<ng-select [items]="cities"
+						[searchFn]="customSearchFn"
 						[searchable]="true"
 						[placeholder]="selectedCities == '' ? 'Select City' : ''"
 						[(ngModel)]="selectedCities"
 						(change)="getCityQuestionHistory()"
 						bindValue="cityID"
 						bindLabel="cityName"
-						class="form-control analyst_multi_select">
+						class="form-control analyst_multi_select dashboard-city-select"
+						[clearable]="false">
 						<ng-template ng-label-tmp
-							let-item="item "
-							class="select_item">
-							{{ item.cityName }}
+							let-item="item">
+							<span class="city-select-label">{{ item.cityName }}</span>
 						</ng-template>
-
-
-
 						<ng-template ng-option-tmp
 							let-item="item">
-							{{ item.cityName }}, {{ item.country }}
+							<div class="city-select-option">
+								<span class="city-select-name">{{ item.cityName }}</span>
+								<span class="city-select-meta">{{ item.country }}</span>
+							</div>
 						</ng-template>
 					</ng-select>
 				</div>
@@ -131,7 +132,7 @@
 					<select [(ngModel)]="selectedYear"
 						(change)="yearChanged()"
 						name="selectedYear"
-						class="form-control">
+						class="form-control dashboard-year-select">
 						<option *ngFor="let year of commonService.applicateYears"
 							[value]="year">
 							{{ year }}
@@ -239,17 +240,26 @@
 
 		<div class="row align-items-center">
 			<div class="col-md-12 d-flex justify-content-center">
-				<div #chartContainer
-					class="chart-wrapper">
-					<apx-chart [series]="chartOptions.series!"
-						[chart]="chartOptions.chart!"
-						[plotOptions]="chartOptions.plotOptions!"
-						[labels]="chartOptions.labels!"
-						[legend]="chartOptions.legend!"
-						[colors]="chartOptions.colors!"
-						[fill]="chartOptions.fill!"
-						[stroke]="chartOptions.stroke!"
-						[tooltip]="chartOptions.tooltip!"></apx-chart>
+				<div class="radial-chart-shell"
+					[class.is-busy]="isChartBusy()"
+					[class.is-visible]="chartVisible()">
+					<div class="pillar-chart-overlay" *ngIf="isChartBusy()">
+						<div class="pillar-chart-spinner"></div>
+						<span>Updating chart…</span>
+					</div>
+					<div #chartContainer
+						class="chart-wrapper chart-reveal">
+						<apx-chart #radialChart
+							[series]="chartOptions.series!"
+							[chart]="chartOptions.chart!"
+							[plotOptions]="chartOptions.plotOptions!"
+							[labels]="chartOptions.labels!"
+							[legend]="chartOptions.legend!"
+							[colors]="chartOptions.colors!"
+							[fill]="chartOptions.fill!"
+							[stroke]="chartOptions.stroke!"
+							[tooltip]="chartOptions.tooltip!"></apx-chart>
+					</div>
 				</div>
 			</div>
 		</div>

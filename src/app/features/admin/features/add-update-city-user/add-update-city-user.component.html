@@ -8,13 +8,13 @@
             <div class="modal_tabs">
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
-                            data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                        <button class="nav-link active" id="city-user-single-tab" data-bs-toggle="pill"
+                            data-bs-target="#city-user-single-pane" type="button" role="tab" aria-controls="city-user-single-pane"
                             aria-selected="true">{{cityUser ?'Update':'Add' }} Single</button>
                     </li>
                 </ul>
                 <div class="tab-content" id="pills-tabContent">
-                    <div class="tab-pane fade show active" id="pills-home">
+                    <div class="tab-pane fade show active" id="city-user-single-pane">
                         <form [formGroup]="cityUserForm" (ngSubmit)="onSubmit()">
 
                             <div class="input_field">
@@ -55,8 +55,9 @@
                                 <label>Tier Plan*</label>
                                 <ng-select [items]="tierOptions" bindValue="value" bindLabel="label"
                                     formControlName="tier" [multiple]="false"
-                                    class="form-control analyst_multi_select" [searchable]="false"
-                                    [placeholder]="cityUserForm.get('tier')?.invalid ? 'Select Tier Plan' : ''" appendTo="body">
+                                    class="form-control analyst_multi_select city-user-modal-select" [searchable]="false"
+                                    [placeholder]="cityUserForm.get('tier')?.invalid ? 'Select Tier Plan' : ''"
+                                    appendTo="body">
 
                                     <ng-template ng-label-tmp let-item="item" class="select_item">
                                         {{ item.label }}
@@ -77,9 +78,10 @@
                                 <label>Select Pillars *</label>
                                 <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName"
                                     formControlName="pillars" [multiple]="true" [closeOnSelect]="false"
-                                    class="form-control analyst_multi_select" [searchable]="true"
+                                    class="form-control analyst_multi_select city-user-modal-select" [searchable]="true"
                                     [placeholder]="cityUserForm.get('pillars')?.invalid ? 'Select Pillars' : ''"
-                                    (change)="checkSelectionLimit('pillars')" [trackByFn]="trackByFn" appendTo="body">
+                                    (change)="checkSelectionLimit('pillars')" [trackByFn]="trackByFn"
+                                    appendTo="body">
 
                                     <ng-template ng-label-tmp let-item="item" class="select_item">
                                         {{ item.pillarName }}
@@ -104,12 +106,12 @@
                                 <div class="d-flex flex-wrap gap-3 mt-1">
                                     <label class="d-flex align-items-center gap-2 mb-0">
                                         <input type="radio" name="premiumGeoMode" [checked]="premiumGeoMode === 'select'"
-                                            (change)="onPremiumGeoModeChange('select')">
+                                            (change)="onPremiumGeoModeChange('select'); $event.stopPropagation()">
                                         <span>Select Cities</span>
                                     </label>
                                     <label class="d-flex align-items-center gap-2 mb-0">
                                         <input type="radio" name="premiumGeoMode" [checked]="premiumGeoMode === 'all'"
-                                            (change)="onPremiumGeoModeChange('all')">
+                                            (change)="onPremiumGeoModeChange('all'); $event.stopPropagation()">
                                         <span>All Cities</span>
                                     </label>
                                 </div>
@@ -119,9 +121,11 @@
                                 <label>Assign City *</label>
                                 <ng-select [items]="cities" bindValue="cityID" bindLabel="cityName"
                                     formControlName="city" [multiple]="true" [closeOnSelect]="false"
-                                    class="form-control analyst_multi_select" [searchable]="true" 	    [searchFn]="customSearchFn"
+                                    class="form-control analyst_multi_select city-user-modal-select" [searchable]="true"
+                                    [searchFn]="customSearchFn"
                                     [placeholder]="cityUserForm.get('city')?.invalid ? 'Assign City' : ''"
-                                    (change)="checkSelectionLimit('city')" appendTo="body">
+                                    (change)="checkSelectionLimit('city')"
+                                    appendTo="body">
 
                                     <ng-template ng-label-tmp let-item="item" class="select_item">
                                         {{ item.cityName}}

@@ -18,7 +18,7 @@ export class UtcToLocalTooltipDirective implements OnChanges {
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!this.utcDate) {
+    if (!this.utcDate || this.utcDate == "null") {
       this.tooltip.message = '';
       this.tooltip.disabled = true;
       return;

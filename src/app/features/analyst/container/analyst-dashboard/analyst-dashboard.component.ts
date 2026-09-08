@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnInit, ViewChild, signal, effect, untracked } from '@angular/core';
 import { AgBarSeriesOptions, AgLineSeriesOptions, AgTooltipRendererDataRow } from "ag-charts-community";
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -69,8 +69,22 @@ export class AnalystDashboardComponent implements OnInit {
   pillarBarOptions: any = {};
   isLoader: boolean = false;
   resizeTimeout: any;
+  pillarRecords = signal<any[] | null>(null);
+  isChartBusy = signal(false);
+  chartVisible = signal(false);
+  private pillarChartData: any[] = [];
   constructor(private analystService: AnalystService, private toaster: ToasterService,
-    private userService: UserService, public commonService: CommonService, private router: Router) { }
+    private userService: UserService, public commonService: CommonService, private router: Router) {
+    effect(() => {
+      const records = this.pillarRecords();
+      if (records === null) {
+        return;
+      }
+      untracked(() => {
+        setTimeout(() => this.applyPillarChart(records), 0);
+      });
+    }, { allowSignalWrites: true });
+  }
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
 
@@ -128,8 +142,8 @@ export class AnalystDashboardComponent implements OnInit {
     if (this.userService?.userInfo?.userID == null || !this.selectedCities || this.selectedCities === '' || this.selectedCities == null) {
       return;
     }
-    this.cityQuestionHistoryReponse = null;
-    this.buildPillarComparisonChart();
+    this.isChartBusy.set(true);
+    this.chartVisible.set(false);
 
     let request: UserCityRequstDto = {
       userID: this.userService?.userInfo?.userID ?? 0,
@@ -140,12 +154,11 @@ export class AnalystDashboardComponent implements OnInit {
       next: (res) => {
         this.isLoader = false;
         this.cityQuestionHistoryReponse = res.result;
-        if (this.cityQuestionHistoryReponse) {
-          this.buildPillarComparisonChart();
-        }
+        this.pillarRecords.set([...(res.result?.pillars ?? [])]);
       },
       error: (err) => {
         this.isLoader = false;
+        this.isChartBusy.set(false);
       }
     });
   }
@@ -397,21 +410,60 @@ export class AnalystDashboardComponent implements OnInit {
   }
 
 
-  buildPillarComparisonChart() {
-    const data = [...(this.cityQuestionHistoryReponse?.pillars ?? [])];
+  applyPillarChart(data: any[]) {
+    this.buildPillarComparisonChart(data);
+    this.isChartBusy.set(false);
+    this.chartVisible.set(false);
+    requestAnimationFrame(() => this.chartVisible.set(true));
+  }
+
+  buildPillarComparisonChart(dataSource?: any[]) {
+    const data = [...(dataSource ?? this.cityQuestionHistoryReponse?.pillars ?? [])];
+    this.pillarChartData = data;
 
     const categories = this.buildUniqueCategories(data);
     const aiSeries = data.map(x => x.aiValue);
     const evaluatorSeries = data.map(x => x.evaluationValue);
-    this.chartPillarOptions = {
-      series: [{
+    const series = [{
         name: 'AI Progress',
         data: aiSeries
       },
       {
         name: 'Evaluator',
         data: evaluatorSeries
-      }],
+      }];
+    const markers = {
+        size: 4,
+        colors: data.map(p => this.PillarColorByScore(p.aiValue)),
+        strokeColors: '#fff',
+        strokeWidth: 2,
+        hover: {
+          size: 8,
+          sizeOffset: 3
+        }
+      };
+
+    if (this.chartPillar && this.chartPillarOptions?.series?.length) {
+      this.chartPillarOptions = {
+        ...this.chartPillarOptions,
+        series,
+        xaxis: {
+          ...this.chartPillarOptions.xaxis,
+          categories,
+        },
+        markers,
+      };
+      this.chartPillar.updateOptions(
+        { xaxis: { categories }, markers },
+        false,
+        true
+      );
+      this.chartPillar.updateSeries(series, true);
+      return;
+    }
+
+    this.chartPillarOptions = {
+      series,
 
       chart: {
         type: 'area',
@@ -421,10 +473,14 @@ export class AnalystDashboardComponent implements OnInit {
         animations: {
           enabled: true,
           easing: 'easeinout',
-          speed: 800,
+          speed: 550,
+          animateGradually: {
+            enabled: true,
+            delay: 50
+          },
           dynamicAnimation: {
             enabled: true,
-            speed: 350
+            speed: 400
           }
         }
       },
@@ -553,7 +609,10 @@ export class AnalystDashboardComponent implements OnInit {
       tooltip: {
         enabled: true,
         custom: ({ dataPointIndex }) => {
-          const pillar = data[dataPointIndex];
+          const pillar = this.pillarChartData[dataPointIndex];
+          if (!pillar) {
+            return '';
+          }
 
           const progressColor = this.PillarColorByScore(pillar.aiValue);
           const evaluatorProgressColor = this.PillarColorByScore(pillar.evaluationValue);
@@ -828,5 +887,15 @@ export class AnalystDashboardComponent implements OnInit {
       if (!label) label = words[0] + '...';
       return label;
     });
+  }
+
+  customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.cityName?.toLowerCase().includes(term) ||
+      item.cityAliasName?.toLowerCase().includes(term) ||
+      item.country?.toLowerCase().includes(term) ||
+      item.region?.toLowerCase().includes(term)
+    );
   }
 }

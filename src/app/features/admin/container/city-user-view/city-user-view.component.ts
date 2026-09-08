@@ -63,8 +63,12 @@ export class CityUserViewComponent implements OnInit, OnDestroy {
 
   getAllPillars() {
     this.adminService.getAllPillars().subscribe({
-      next: (res) => {
-        this.pillars = res ?? [];
+      next: (res: any) => {
+        this.pillars = Array.isArray(res)
+          ? res
+          : Array.isArray(res?.result)
+            ? res.result
+            : [];
       },
     });
   }
@@ -234,27 +238,35 @@ export class CityUserViewComponent implements OnInit, OnDestroy {
   opendialog() {
     this.isOpendialog = true;
     setTimeout(() => {
-      const modalEl = document.getElementById("exampleModal");
-      if (modalEl) {
-        let modalInstance = bootstrap.Modal.getInstance(modalEl);
-        if (!modalInstance) {
-          modalInstance = new bootstrap.Modal(modalEl);
-        }
-        modalInstance.show();
+      const modalEl = document.getElementById("cityUserModal");
+      if (!modalEl) {
+        return;
       }
+      const existing = bootstrap.Modal.getInstance(modalEl);
+      if (existing) {
+        existing.dispose();
+      }
+      const modalInstance = new bootstrap.Modal(modalEl, {
+        focus: false,
+        backdrop: true,
+        keyboard: true,
+      });
+      modalInstance.show();
     }, 100);
   }
 
   closeModal() {
     this.selectedIndex = undefined;
     this.loading = false;
-    const homeTab = document.querySelector("#pills-home-tab") as HTMLElement;
-    if (homeTab) {
-      homeTab.click();
-    }
-    const modalEl = document.getElementById("exampleModal");
+    const modalEl = document.getElementById("cityUserModal");
     const modalInstance = bootstrap.Modal.getInstance(modalEl);
-    if (modalInstance) modalInstance.hide();
+    if (modalInstance) {
+      modalInstance.hide();
+    }
+    document.querySelectorAll(".modal-backdrop").forEach((el) => el.remove());
+    document.body.classList.remove("modal-open");
+    document.body.style.removeProperty("overflow");
+    document.body.style.removeProperty("padding-right");
     this.isOpendialog = false;
   }
 
