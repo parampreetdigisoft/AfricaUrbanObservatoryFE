@@ -56,7 +56,7 @@ export class ChatService {
   private readonly welcomeMessage: ChatMessage = {
     id: 'welcome',
     role: 'assistant',
-    content: `## Welcome to Verdian Urban Index\n\nI'm your **Urban Intelligence Assistant**. I can help you analyze:\n\n- **City index scores** \n- **Pillar-level breakdowns** and risk factors\n- **Trends and recommendations**\n\nSelect a **city** and **pillar** above for focused insights, or ask me anything!`,
+    content: `## Welcome to African Urban Index\n\nI'm your **Urban Intelligence Assistant**. I can help you analyze:\n\n- **City index scores** \n- **Pillar-level breakdowns** and risk factors\n- **Trends and recommendations**\n\nSelect a **city** and **pillar** above for focused insights, or ask me anything!`,
     timestamp: new Date(),
   };
 
