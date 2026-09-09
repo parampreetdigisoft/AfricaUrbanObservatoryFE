@@ -1,8 +1,8 @@
 export const environment = {
   production: false,
-  //apiUrl: "https://api.veridianurbansystems.com",
-  apiUrl: 'https://localhost:63334',
-  subscriptionUrl:'https://veridianurbansystems.com',
+  apiUrl: "https://api.africanurbanobservatory.net",
+  //apiUrl: 'https://localhost:63334',
+  subscriptionUrl:'https://africanurbanobservatory.net',
   googleClientId: '419053098195-ink9t3quhqbfc0li446rn1qf9tci4hm3.apps.googleusercontent.com',
   facebookAppId: '1784178838961034',
   stripePublicKey: 'pk_test_VhPtypJ0veVOYXRHer1kazHJ',
