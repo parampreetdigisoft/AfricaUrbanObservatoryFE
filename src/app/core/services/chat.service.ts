@@ -406,7 +406,7 @@ export class ChatService {
     },
     {
       label: 'Critical risks',
-      question: 'What are the most significant urban risks and challenges currently affecting cities globally?'
+      question: 'What are the most significant urban risks and challenges currently affecting african cities?'
     },
     
     {

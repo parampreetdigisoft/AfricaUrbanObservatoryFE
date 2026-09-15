@@ -779,6 +779,11 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         const cities = payload?.cities?.filter(c => c?.city && c?.sourceUrl) ?? [];
 
         if (!payload || !cities.length) {
+          if (this.emergingTrends()) {
+            this.emergingTrendsError.set(null);
+            this.cdr.markForCheck();
+            return;
+          }
           this.emergingTrends.set(null);
           this.emergingTrendsError.set(
             res?.errors?.[0] ?? res?.messages?.join(", ") ?? 'Unable to load global trends right now.'
@@ -792,6 +797,11 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       },
       error: () => {
+        if (this.emergingTrends()) {
+          this.emergingTrendsError.set(null);
+          this.cdr.markForCheck();
+          return;
+        }
         this.emergingTrends.set(null);
         this.emergingTrendsError.set('Unable to load global trends. Please try again.');
         this.cdr.markForCheck();
