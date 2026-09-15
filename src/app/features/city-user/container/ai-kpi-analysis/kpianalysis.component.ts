@@ -597,7 +597,7 @@ export class KPIAnalysisComponent implements OnInit {
                   position: relative;
                 ">
                   <div style="
-                    width: ${progressPercent};
+                    width: ${progressPercent}%;
                     height: 100%;
                     background: linear-gradient(90deg, ${progressColor} 0%, ${progressColor}cc 100%);
                     border-radius: 10px;
