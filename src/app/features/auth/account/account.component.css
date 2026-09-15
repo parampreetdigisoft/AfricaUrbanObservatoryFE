@@ -19,7 +19,7 @@ max-width: 100%;
 
 .aui_logo img
 {
-  height: 88px;
+  height: 150px;
   width: auto;
   max-width: 180px;
   object-fit: contain;
@@ -28,7 +28,7 @@ max-width: 100%;
 .aui_logo > a
 {
   display: table;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 5px auto;
 }
 
 .before_login_card_head
